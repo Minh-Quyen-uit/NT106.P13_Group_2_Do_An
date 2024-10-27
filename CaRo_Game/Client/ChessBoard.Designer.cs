@@ -28,22 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel_Board = new Panel();
             panel2 = new Panel();
+            Avatar_Player = new PictureBox();
             panel3 = new Panel();
+            PrcBCoolDown = new ProgressBar();
             label2 = new Label();
             label1 = new Label();
             FullName = new TextBox();
             panel4 = new Panel();
+            tmCoolDown = new System.Windows.Forms.Timer(components);
+            menuStrip1 = new MenuStrip();
+            menuToolStripMenuItem = new ToolStripMenuItem();
+            newGameToolStripMenuItem = new ToolStripMenuItem();
+            chatToolStripMenuItem = new ToolStripMenuItem();
+            quitToolStripMenuItem = new ToolStripMenuItem();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Board
             // 
             panel_Board.BackColor = Color.FromArgb(255, 255, 192);
             panel_Board.Font = new Font("Times New Roman", 13.8F);
-            panel_Board.Location = new Point(14, 21);
+            panel_Board.Location = new Point(14, 38);
             panel_Board.Margin = new Padding(5, 4, 5, 4);
             panel_Board.Name = "panel_Board";
             panel_Board.Size = new Size(810, 630);
@@ -53,6 +65,7 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.BackColor = SystemColors.ActiveCaption;
+            panel2.Controls.Add(Avatar_Player);
             panel2.Font = new Font("Times New Roman", 13.8F);
             panel2.Location = new Point(3, 4);
             panel2.Margin = new Padding(5, 4, 5, 4);
@@ -60,10 +73,20 @@
             panel2.Size = new Size(400, 392);
             panel2.TabIndex = 1;
             // 
+            // Avatar_Player
+            // 
+            Avatar_Player.Location = new Point(19, 16);
+            Avatar_Player.Name = "Avatar_Player";
+            Avatar_Player.Size = new Size(366, 359);
+            Avatar_Player.SizeMode = PictureBoxSizeMode.StretchImage;
+            Avatar_Player.TabIndex = 0;
+            Avatar_Player.TabStop = false;
+            // 
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel3.BackColor = SystemColors.ActiveCaption;
+            panel3.Controls.Add(PrcBCoolDown);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
             panel3.Controls.Add(FullName);
@@ -74,59 +97,119 @@
             panel3.Size = new Size(400, 230);
             panel3.TabIndex = 2;
             // 
+            // PrcBCoolDown
+            // 
+            PrcBCoolDown.Location = new Point(219, 45);
+            PrcBCoolDown.Name = "PrcBCoolDown";
+            PrcBCoolDown.Size = new Size(178, 29);
+            PrcBCoolDown.TabIndex = 3;
+            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 48);
+            label2.Location = new Point(5, 48);
             label2.Name = "label2";
-            label2.Size = new Size(67, 26);
+            label2.Size = new Size(197, 26);
             label2.TabIndex = 2;
-            label2.Text = "label2";
+            label2.Text = "Thời gian mỗi lượt: ";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(3, 7);
+            label1.Location = new Point(5, 12);
             label1.Name = "label1";
-            label1.Size = new Size(60, 26);
+            label1.Size = new Size(165, 26);
             label1.TabIndex = 1;
-            label1.Text = "Tên: ";
+            label1.Text = "Tên người chơi: ";
             // 
             // FullName
             // 
             FullName.Font = new Font("Times New Roman", 13.8F);
-            FullName.Location = new Point(194, 4);
+            FullName.Location = new Point(219, 4);
             FullName.Margin = new Padding(5, 4, 5, 4);
             FullName.Name = "FullName";
-            FullName.Size = new Size(201, 34);
+            FullName.Size = new Size(178, 34);
             FullName.TabIndex = 0;
             // 
             // panel4
             // 
-            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel4.BackColor = Color.FromArgb(224, 224, 224);
             panel4.Controls.Add(panel3);
             panel4.Controls.Add(panel2);
-            panel4.Location = new Point(826, 21);
+            panel4.Location = new Point(826, 38);
             panel4.Name = "panel4";
             panel4.Size = new Size(408, 630);
             panel4.TabIndex = 3;
+            // 
+            // tmCoolDown
+            // 
+            tmCoolDown.Tick += tmCoolDown_Tick;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1246, 28);
+            menuStrip1.TabIndex = 4;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem, chatToolStripMenuItem, quitToolStripMenuItem });
+            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            menuToolStripMenuItem.Size = new Size(60, 24);
+            menuToolStripMenuItem.Text = "Menu";
+            // 
+            // newGameToolStripMenuItem
+            // 
+            newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
+            newGameToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
+            newGameToolStripMenuItem.Size = new Size(224, 26);
+            newGameToolStripMenuItem.Text = "New Game";
+            newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
+            // 
+            // chatToolStripMenuItem
+            // 
+            chatToolStripMenuItem.Name = "chatToolStripMenuItem";
+            chatToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+            chatToolStripMenuItem.Size = new Size(224, 26);
+            chatToolStripMenuItem.Text = "Chat";
+            chatToolStripMenuItem.Click += chatToolStripMenuItem_Click;
+            // 
+            // quitToolStripMenuItem
+            // 
+            quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
+            quitToolStripMenuItem.Size = new Size(224, 26);
+            quitToolStripMenuItem.Text = "Quit";
+            quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
             // ChessBoard
             // 
             AutoScaleDimensions = new SizeF(13F, 26F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1246, 669);
+            ClientSize = new Size(1246, 705);
             Controls.Add(panel4);
             Controls.Add(panel_Board);
+            Controls.Add(menuStrip1);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MainMenuStrip = menuStrip1;
             Margin = new Padding(5, 4, 5, 4);
             Name = "ChessBoard";
             Text = "ChessBoard";
+            FormClosing += ChessBoard_FormClosing;
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)Avatar_Player).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel4.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -138,5 +221,13 @@
         private Label label1;
         private Label label2;
         private Panel panel4;
+        private PictureBox Avatar_Player;
+        private ProgressBar PrcBCoolDown;
+        private System.Windows.Forms.Timer tmCoolDown;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem menuToolStripMenuItem;
+        private ToolStripMenuItem newGameToolStripMenuItem;
+        private ToolStripMenuItem chatToolStripMenuItem;
+        private ToolStripMenuItem quitToolStripMenuItem;
     }
 }
