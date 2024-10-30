@@ -54,6 +54,10 @@ namespace Client
                 endedGame -= value;
             }
         }
+
+        private Stack<PlayInfo> playTimeLine;
+        public Stack<PlayInfo> PlayTimeLine { get => playTimeLine; set => playTimeLine=value; }
+
         #endregion
 
 
@@ -69,7 +73,6 @@ namespace Client
                 new Player("player 2", Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png"))
             };
 
-            
         }
         #endregion
 
@@ -78,9 +81,9 @@ namespace Client
         {
 
             chessBoard.Enabled = true;
+            ChessBoard.Controls.Clear();
 
-            ChessBoard.Controls.Clear(); 
-            
+            PlayTimeLine = new Stack<PlayInfo>();
             currentPlayer = 0;
 
             changePlayer();
@@ -126,12 +129,17 @@ namespace Client
                 return;
             Mark(btn);
 
+            playTimeLine.Push(new PlayInfo(getChessPoint(btn), CurrentPlayer));
+
+            currentPlayer = currentPlayer == 1 ? 0 : 1;
+
+            changePlayer();
+
             if (playerMarked != null)
             {
                 playerMarked(this, new EventArgs());
             }
 
-            changePlayer();
             if(isEndGame(btn))
             {
                 endGame();
@@ -151,6 +159,32 @@ namespace Client
         private bool isEndGame(Button btn)
         {
             return isEndHorizontal(btn) || isEndVertical(btn) || isEndForwarDiagonal(btn) || isEndReverseDiagonal(btn);
+        }
+
+        public bool Undo()
+        {
+            if (playTimeLine.Count <= 0 )
+            {
+                return false;
+            }
+            PlayInfo oldPoint = playTimeLine.Pop();
+            Button btn = Matrix[oldPoint.Point.Y][oldPoint.Point.X];
+
+            btn.BackgroundImage = null;
+
+            
+
+            if(playTimeLine.Count <= 0)
+            {
+                currentPlayer = 0;
+            } else
+            {
+                oldPoint = playTimeLine.Peek();
+                currentPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
+            }
+
+            changePlayer();
+            return true;
         }
 
         private Point getChessPoint(Button btn)
@@ -291,8 +325,6 @@ namespace Client
         private void Mark(Button btn)
         {
             btn.BackgroundImage = player[currentPlayer].Mark;
-
-            currentPlayer = currentPlayer == 1 ? 0 : 1;
         }
 
         private void changePlayer()

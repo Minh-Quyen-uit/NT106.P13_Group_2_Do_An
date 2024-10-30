@@ -52,6 +52,7 @@ namespace Client
         {
             tmCoolDown.Stop();
             panel_Board.Enabled = false;
+            chatToolStripMenuItem.Enabled = false;
             MessageBox.Show("kết thúc!!!");
         }
 
@@ -81,12 +82,12 @@ namespace Client
             PrcBCoolDown.Value = 0;
             tmCoolDown.Stop();
             Board.DrawChessBoard();
-
+            chatToolStripMenuItem.Enabled=true;
         }
 
         void Chat()
         {
-
+            Board.Undo();
         }
 
         void Quit()
@@ -102,7 +103,7 @@ namespace Client
         private void chatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Chat();
-        }
+        }   
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -118,6 +119,7 @@ namespace Client
         private void LAN_Btn_Click(object sender, EventArgs e)
         {
             socket.IP = IPMessage.Text;
+
             if (!socket.ConnectServer())
             {
                 socket.CreateServer();
@@ -142,7 +144,12 @@ namespace Client
             }
             else
             {
+                Thread listenThread = new Thread(() =>
+                {
                     Listen();
+                });
+                listenThread.IsBackground = true;
+                listenThread.Start();
                 socket.Send("Thông tin từ Client");
             }
         }
@@ -159,7 +166,7 @@ namespace Client
         void Listen()
         {
             string data = socket.Receive().ToString();
-
+            MessageBox.Show(data);
         }
 
         #endregion

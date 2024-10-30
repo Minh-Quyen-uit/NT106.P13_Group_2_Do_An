@@ -70,11 +70,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\code\\C#\\Do_An\\CaRo_Game\\Client\\Client.csproj",
+      "projectUniqueName": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "D:\\code\\C#\\Do_An\\CaRo_Game\\Client\\Client.csproj",
+      "projectPath": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\MINH QUYEN\\.nuget\\packages\\",
-      "outputPath": "D:\\code\\C#\\Do_An\\CaRo_Game\\Client\\obj\\",
+      "outputPath": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MINH QUYEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
