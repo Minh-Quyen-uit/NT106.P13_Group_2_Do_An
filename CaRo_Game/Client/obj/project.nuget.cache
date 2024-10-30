@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "eg13764C768bZj+wIogPO5mjxQU/8Q92+aRTlQ8LZNIGlc+MG8Qthx2d975id1FB+qHZay7wUeN079na6Jfwkg==",
+  "dgSpecHash": "lObIOnqYpEU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\pc\\Downloads\\Đồ Án NT106\\CaRo_Game\\Client\\Client.csproj",
+  "projectFilePath": "D:\\code\\C#\\Do_An\\CaRo_Game\\Client\\Client.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\pc\\.nuget\\packages\\baseline\\4.1.0\\baseline.4.1.0.nupkg.sha512",
-    "C:\\Users\\pc\\.nuget\\packages\\imtools\\4.0.0\\imtools.4.0.0.nupkg.sha512"
+    "C:\\Users\\MINH QUYEN\\.nuget\\packages\\baseline\\4.1.0\\baseline.4.1.0.nupkg.sha512",
+    "C:\\Users\\MINH QUYEN\\.nuget\\packages\\imtools\\4.0.0\\imtools.4.0.0.nupkg.sha512"
   ],
   "logs": []
 }
