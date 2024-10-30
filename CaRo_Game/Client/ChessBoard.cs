@@ -142,13 +142,7 @@ namespace Client
             }
             else
             {
-                Thread listenThread = new Thread(() =>
-                {
                     Listen();
-                });
-                listenThread.IsBackground = true;
-                listenThread.Start();
-
                 socket.Send("Thông tin từ Client");
             }
         }
@@ -166,7 +160,6 @@ namespace Client
         {
             string data = socket.Receive().ToString();
 
-            MessageBox.Show(data);
         }
 
         #endregion
