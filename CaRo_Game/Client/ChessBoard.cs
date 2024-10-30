@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace Client
     {
         #region Properties
         ChessBoardManager Board;
+        SocketManager socket;
         #endregion
         public ChessBoard()
         {
@@ -29,8 +31,20 @@ namespace Client
 
             tmCoolDown.Interval = Cons.Cool_Down_Interval;
 
+            socket = new SocketManager();
+
             newGame();
 
+        }
+        private string GenerateRandomIPAddress()
+        {
+            Random random = new Random();
+            int part1 = 127;    // Phần đầu (1-255)
+            int part2 = random.Next(0, 256);    // Phần thứ hai (0-255)
+            int part3 = random.Next(0, 256);    // Phần thứ ba (0-255)
+            int part4 = random.Next(1, 256);    // Phần cuối (1-255)
+
+            return $"{part1}.{part2}.{part3}.{part4}";
         }
 
         #region
@@ -101,7 +115,62 @@ namespace Client
                 e.Cancel = true;
 
         }
+        private void LAN_Btn_Click(object sender, EventArgs e)
+        {
+            socket.IP = IPMessage.Text;
+            if (!socket.ConnectServer())
+            {
+                socket.CreateServer();
+
+                Thread listenThread = new Thread(() =>
+                {
+                    
+                    while (true)
+                    {
+                        Thread.Sleep(500);
+                        try
+                        {
+                            Listen();
+                            break;
+                        }
+                        catch { }
+                    }
+                    
+                });
+                listenThread.IsBackground = true;
+                listenThread.Start();
+            }
+            else
+            {
+                Thread listenThread = new Thread(() =>
+                {
+                    Listen();
+                });
+                listenThread.IsBackground = true;
+                listenThread.Start();
+
+                socket.Send("Thông tin từ Client");
+            }
+        }
+
+        private void ChessBoard_Shown(object sender, EventArgs e)
+        {
+            IPMessage.Text = socket.GetLocalIPV4(NetworkInterfaceType.Wireless80211);
+            if (string.IsNullOrEmpty(IPMessage.Text))
+            {
+                IPMessage.Text = socket.GetLocalIPV4(NetworkInterfaceType.Ethernet);
+            }
+        }
+
+        void Listen()
+        {
+            string data = socket.Receive().ToString();
+
+            MessageBox.Show(data);
+        }
 
         #endregion
+
+
     }
 }

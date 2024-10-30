@@ -33,6 +33,7 @@
             panel2 = new Panel();
             Avatar_Player = new PictureBox();
             panel3 = new Panel();
+            LAN_Btn = new Button();
             PrcBCoolDown = new ProgressBar();
             label2 = new Label();
             label1 = new Label();
@@ -44,6 +45,7 @@
             newGameToolStripMenuItem = new ToolStripMenuItem();
             chatToolStripMenuItem = new ToolStripMenuItem();
             quitToolStripMenuItem = new ToolStripMenuItem();
+            IPMessage = new TextBox();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
@@ -86,6 +88,8 @@
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel3.BackColor = SystemColors.ActiveCaption;
+            panel3.Controls.Add(IPMessage);
+            panel3.Controls.Add(LAN_Btn);
             panel3.Controls.Add(PrcBCoolDown);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
@@ -96,6 +100,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(400, 230);
             panel3.TabIndex = 2;
+            // 
+            // LAN_Btn
+            // 
+            LAN_Btn.Location = new Point(219, 121);
+            LAN_Btn.Name = "LAN_Btn";
+            LAN_Btn.Size = new Size(178, 38);
+            LAN_Btn.TabIndex = 4;
+            LAN_Btn.Text = "LAN";
+            LAN_Btn.UseVisualStyleBackColor = true;
+            LAN_Btn.Click += LAN_Btn_Click;
             // 
             // PrcBCoolDown
             // 
@@ -167,7 +181,7 @@
             // 
             newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             newGameToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
-            newGameToolStripMenuItem.Size = new Size(224, 26);
+            newGameToolStripMenuItem.Size = new Size(215, 26);
             newGameToolStripMenuItem.Text = "New Game";
             newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
             // 
@@ -175,7 +189,7 @@
             // 
             chatToolStripMenuItem.Name = "chatToolStripMenuItem";
             chatToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-            chatToolStripMenuItem.Size = new Size(224, 26);
+            chatToolStripMenuItem.Size = new Size(215, 26);
             chatToolStripMenuItem.Text = "Chat";
             chatToolStripMenuItem.Click += chatToolStripMenuItem_Click;
             // 
@@ -183,9 +197,16 @@
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            quitToolStripMenuItem.Size = new Size(224, 26);
+            quitToolStripMenuItem.Size = new Size(215, 26);
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
+            // 
+            // IPMessage
+            // 
+            IPMessage.Location = new Point(219, 80);
+            IPMessage.Name = "IPMessage";
+            IPMessage.Size = new Size(178, 34);
+            IPMessage.TabIndex = 5;
             // 
             // ChessBoard
             // 
@@ -201,6 +222,7 @@
             Name = "ChessBoard";
             Text = "ChessBoard";
             FormClosing += ChessBoard_FormClosing;
+            Shown += ChessBoard_Shown;
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).EndInit();
             panel3.ResumeLayout(false);
@@ -229,5 +251,7 @@
         private ToolStripMenuItem newGameToolStripMenuItem;
         private ToolStripMenuItem chatToolStripMenuItem;
         private ToolStripMenuItem quitToolStripMenuItem;
+        private Button LAN_Btn;
+        private TextBox IPMessage;
     }
 }
