@@ -42,3 +42,6 @@ D:\code\C#\Do_An_2\CaRo_Game\Client\obj\Debug\net8.0-windows\refint\Client.dll
 D:\code\C#\Do_An_2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.pdb
 D:\code\C#\Do_An_2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.genruntimeconfig.cache
 D:\code\C#\Do_An_2\CaRo_Game\Client\obj\Debug\net8.0-windows\ref\Client.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.Annotations.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\Microsoft.NET.StringTools.dll

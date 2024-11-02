@@ -11,6 +11,10 @@
       "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\socketmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\socketdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\socketdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\chessboardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\chessboardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -30,28 +34,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SocketData.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketData.cs",
+              "RelativeDocumentMoniker": "Client\\SocketData.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketData.cs",
+              "RelativeToolTip": "Client\\SocketData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T09:57:14.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "SocketManager.cs",
               "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketManager.cs",
               "RelativeDocumentMoniker": "Client\\SocketManager.cs",
               "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketManager.cs",
               "RelativeToolTip": "Client\\SocketManager.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAHAAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAAwH0AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T08:34:09.753Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ChessBoardManager.cs",
-              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
-              "RelativeDocumentMoniker": "Client\\ChessBoardManager.cs",
-              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
-              "RelativeToolTip": "Client\\ChessBoardManager.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAmwFYAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T08:05:20.802Z",
               "EditorCaption": ""
             },
             {
@@ -62,9 +66,22 @@
               "RelativeDocumentMoniker": "Client\\ChessBoard.cs",
               "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoard.cs",
               "RelativeToolTip": "Client\\ChessBoard.cs",
-              "ViewState": "AgIAAJIAAAAAAAAAAAAqwKgAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAK0AAAAAAAAAAAASwLoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T09:17:06.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ChessBoardManager.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
+              "RelativeDocumentMoniker": "Client\\ChessBoardManager.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
+              "RelativeToolTip": "Client\\ChessBoardManager.cs",
+              "ViewState": "AgIAAEoBAAAAAAAAAAAYwMMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T08:05:20.802Z",
               "EditorCaption": ""
             }
           ]

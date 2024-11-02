@@ -33,6 +33,7 @@
             panel2 = new Panel();
             Avatar_Player = new PictureBox();
             panel3 = new Panel();
+            IPMessage = new TextBox();
             LAN_Btn = new Button();
             PrcBCoolDown = new ProgressBar();
             label2 = new Label();
@@ -45,7 +46,9 @@
             newGameToolStripMenuItem = new ToolStripMenuItem();
             chatToolStripMenuItem = new ToolStripMenuItem();
             quitToolStripMenuItem = new ToolStripMenuItem();
-            IPMessage = new TextBox();
+            Message_Box = new TextBox();
+            ChatTxt = new TextBox();
+            Send_Btn = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
@@ -67,19 +70,21 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.BackColor = SystemColors.ActiveCaption;
-            panel2.Controls.Add(Avatar_Player);
+            panel2.Controls.Add(Send_Btn);
+            panel2.Controls.Add(ChatTxt);
+            panel2.Controls.Add(Message_Box);
             panel2.Font = new Font("Times New Roman", 13.8F);
             panel2.Location = new Point(3, 4);
             panel2.Margin = new Padding(5, 4, 5, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(400, 392);
+            panel2.Size = new Size(400, 333);
             panel2.TabIndex = 1;
             // 
             // Avatar_Player
             // 
-            Avatar_Player.Location = new Point(19, 16);
+            Avatar_Player.Location = new Point(19, 80);
             Avatar_Player.Name = "Avatar_Player";
-            Avatar_Player.Size = new Size(366, 359);
+            Avatar_Player.Size = new Size(183, 183);
             Avatar_Player.SizeMode = PictureBoxSizeMode.StretchImage;
             Avatar_Player.TabIndex = 0;
             Avatar_Player.TabStop = false;
@@ -88,6 +93,7 @@
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel3.BackColor = SystemColors.ActiveCaption;
+            panel3.Controls.Add(Avatar_Player);
             panel3.Controls.Add(IPMessage);
             panel3.Controls.Add(LAN_Btn);
             panel3.Controls.Add(PrcBCoolDown);
@@ -95,11 +101,18 @@
             panel3.Controls.Add(label1);
             panel3.Controls.Add(FullName);
             panel3.Font = new Font("Times New Roman", 13.8F);
-            panel3.Location = new Point(3, 400);
+            panel3.Location = new Point(3, 345);
             panel3.Margin = new Padding(5, 4, 5, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(400, 230);
+            panel3.Size = new Size(400, 285);
             panel3.TabIndex = 2;
+            // 
+            // IPMessage
+            // 
+            IPMessage.Location = new Point(219, 80);
+            IPMessage.Name = "IPMessage";
+            IPMessage.Size = new Size(178, 34);
+            IPMessage.TabIndex = 5;
             // 
             // LAN_Btn
             // 
@@ -201,12 +214,31 @@
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
-            // IPMessage
+            // Message_Box
             // 
-            IPMessage.Location = new Point(219, 80);
-            IPMessage.Name = "IPMessage";
-            IPMessage.Size = new Size(178, 34);
-            IPMessage.TabIndex = 5;
+            Message_Box.Location = new Point(19, 23);
+            Message_Box.Multiline = true;
+            Message_Box.Name = "Message_Box";
+            Message_Box.ScrollBars = ScrollBars.Vertical;
+            Message_Box.Size = new Size(363, 248);
+            Message_Box.TabIndex = 0;
+            // 
+            // ChatTxt
+            // 
+            ChatTxt.Location = new Point(19, 277);
+            ChatTxt.Name = "ChatTxt";
+            ChatTxt.Size = new Size(263, 34);
+            ChatTxt.TabIndex = 1;
+            // 
+            // Send_Btn
+            // 
+            Send_Btn.Location = new Point(288, 277);
+            Send_Btn.Name = "Send_Btn";
+            Send_Btn.Size = new Size(94, 34);
+            Send_Btn.TabIndex = 2;
+            Send_Btn.Text = "Gửi";
+            Send_Btn.UseVisualStyleBackColor = true;
+            Send_Btn.Click += Send_Btn_Click;
             // 
             // ChessBoard
             // 
@@ -224,6 +256,7 @@
             FormClosing += ChessBoard_FormClosing;
             Shown += ChessBoard_Shown;
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -253,5 +286,8 @@
         private ToolStripMenuItem quitToolStripMenuItem;
         private Button LAN_Btn;
         private TextBox IPMessage;
+        private Button Send_Btn;
+        private TextBox ChatTxt;
+        private TextBox Message_Box;
     }
 }

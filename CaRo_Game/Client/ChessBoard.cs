@@ -20,7 +20,7 @@ namespace Client
         public ChessBoard()
         {
             InitializeComponent();
-
+            CheckForIllegalCrossThreadCalls = false;
             Board = new ChessBoardManager(panel_Board, FullName, Avatar_Player);
             Board.EndedGame += ChessBoard_EndedGame;
             Board.PlayerMarked += ChessBoard_PlayerMarked;
@@ -32,7 +32,8 @@ namespace Client
             tmCoolDown.Interval = Cons.Cool_Down_Interval;
 
             socket = new SocketManager();
-
+            
+            socket.IP = GenerateRandomIPAddress();
             newGame();
 
         }
@@ -53,18 +54,22 @@ namespace Client
             tmCoolDown.Stop();
             panel_Board.Enabled = false;
             chatToolStripMenuItem.Enabled = false;
-            MessageBox.Show("kết thúc!!!");
+            //MessageBox.Show("kết thúc!!!");
         }
 
-        private void ChessBoard_PlayerMarked(object? sender, EventArgs e)
+        private void ChessBoard_PlayerMarked(object? sender, BtnClickEvent e)
         {
             tmCoolDown.Start();
+            panel_Board.Enabled=false;
             PrcBCoolDown.Value = 0;
+            socket.Send1(new SocketData((int)SocketCommand.SEND_POINT, "hello", e.ClickPoint));
+            Listen();
         }
 
         private void ChessBoard_EndedGame(object? sender, EventArgs e)
         {
             endGame();
+            socket.Send1(new SocketData((int)SocketCommand.END_GAME, "", new Point()));
         }
 
         private void tmCoolDown_Tick(object sender, EventArgs e)
@@ -74,6 +79,8 @@ namespace Client
             if (PrcBCoolDown.Value >= PrcBCoolDown.Maximum)
             {
                 endGame();
+
+                socket.Send1(new SocketData((int)SocketCommand.TIME_OUT, "", new Point()));
             }
         }
 
@@ -90,6 +97,12 @@ namespace Client
             Board.Undo();
         }
 
+        void Undo()
+        {
+            Board.Undo();
+            PrcBCoolDown.Value = 0;
+        }
+
         void Quit()
         {
             Application.Exit();
@@ -98,12 +111,16 @@ namespace Client
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             newGame();
+            socket.Send1(new SocketData((int)SocketCommand.NEW_GAME, "", new Point()));
+
         }
 
         private void chatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Chat();
-        }   
+            socket.Send1(new SocketData((int)SocketCommand.UNDO, "", new Point()));
+
+        }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -113,45 +130,40 @@ namespace Client
         private void ChessBoard_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            {
+
                 e.Cancel = true;
+            }
+            else
+            {
+                try
+                {
+                    socket.Send1(new SocketData((int)SocketCommand.QUIT, "", new Point()));
+                }
+                catch { }
+            }
 
         }
         private void LAN_Btn_Click(object sender, EventArgs e)
         {
-            socket.IP = IPMessage.Text;
+            
 
             if (!socket.ConnectServer())
             {
+                socket.isServer = true;
+                panel_Board.Enabled = true;
                 socket.CreateServer();
-
-                Thread listenThread = new Thread(() =>
-                {
-                    
-                    while (true)
-                    {
-                        Thread.Sleep(500);
-                        try
-                        {
-                            Listen();
-                            break;
-                        }
-                        catch { }
-                    }
-                    
-                });
-                listenThread.IsBackground = true;
-                listenThread.Start();
             }
             else
             {
-                Thread listenThread = new Thread(() =>
-                {
-                    Listen();
-                });
-                listenThread.IsBackground = true;
-                listenThread.Start();
-                socket.Send("Thông tin từ Client");
+                socket.isServer = false;
+                panel_Board.Enabled = false;
+                socket.Send1(new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+                Listen();
+                MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
+
         }
 
         private void ChessBoard_Shown(object sender, EventArgs e)
@@ -165,12 +177,107 @@ namespace Client
 
         void Listen()
         {
-            string data = socket.Receive().ToString();
-            MessageBox.Show(data);
+            Thread listenThread = new Thread(() =>
+            {
+                try
+                {
+                    object data = socket.Receive1();
+                    SocketData data1 = socket.DeserializeSocketData(data.ToString()); //không chuyển từ object qua SocketData được
+                    processData(data1);
+                }
+                catch (Exception e)
+                {
+                }
+            });
+            listenThread.IsBackground = true;
+            listenThread.Start();
+        }
+
+        private void processData(SocketData data)
+        {
+            switch (data.Command)
+            {
+                case (int)SocketCommand.NOTIFY:
+                    MessageBox.Show(data.Message);
+                    break;
+                case (int)SocketCommand.NEW_GAME:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        newGame();
+                        panel_Board.Enabled = false;
+                    }));
+                    break;
+                case (int)SocketCommand.SEND_POINT:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        PrcBCoolDown.Value = 0;
+                        panel_Board.Enabled = true;
+                        tmCoolDown.Start();
+                        Board.OtherPlayerMark(data.Point);
+
+                    }));
+                    break;
+
+                case (int)SocketCommand.CHAT:
+                    AddMessage(data.Message);
+                    break;
+                case (int)SocketCommand.UNDO:
+                    Undo();
+                    PrcBCoolDown.Value = 0;
+                    break;
+                case (int)SocketCommand.QUIT:
+                    tmCoolDown.Stop();
+                    MessageBox.Show("Nguời chơi đã thoát!!!");
+                    break;
+                case (int)SocketCommand.END_GAME:
+                    MessageBox.Show("Đã có 5 con!!!");
+                    break;
+                case (int)SocketCommand.TIME_OUT:
+                    tmCoolDown.Stop();
+                    MessageBox.Show("Hết giờ!!!");
+                    break;
+                default:
+                    break;
+            }
+
+            Listen();
         }
 
         #endregion
 
 
+        private void Send_Btn_Click(object sender, EventArgs e)
+        {
+            
+
+            string text = ChatTxt.Text;
+            //AddMessage(text);
+            socket.Send1(new SocketData((int)SocketCommand.CHAT, text, new Point()));
+
+
+
+        }
+
+        private void AddMessage(string msg)
+        {
+            if (Message_Box.InvokeRequired)
+            {
+                Message_Box.Invoke(new Action<string>(AddMessage), msg);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(Message_Box.Text))
+                {
+                    Message_Box.Text = msg;
+                }
+                else
+                {
+                    Message_Box.AppendText(Environment.NewLine + msg);
+                }
+                Message_Box.Clear();
+            }
+        }
     }
+
+
 }

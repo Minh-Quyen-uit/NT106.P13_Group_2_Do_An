@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Client
 {
@@ -29,8 +31,8 @@ namespace Client
         private List<List<Button>> matrix;
         public List<List<Button>> Matrix { get => matrix; set => matrix=value; }
 
-        private event EventHandler playerMarked;
-        public event EventHandler PlayerMarked
+        private event EventHandler<BtnClickEvent> playerMarked;
+        public event EventHandler<BtnClickEvent> PlayerMarked
         {
             add
             {
@@ -137,15 +139,37 @@ namespace Client
 
             if (playerMarked != null)
             {
-                playerMarked(this, new EventArgs());
+                playerMarked(this, new BtnClickEvent(getChessPoint(btn)));
             }
 
             if(isEndGame(btn))
             {
                 endGame();
             }
+        }
+
+        public void OtherPlayerMark(Point point)
+        {
+            Button btn = Matrix[point.Y][point.X];
+
+            if (btn.BackgroundImage != null)
+                return;
+
+            chessBoard.Enabled = true;
+
+            Mark(btn);
+
+            playTimeLine.Push(new PlayInfo(getChessPoint(btn), CurrentPlayer));
+
+            currentPlayer = currentPlayer == 1 ? 0 : 1;
+
+            changePlayer();
 
             
+            if (isEndGame(btn))
+            {
+                endGame();
+            }
         }
 
         public void endGame()
@@ -163,7 +187,20 @@ namespace Client
 
         public bool Undo()
         {
-            if (playTimeLine.Count <= 0 )
+            if (playTimeLine.Count <= 0)
+            {
+                return false;
+            }
+            bool isUndo1 = UndoAStep();
+            bool isUndo2 = UndoAStep();
+            PlayInfo oldPoint = playTimeLine.Peek();
+            currentPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
+            return isUndo1 && isUndo2;
+        }
+
+        private bool UndoAStep()
+        {
+            if (playTimeLine.Count <= 0)
             {
                 return false;
             }
@@ -172,15 +209,15 @@ namespace Client
 
             btn.BackgroundImage = null;
 
-            
 
-            if(playTimeLine.Count <= 0)
+
+            if (playTimeLine.Count <= 0)
             {
                 currentPlayer = 0;
-            } else
+            }
+            else
             {
                 oldPoint = playTimeLine.Peek();
-                currentPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
             }
 
             changePlayer();
@@ -336,5 +373,16 @@ namespace Client
         #endregion
 
 
+    }
+    public class BtnClickEvent : EventArgs
+    {
+        private Point clickPoint;
+
+        public Point ClickPoint { get => clickPoint; set => clickPoint=value; }
+
+        public BtnClickEvent(Point point)
+        {
+            this.ClickPoint = point;
+        }
     }
 }

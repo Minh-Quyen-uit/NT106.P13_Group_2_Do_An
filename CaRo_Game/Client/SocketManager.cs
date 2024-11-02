@@ -5,22 +5,30 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
+//using Newtonsoft.Json;
+using MessagePack;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace Client
 {
+    [Serializable]
     public class SocketManager
     {
         #region Client
-        Socket Client;
+        Socket client;
         public bool ConnectServer()
         {
             IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
-            Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
-                Client.Connect(iep);
+                client.Connect(iep);
                 return true;
             }
             catch
@@ -32,19 +40,24 @@ namespace Client
         }
         #endregion
 
+
+
         #region Server
-        Socket Server;
+        Socket server;
         public void CreateServer()
         {
-            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
-            Server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Any, PORT);
+            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            Server.Bind(iep);
-            Server.Listen(10);
+            server.Bind(iep);
+            server.Listen(10);
 
             Thread accepClient = new Thread(() =>
             {
-                Client = Server.Accept();
+                try
+                {
+                    client = server.Accept();
+                } catch { }
             });
             accepClient.IsBackground = true;
             accepClient.Start();
@@ -53,39 +66,60 @@ namespace Client
 
         #region Both
         public string IP = "127.0.0.1";
-        public int PORT = 9999;
+        public int PORT = 5000;
         public const int Buffer = 1024;
         public bool isServer = true;
 
-        public bool Send(object obj)
+        public bool Send1(object data)
         {
-            byte[] sendData = SerializeData(obj);
-            return SendData(Client, sendData);
-            //return false;
+            byte[] sendData = SerializeData(data);
+            return SendData(client, sendData);
         }
 
-        public object Receive()
+
+        public object Receive1()
         {
             byte[] receiveData = new byte[Buffer];
-            bool isOk = ReceiveData(Client, receiveData);
+            bool isOk = ReceiveData(client, receiveData);
+            bool res = isOk;
             return DeserializeData(receiveData);
+
         }
 
         private bool SendData(Socket target, byte[] data)
         {
-            return target.Send(data) == 1 ? true : false;
-
+            try
+            {
+                if (target == null || !target.Connected)
+                {
+                    MessageBox.Show("Client chưa được kết nối.");
+                    return false;
+                }
+                int result = target.Send(data); 
+                return result >= 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi gửi dữ liệu: {ex.Message}");
+                return false;
+            }
         }
 
         private bool ReceiveData(Socket target, byte[] data)
         {
-            return target.Receive(data) == 1 ? true : false;
+            int result = target.Receive(data);
+            return result >= 1 ? true : false;
         }
 
-        public byte[] SerializeData(object obj)
+        public byte[] SerializeData(object obj) 
         {
-            byte[] data = Encoding.UTF8.GetBytes(obj.ToString());
-            return data;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                DataContractSerializer serializer = new DataContractSerializer(obj.GetType());
+                serializer.WriteObject(ms, obj);
+
+                return ms.ToArray();
+            }
         }
 
         //Gom mảnh lại
@@ -95,6 +129,16 @@ namespace Client
             return obj;
         }
 
+        public SocketData DeserializeSocketData(string xmlString)
+        {
+            xmlString = xmlString.TrimEnd('\0');
+            using (var stringReader = new StringReader(xmlString))
+            using (var xmlReader = XmlReader.Create(stringReader))
+            {
+                var serializer = new DataContractSerializer(typeof(SocketData));
+                return (SocketData)serializer.ReadObject(xmlReader);
+            }
+        }
         //Lấy ra IPV4 của card mạng người dùng
         public string GetLocalIPV4(NetworkInterfaceType _type)
         {
