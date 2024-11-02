@@ -31,6 +31,9 @@
             components = new System.ComponentModel.Container();
             panel_Board = new Panel();
             panel2 = new Panel();
+            Send_Btn = new Button();
+            ChatTxt = new TextBox();
+            Message_Box = new TextBox();
             Avatar_Player = new PictureBox();
             panel3 = new Panel();
             IPMessage = new TextBox();
@@ -44,11 +47,7 @@
             menuStrip1 = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
-            chatToolStripMenuItem = new ToolStripMenuItem();
             quitToolStripMenuItem = new ToolStripMenuItem();
-            Message_Box = new TextBox();
-            ChatTxt = new TextBox();
-            Send_Btn = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
@@ -79,6 +78,32 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(400, 333);
             panel2.TabIndex = 1;
+            // 
+            // Send_Btn
+            // 
+            Send_Btn.Location = new Point(288, 277);
+            Send_Btn.Name = "Send_Btn";
+            Send_Btn.Size = new Size(94, 34);
+            Send_Btn.TabIndex = 2;
+            Send_Btn.Text = "Gửi";
+            Send_Btn.UseVisualStyleBackColor = true;
+            Send_Btn.Click += Send_Btn_Click;
+            // 
+            // ChatTxt
+            // 
+            ChatTxt.Location = new Point(19, 277);
+            ChatTxt.Name = "ChatTxt";
+            ChatTxt.Size = new Size(263, 34);
+            ChatTxt.TabIndex = 1;
+            // 
+            // Message_Box
+            // 
+            Message_Box.Location = new Point(19, 23);
+            Message_Box.Multiline = true;
+            Message_Box.Name = "Message_Box";
+            Message_Box.ScrollBars = ScrollBars.Vertical;
+            Message_Box.Size = new Size(363, 248);
+            Message_Box.TabIndex = 0;
             // 
             // Avatar_Player
             // 
@@ -185,7 +210,7 @@
             // 
             // menuToolStripMenuItem
             // 
-            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem, chatToolStripMenuItem, quitToolStripMenuItem });
+            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem, quitToolStripMenuItem });
             menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             menuToolStripMenuItem.Size = new Size(60, 24);
             menuToolStripMenuItem.Text = "Menu";
@@ -194,51 +219,17 @@
             // 
             newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             newGameToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
-            newGameToolStripMenuItem.Size = new Size(215, 26);
+            newGameToolStripMenuItem.Size = new Size(224, 26);
             newGameToolStripMenuItem.Text = "New Game";
             newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
-            // 
-            // chatToolStripMenuItem
-            // 
-            chatToolStripMenuItem.Name = "chatToolStripMenuItem";
-            chatToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-            chatToolStripMenuItem.Size = new Size(215, 26);
-            chatToolStripMenuItem.Text = "Chat";
-            chatToolStripMenuItem.Click += chatToolStripMenuItem_Click;
             // 
             // quitToolStripMenuItem
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            quitToolStripMenuItem.Size = new Size(215, 26);
+            quitToolStripMenuItem.Size = new Size(224, 26);
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
-            // 
-            // Message_Box
-            // 
-            Message_Box.Location = new Point(19, 23);
-            Message_Box.Multiline = true;
-            Message_Box.Name = "Message_Box";
-            Message_Box.ScrollBars = ScrollBars.Vertical;
-            Message_Box.Size = new Size(363, 248);
-            Message_Box.TabIndex = 0;
-            // 
-            // ChatTxt
-            // 
-            ChatTxt.Location = new Point(19, 277);
-            ChatTxt.Name = "ChatTxt";
-            ChatTxt.Size = new Size(263, 34);
-            ChatTxt.TabIndex = 1;
-            // 
-            // Send_Btn
-            // 
-            Send_Btn.Location = new Point(288, 277);
-            Send_Btn.Name = "Send_Btn";
-            Send_Btn.Size = new Size(94, 34);
-            Send_Btn.TabIndex = 2;
-            Send_Btn.Text = "Gửi";
-            Send_Btn.UseVisualStyleBackColor = true;
-            Send_Btn.Click += Send_Btn_Click;
             // 
             // ChessBoard
             // 
@@ -282,7 +273,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem menuToolStripMenuItem;
         private ToolStripMenuItem newGameToolStripMenuItem;
-        private ToolStripMenuItem chatToolStripMenuItem;
         private ToolStripMenuItem quitToolStripMenuItem;
         private Button LAN_Btn;
         private TextBox IPMessage;

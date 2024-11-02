@@ -49,27 +49,21 @@ namespace Client
         }
 
         #region
-        void endGame()
-        {
-            tmCoolDown.Stop();
-            panel_Board.Enabled = false;
-            chatToolStripMenuItem.Enabled = false;
-            //MessageBox.Show("kết thúc!!!");
-        }
+        
 
         private void ChessBoard_PlayerMarked(object? sender, BtnClickEvent e)
         {
             tmCoolDown.Start();
             panel_Board.Enabled=false;
             PrcBCoolDown.Value = 0;
-            socket.Send1(new SocketData((int)SocketCommand.SEND_POINT, "hello", e.ClickPoint));
+            socket.Send1(new SocketData((int)SocketCommand.SEND_POINT, "", e.ClickPoint));
             Listen();
         }
 
         private void ChessBoard_EndedGame(object? sender, EventArgs e)
         {
             endGame();
-            socket.Send1(new SocketData((int)SocketCommand.END_GAME, "", new Point()));
+            socket.Send1(new SocketData((int)SocketCommand.END_GAME, "Đã có 5 con!!!", new Point()));
         }
 
         private void tmCoolDown_Tick(object sender, EventArgs e)
@@ -80,7 +74,7 @@ namespace Client
             {
                 endGame();
 
-                socket.Send1(new SocketData((int)SocketCommand.TIME_OUT, "", new Point()));
+                socket.Send1(new SocketData((int)SocketCommand.TIME_OUT, "Hết giờ!!!", new Point()));
             }
         }
 
@@ -89,18 +83,23 @@ namespace Client
             PrcBCoolDown.Value = 0;
             tmCoolDown.Stop();
             Board.DrawChessBoard();
-            chatToolStripMenuItem.Enabled=true;
         }
 
         void Chat()
         {
-            Board.Undo();
+            //Board.Undo();
         }
 
         void Undo()
         {
             Board.Undo();
             PrcBCoolDown.Value = 0;
+        }
+        void endGame()
+        {
+            tmCoolDown.Stop();
+            panel_Board.Enabled = false;
+            //MessageBox.Show("kết thúc!!!");
         }
 
         void Quit()
@@ -115,12 +114,6 @@ namespace Client
 
         }
 
-        private void chatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Chat();
-            socket.Send1(new SocketData((int)SocketCommand.UNDO, "", new Point()));
-
-        }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -138,7 +131,7 @@ namespace Client
             {
                 try
                 {
-                    socket.Send1(new SocketData((int)SocketCommand.QUIT, "", new Point()));
+                    socket.Send1(new SocketData((int)SocketCommand.QUIT, "Đối thủ đã bỏ cuộc :))", new Point()));
                 }
                 catch { }
             }
@@ -156,13 +149,15 @@ namespace Client
             }
             else
             {
+                socket.Send1(new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
                 socket.isServer = false;
                 panel_Board.Enabled = false;
-                socket.Send1(new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
                 Listen();
-                MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
+
+            
 
         }
 
@@ -227,14 +222,14 @@ namespace Client
                     break;
                 case (int)SocketCommand.QUIT:
                     tmCoolDown.Stop();
-                    MessageBox.Show("Nguời chơi đã thoát!!!");
+                    MessageBox.Show(data.Message);
                     break;
                 case (int)SocketCommand.END_GAME:
-                    MessageBox.Show("Đã có 5 con!!!");
+                    MessageBox.Show(data.Message);
                     break;
                 case (int)SocketCommand.TIME_OUT:
                     tmCoolDown.Stop();
-                    MessageBox.Show("Hết giờ!!!");
+                    MessageBox.Show(data.Message);
                     break;
                 default:
                     break;
@@ -250,31 +245,23 @@ namespace Client
         {
             
 
-            string text = ChatTxt.Text;
-            //AddMessage(text);
+            string text = "[" + socket.IP + "]" + ": " + ChatTxt.Text;
+            AddMessage(text);
             socket.Send1(new SocketData((int)SocketCommand.CHAT, text, new Point()));
 
 
 
         }
 
-        private void AddMessage(string msg)
+        void AddMessage(string msg)
         {
-            if (Message_Box.InvokeRequired)
+            if (Message_Box.Text == "")
             {
-                Message_Box.Invoke(new Action<string>(AddMessage), msg);
+                Message_Box.Text = msg;
             }
             else
             {
-                if (string.IsNullOrEmpty(Message_Box.Text))
-                {
-                    Message_Box.Text = msg;
-                }
-                else
-                {
-                    Message_Box.AppendText(Environment.NewLine + msg);
-                }
-                Message_Box.Clear();
+                Message_Box.Text += Environment.NewLine + msg;
             }
         }
     }

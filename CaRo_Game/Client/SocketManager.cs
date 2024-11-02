@@ -9,7 +9,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
-//using Newtonsoft.Json;
 using MessagePack;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -92,7 +91,7 @@ namespace Client
             {
                 if (target == null || !target.Connected)
                 {
-                    MessageBox.Show("Client chưa được kết nối.");
+                    //MessageBox.Show("Client chưa được kết nối.");
                     return false;
                 }
                 int result = target.Send(data); 
