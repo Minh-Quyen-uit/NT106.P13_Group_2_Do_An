@@ -12,26 +12,24 @@ namespace Client
     {
         #region Properties 
         private Panel chessBoard;
-
+        private List<Player> player;
+        private int currentPlayer;
+        private TextBox playerName;
+        private PictureBox playerMark;
+        private List<List<Button>> matrix;
+        private event EventHandler<BtnClickEvent> playerMarked;
+        private event EventHandler endedGame;
+        private Stack<PlayInfo> playTimeLine;
         public Panel ChessBoard { get => chessBoard; set => chessBoard=value; }
 
-        private List<Player> player;
-
-        private int currentPlayer;
         public int CurrentPlayer { get => currentPlayer; set => currentPlayer=value; }
         
-
-        private TextBox playerName;
-
         public TextBox PlayerName { get => playerName; set => playerName=value; }
 
-        private PictureBox playerMark;
         public PictureBox PlayerMark { get => playerMark; set => playerMark=value; }
 
-        private List<List<Button>> matrix;
         public List<List<Button>> Matrix { get => matrix; set => matrix=value; }
 
-        private event EventHandler<BtnClickEvent> playerMarked;
         public event EventHandler<BtnClickEvent> PlayerMarked
         {
             add
@@ -44,7 +42,6 @@ namespace Client
             }
         }
 
-        private event EventHandler endedGame;
         public event EventHandler EndedGame
         {
             add
@@ -57,7 +54,6 @@ namespace Client
             }
         }
 
-        private Stack<PlayInfo> playTimeLine;
         public Stack<PlayInfo> PlayTimeLine { get => playTimeLine; set => playTimeLine=value; }
 
         #endregion
@@ -74,7 +70,6 @@ namespace Client
                 new Player("player 1", Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg")),
                 new Player("player 2", Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png"))
             };
-
         }
         #endregion
 
@@ -114,8 +109,6 @@ namespace Client
                     Matrix[i].Add(btn);
 
                     oldBtn = btn;
-
-
                 }
                 oldBtn.Location = new Point(0, oldBtn.Location.Y + Cons.Chess_Height);
                 oldBtn.Width = 0;
@@ -165,7 +158,6 @@ namespace Client
 
             changePlayer();
 
-            
             if (isEndGame(btn))
             {
                 endGame();
@@ -204,12 +196,10 @@ namespace Client
             {
                 return false;
             }
+
             PlayInfo oldPoint = playTimeLine.Pop();
             Button btn = Matrix[oldPoint.Point.Y][oldPoint.Point.X];
-
             btn.BackgroundImage = null;
-
-
 
             if (playTimeLine.Count <= 0)
             {
@@ -231,6 +221,7 @@ namespace Client
             Point point = new Point(horizontal, vertical);
             return point;
         }
+
         private bool isEndHorizontal(Button btn)
         {
             Point point = getChessPoint(btn);
@@ -256,7 +247,6 @@ namespace Client
                 else
                     break;
             }
-
 
             return countLeft + countRight == 5;
         }
@@ -286,7 +276,6 @@ namespace Client
                 else
                     break;
             }
-
 
             return countTop + countBottom == 5;
         }
@@ -321,7 +310,6 @@ namespace Client
                     break;
             }
 
-
             return countTop + countBottom == 5;
         }
 
@@ -354,7 +342,6 @@ namespace Client
                 else
                     break;
             }
-
 
             return countTop + countBottom == 5;
         }

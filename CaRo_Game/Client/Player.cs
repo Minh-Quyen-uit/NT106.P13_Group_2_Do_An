@@ -8,11 +8,11 @@ namespace Client
 {
     public class Player
     {
-        private string name; // ctrl + r + e để đóng gói 
+        private string name;
+        private Image mark;
 
         public string Name { get => name; set => name=value; }
 
-        private Image mark;
         public Image Mark { get => mark; set => mark=value; }
 
         public Player(string name, Image mark) {

@@ -33,13 +33,9 @@ namespace Client
             catch
             {
                 return false;
-
             }
-
         }
         #endregion
-
-
 
         #region Server
         Socket server;
@@ -75,14 +71,11 @@ namespace Client
             return SendData(client, sendData);
         }
 
-
         public object Receive1()
         {
             byte[] receiveData = new byte[Buffer];
             bool isOk = ReceiveData(client, receiveData);
-            bool res = isOk;
             return DeserializeData(receiveData);
-
         }
 
         private bool SendData(Socket target, byte[] data)
@@ -94,8 +87,7 @@ namespace Client
                     //MessageBox.Show("Client chưa được kết nối.");
                     return false;
                 }
-                int result = target.Send(data); 
-                return result >= 1;
+                return target.Send(data) >= 1;
             }
             catch (Exception ex)
             {
@@ -106,8 +98,7 @@ namespace Client
 
         private bool ReceiveData(Socket target, byte[] data)
         {
-            int result = target.Receive(data);
-            return result >= 1 ? true : false;
+            return target.Receive(data) >= 1 ? true : false;
         }
 
         public byte[] SerializeData(object obj) 
@@ -116,7 +107,6 @@ namespace Client
             {
                 DataContractSerializer serializer = new DataContractSerializer(obj.GetType());
                 serializer.WriteObject(ms, obj);
-
                 return ms.ToArray();
             }
         }
@@ -124,8 +114,7 @@ namespace Client
         //Gom mảnh lại
         public object DeserializeData(byte[] data)
         {
-            object obj = Encoding.UTF8.GetString(data);
-            return obj;
+            return Encoding.UTF8.GetString(data);
         }
 
         public SocketData DeserializeSocketData(string xmlString)
@@ -138,6 +127,7 @@ namespace Client
                 return (SocketData)serializer.ReadObject(xmlReader);
             }
         }
+
         //Lấy ra IPV4 của card mạng người dùng
         public string GetLocalIPV4(NetworkInterfaceType _type)
         {

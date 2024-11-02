@@ -14,8 +14,10 @@ namespace Client
     public partial class ChessBoard : Form
     {
         #region Properties
+
         ChessBoardManager Board;
         SocketManager socket;
+
         #endregion
         public ChessBoard()
         {
@@ -35,48 +37,9 @@ namespace Client
             
             socket.IP = GenerateRandomIPAddress();
             newGame();
-
         }
-        private string GenerateRandomIPAddress()
-        {
-            Random random = new Random();
-            int part1 = 127;    // Phần đầu (1-255)
-            int part2 = random.Next(0, 256);    // Phần thứ hai (0-255)
-            int part3 = random.Next(0, 256);    // Phần thứ ba (0-255)
-            int part4 = random.Next(1, 256);    // Phần cuối (1-255)
-
-            return $"{part1}.{part2}.{part3}.{part4}";
-        }
-
-        #region
         
-
-        private void ChessBoard_PlayerMarked(object? sender, BtnClickEvent e)
-        {
-            tmCoolDown.Start();
-            panel_Board.Enabled=false;
-            PrcBCoolDown.Value = 0;
-            socket.Send1(new SocketData((int)SocketCommand.SEND_POINT, "", e.ClickPoint));
-            Listen();
-        }
-
-        private void ChessBoard_EndedGame(object? sender, EventArgs e)
-        {
-            endGame();
-            socket.Send1(new SocketData((int)SocketCommand.END_GAME, "Đã có 5 con!!!", new Point()));
-        }
-
-        private void tmCoolDown_Tick(object sender, EventArgs e)
-        {
-            PrcBCoolDown.PerformStep();
-
-            if (PrcBCoolDown.Value >= PrcBCoolDown.Maximum)
-            {
-                endGame();
-
-                socket.Send1(new SocketData((int)SocketCommand.TIME_OUT, "Hết giờ!!!", new Point()));
-            }
-        }
+        #region SelectionMode
 
         void newGame()
         {
@@ -85,16 +48,12 @@ namespace Client
             Board.DrawChessBoard();
         }
 
-        void Chat()
-        {
-            //Board.Undo();
-        }
-
         void Undo()
         {
             Board.Undo();
             PrcBCoolDown.Value = 0;
         }
+
         void endGame()
         {
             tmCoolDown.Stop();
@@ -107,68 +66,9 @@ namespace Client
             Application.Exit();
         }
 
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            newGame();
-            socket.Send1(new SocketData((int)SocketCommand.NEW_GAME, "", new Point()));
+        #endregion
 
-        }
-
-
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Quit();
-        }
-
-        private void ChessBoard_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
-            {
-
-                e.Cancel = true;
-            }
-            else
-            {
-                try
-                {
-                    socket.Send1(new SocketData((int)SocketCommand.QUIT, "Đối thủ đã bỏ cuộc :))", new Point()));
-                }
-                catch { }
-            }
-
-        }
-        private void LAN_Btn_Click(object sender, EventArgs e)
-        {
-            
-
-            if (!socket.ConnectServer())
-            {
-                socket.isServer = true;
-                panel_Board.Enabled = true;
-                socket.CreateServer();
-            }
-            else
-            {
-                socket.Send1(new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
-                socket.isServer = false;
-                panel_Board.Enabled = false;
-                Listen();
-                //MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            }
-
-            
-
-        }
-
-        private void ChessBoard_Shown(object sender, EventArgs e)
-        {
-            IPMessage.Text = socket.GetLocalIPV4(NetworkInterfaceType.Wireless80211);
-            if (string.IsNullOrEmpty(IPMessage.Text))
-            {
-                IPMessage.Text = socket.GetLocalIPV4(NetworkInterfaceType.Ethernet);
-            }
-        }
+        #region SocketConnection
 
         void Listen()
         {
@@ -240,17 +140,108 @@ namespace Client
 
         #endregion
 
+        #region System
+
+        private void ChessBoard_PlayerMarked(object? sender, BtnClickEvent e)
+        {
+            tmCoolDown.Start();
+            panel_Board.Enabled=false;
+            PrcBCoolDown.Value = 0;
+            socket.Send1(new SocketData((int)SocketCommand.SEND_POINT, "", e.ClickPoint));
+            Listen();
+        }
+
+        private void ChessBoard_EndedGame(object? sender, EventArgs e)
+        {
+            endGame();
+            socket.Send1(new SocketData((int)SocketCommand.END_GAME, "Đã có 5 con!!!", new Point()));
+        }
+
+        private void tmCoolDown_Tick(object sender, EventArgs e)
+        {
+            PrcBCoolDown.PerformStep();
+
+            if (PrcBCoolDown.Value >= PrcBCoolDown.Maximum)
+            {
+                endGame();
+                socket.Send1(new SocketData((int)SocketCommand.TIME_OUT, "Hết giờ!!!", new Point()));
+            }
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newGame();
+            socket.Send1(new SocketData((int)SocketCommand.NEW_GAME, "", new Point()));
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Quit();
+        }
+
+        private void ChessBoard_Shown(object sender, EventArgs e)
+        {
+            IPMessage.Text = socket.GetLocalIPV4(NetworkInterfaceType.Wireless80211);
+            if (string.IsNullOrEmpty(IPMessage.Text))
+            {
+                IPMessage.Text = socket.GetLocalIPV4(NetworkInterfaceType.Ethernet);
+            }
+        }
+
+        private void ChessBoard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            {
+
+                e.Cancel = true;
+            }
+            else
+            {
+                try
+                {
+                    socket.Send1(new SocketData((int)SocketCommand.QUIT, "Đối thủ đã bỏ cuộc :))", new Point()));
+                }
+                catch { }
+            }
+
+        }
 
         private void Send_Btn_Click(object sender, EventArgs e)
         {
-            
-
             string text = "[" + socket.IP + "]" + ": " + ChatTxt.Text;
             AddMessage(text);
             socket.Send1(new SocketData((int)SocketCommand.CHAT, text, new Point()));
+        }
 
+        private void LAN_Btn_Click(object sender, EventArgs e)
+        {
+            if (!socket.ConnectServer())
+            {
+                socket.isServer = true;
+                panel_Board.Enabled = true;
+                socket.CreateServer();
+            }
+            else
+            {
+                socket.Send1(new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+                socket.isServer = false;
+                panel_Board.Enabled = false;
+                Listen();
+                //MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        #endregion
 
+        #region Method
+        private string GenerateRandomIPAddress()
+        {
+            Random random = new Random();
+            int part1 = 127;    // Phần đầu (1-255)
+            int part2 = random.Next(0, 256);    // Phần thứ hai (0-255)
+            int part3 = random.Next(0, 256);    // Phần thứ ba (0-255)
+            int part4 = random.Next(1, 256);    // Phần cuối (1-255)
 
+            return $"{part1}.{part2}.{part3}.{part4}";
         }
 
         void AddMessage(string msg)
@@ -264,6 +255,7 @@ namespace Client
                 Message_Box.Text += Environment.NewLine + msg;
             }
         }
+        #endregion
     }
 
 
