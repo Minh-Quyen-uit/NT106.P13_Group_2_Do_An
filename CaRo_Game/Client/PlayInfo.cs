@@ -32,5 +32,12 @@ namespace Client
             this.Wins = 0;        // Khởi tạo số trận thắng
             this.Rank = 0;       // Khởi tạo thứ hạng
         }
+
+        public void UpdateStats(bool won)
+        {
+            GamesPlayed++;
+            if (won) Wins++;
+            Rank = Wins / 10;
+        }
     }
 }
