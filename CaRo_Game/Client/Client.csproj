@@ -10,7 +10,9 @@
 
   <ItemGroup>
     <PackageReference Include="Baseline" Version="4.1.0" />
-    <PackageReference Include="MessagePack" Version="2.5.187" />
+    <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.6" />
+    <PackageReference Include="MessagePack" Version="3.0.238-rc.1" />
+    <PackageReference Include="MetroModernUI" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

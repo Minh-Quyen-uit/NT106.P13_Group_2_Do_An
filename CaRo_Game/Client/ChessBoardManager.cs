@@ -124,7 +124,7 @@ namespace Client
                 return;
             Mark(btn);
 
-            playTimeLine.Push(new PlayInfo(getChessPoint(btn), CurrentPlayer));
+            playTimeLine.Push(new PlayInfo(player[currentPlayer].Username, player[currentPlayer].Avatar, getChessPoint(btn), CurrentPlayer));
 
             currentPlayer = currentPlayer == 1 ? 0 : 1;
 
@@ -152,7 +152,7 @@ namespace Client
 
             Mark(btn);
 
-            playTimeLine.Push(new PlayInfo(getChessPoint(btn), CurrentPlayer));
+            playTimeLine.Push(new PlayInfo(player[currentPlayer].Username, player[currentPlayer].Avatar, getChessPoint(btn), CurrentPlayer));
 
             currentPlayer = currentPlayer == 1 ? 0 : 1;
 

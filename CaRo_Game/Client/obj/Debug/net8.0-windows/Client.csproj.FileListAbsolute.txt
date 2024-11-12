@@ -45,3 +45,10 @@ D:\code\C#\Do_An_2\CaRo_Game\Client\obj\Debug\net8.0-windows\ref\Client.dll
 D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.dll
 D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.Annotations.dll
 D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\Microsoft.NET.StringTools.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Login.resources
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\Guna.UI2.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MetroFramework.Design.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MetroFramework.Fonts.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\MetroFramework.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Management.dll
+D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
