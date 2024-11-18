@@ -8,10 +8,11 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 
 namespace Client
 {
-    public partial class ChessBoard : Form
+    public partial class ChessBoard : MetroFramework.Forms.MetroForm
     {
         #region Properties
 
@@ -34,11 +35,11 @@ namespace Client
             tmCoolDown.Interval = Cons.Cool_Down_Interval;
 
             socket = new SocketManager();
-            
+
             socket.IP = GenerateRandomIPAddress();
             newGame();
         }
-        
+
         #region SelectionMode
 
         void newGame()
@@ -206,11 +207,12 @@ namespace Client
 
         }
 
-        private void Send_Btn_Click(object sender, EventArgs e)
+        private void Send_Btn_Click_1(object sender, EventArgs e)
         {
             string text = "[" + socket.IP + "]" + ": " + ChatTxt.Text;
             AddMessage(text);
             socket.Send1(new SocketData((int)SocketCommand.CHAT, text, new Point()));
+            ChatTxt.Clear();
         }
 
         private void LAN_Btn_Click(object sender, EventArgs e)
@@ -246,9 +248,9 @@ namespace Client
 
         void AddMessage(string msg)
         {
-            if (Message_Box.Text == "")
+            if (string.IsNullOrEmpty(Message_Box.Text))
             {
-                Message_Box.Text = msg;
+                Message_Box.Text = msg ;
             }
             else
             {
@@ -256,6 +258,8 @@ namespace Client
             }
         }
         #endregion
+
+        
     }
 
 
