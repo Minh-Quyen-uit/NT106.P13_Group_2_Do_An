@@ -59,5 +59,25 @@ namespace Client.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_technologymachineelectronicdevice30_4026430_113312 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder-technologymachineelectronicdevice30-4026430_113312", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2024_08_03_101335 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2024-08-03 101335", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

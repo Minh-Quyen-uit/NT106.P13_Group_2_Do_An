@@ -35,6 +35,7 @@
             btnTaoPhong = new Button();
             btnBXH = new Button();
             btnDangXuat = new Button();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             SuspendLayout();
             // 
             // label1
@@ -101,6 +102,11 @@
             btnDangXuat.Text = "Đăng Xuất";
             btnDangXuat.UseVisualStyleBackColor = true;
             // 
+            // sqlCommand1
+            // 
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.EnableOptimizedParameterBinding = false;
+            // 
             // InforClient
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -128,5 +134,6 @@
         private Button btnTaoPhong;
         private Button btnBXH;
         private Button btnDangXuat;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
     }
 }

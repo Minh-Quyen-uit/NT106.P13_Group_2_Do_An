@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Client.csproj": {}
+    "E:\\Uni\\HK3\\Network programming\\Project\\CaRo_Game\\Client\\Client.csproj": {}
   },
   "projects": {
-    "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Client.csproj": {
+    "E:\\Uni\\HK3\\Network programming\\Project\\CaRo_Game\\Client\\Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Client.csproj",
+        "projectUniqueName": "E:\\Uni\\HK3\\Network programming\\Project\\CaRo_Game\\Client\\Client.csproj",
         "projectName": "Client",
-        "projectPath": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Client.csproj",
-        "packagesPath": "C:\\Users\\MINH QUYEN\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\obj\\",
+        "projectPath": "E:\\Uni\\HK3\\Network programming\\Project\\CaRo_Game\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+        "outputPath": "E:\\Uni\\HK3\\Network programming\\Project\\CaRo_Game\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\MINH QUYEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
