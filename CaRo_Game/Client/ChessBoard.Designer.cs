@@ -40,6 +40,7 @@
             ChatTxt = new Guna.UI2.WinForms.Guna2TextBox();
             Avatar_Player = new PictureBox();
             panel3 = new Panel();
+            ExitBtn = new Button();
             IPMessage = new TextBox();
             LAN_Btn = new Button();
             PrcBCoolDown = new ProgressBar();
@@ -52,7 +53,6 @@
             menuToolStripMenuItem = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
             quitToolStripMenuItem = new ToolStripMenuItem();
-            ExitBtn = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
@@ -161,6 +161,19 @@
             panel3.Size = new Size(400, 285);
             panel3.TabIndex = 2;
             // 
+            // ExitBtn
+            // 
+            ExitBtn.BackColor = Color.OrangeRed;
+            ExitBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ExitBtn.ForeColor = SystemColors.ButtonFace;
+            ExitBtn.Location = new Point(219, 165);
+            ExitBtn.Name = "ExitBtn";
+            ExitBtn.Size = new Size(178, 38);
+            ExitBtn.TabIndex = 6;
+            ExitBtn.Text = "Thoát";
+            ExitBtn.UseVisualStyleBackColor = false;
+            ExitBtn.Click += ExitBtn_Click;
+            // 
             // IPMessage
             // 
             IPMessage.Location = new Point(219, 80);
@@ -262,18 +275,6 @@
             quitToolStripMenuItem.Size = new Size(289, 30);
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
-            // 
-            // ExitBtn
-            // 
-            ExitBtn.BackColor = Color.OrangeRed;
-            ExitBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ExitBtn.ForeColor = SystemColors.ButtonFace;
-            ExitBtn.Location = new Point(219, 165);
-            ExitBtn.Name = "ExitBtn";
-            ExitBtn.Size = new Size(178, 38);
-            ExitBtn.TabIndex = 6;
-            ExitBtn.Text = "Thoát";
-            ExitBtn.UseVisualStyleBackColor = false;
             // 
             // ChessBoard
             // 

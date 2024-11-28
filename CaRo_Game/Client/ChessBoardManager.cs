@@ -65,11 +65,22 @@ namespace Client
             this.chessBoard = chessBoard;
             this.playerName = playerName;
             this.playerMark = mark;
-            this.player = new List<Player>() 
-            { 
-                new Player("player 1", Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg")),
-                new Player("player 2", Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png"))
+            this.player = new List<Player>() {
+                new Player(PlayerName.Text, Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png")),
+                new Player(PlayerName.Text, Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg"))
             };
+        }
+
+        public void setUpPlayer1(string pName)
+        {
+            this.player[0].Name = pName;
+            //this.player.Add(new Player(pName, Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png")));
+        }
+
+        public void setUpPlayer2(string pName)
+        {
+            this.player[1].Name = pName;
+            //this.player.Add(new Player(pName, Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg")));
         }
         #endregion
 

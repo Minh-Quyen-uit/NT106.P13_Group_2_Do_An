@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Client
 {
@@ -20,9 +21,10 @@ namespace Client
         SocketManager socket;
 
         #endregion
-        public ChessBoard()
+        public ChessBoard(string UserName)
         {
             InitializeComponent();
+            FullName.Text = UserName;
             CheckForIllegalCrossThreadCalls = false;
             Board = new ChessBoardManager(panel_Board, FullName, Avatar_Player);
             Board.EndedGame += ChessBoard_EndedGame;
@@ -64,7 +66,7 @@ namespace Client
 
         void Quit()
         {
-            Application.Exit();
+            this.Close();
         }
 
         #endregion
@@ -78,7 +80,7 @@ namespace Client
                 try
                 {
                     object data = socket.Receive1();
-                    SocketData data1 = socket.DeserializeSocketData(data.ToString()); //không chuyển từ object qua SocketData được
+                    SocketData data1 = socket.DeserializeSocketData(data.ToString());
                     processData(data1);
                 }
                 catch (Exception e)
@@ -126,11 +128,32 @@ namespace Client
                     MessageBox.Show(data.Message);
                     break;
                 case (int)SocketCommand.END_GAME:
-                    MessageBox.Show(data.Message);
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        endGame();
+                        MessageBox.Show( " đã chiến thắng ♥ !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }));
                     break;
                 case (int)SocketCommand.TIME_OUT:
-                    tmCoolDown.Stop();
-                    MessageBox.Show(data.Message);
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        endGame();
+                        MessageBox.Show("Hết giờ rồi !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }));
+                    break;
+                case (int)SocketCommand.PLAYER_1:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        Board.setUpPlayer1(data.Message);
+                        Board.setUpPlayer2(FullName.Text);
+                    }));
+                    break;
+                case (int)SocketCommand.PLAYER_2:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        Board.setUpPlayer2(data.Message);
+                        socket.Send1(new SocketData((int)SocketCommand.PLAYER_1, FullName.Text, new Point()));
+                    }));
                     break;
                 default:
                     break;
@@ -219,18 +242,27 @@ namespace Client
         {
             if (!socket.ConnectServer())
             {
+                Board.setUpPlayer1(FullName.Text);
                 socket.isServer = true;
                 panel_Board.Enabled = true;
                 socket.CreateServer();
+                
+                MessageBox.Show("Bạn đang là Server", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                socket.Send1(new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+                Board.setUpPlayer2(FullName.Text);
                 socket.isServer = false;
                 panel_Board.Enabled = false;
                 Listen();
-                //MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                socket.Send1(new SocketData((int)SocketCommand.PLAYER_2, FullName.Text, new Point()));
+                MessageBox.Show("Kết nối thành công !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
         #endregion
 
@@ -250,7 +282,7 @@ namespace Client
         {
             if (string.IsNullOrEmpty(Message_Box.Text))
             {
-                Message_Box.Text = msg ;
+                Message_Box.Text = msg;
             }
             else
             {
@@ -258,6 +290,7 @@ namespace Client
             }
         }
         #endregion
+
 
         
     }

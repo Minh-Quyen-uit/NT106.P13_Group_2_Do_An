@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\chessboardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\chessboardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|D:\\code\\C#\\Do_An_2\\CaRo_Game\\client\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|D:\\code\\C#\\Do_An_2\\CaRo_Game\\client\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\socketdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\socketdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\socketmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\socketmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|d:\\code\\c#\\do_an_2\\caro_game\\client\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4A7E5B1-41DD-48CE-B6C1-59F1A65B047B}|Client\\Client.csproj|solutionrelative:client\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,39 +46,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Login.cs",
-              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Login.cs",
-              "RelativeDocumentMoniker": "Client\\Login.cs",
-              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Login.cs",
-              "RelativeToolTip": "Client\\Login.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAcwBsAAAA5AAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Player.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Player.cs",
+              "RelativeDocumentMoniker": "Client\\Player.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Player.cs",
+              "RelativeToolTip": "Client\\Player.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T07:53:20.228Z",
+              "WhenOpened": "2024-11-28T02:04:02.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SocketData.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketData.cs",
+              "RelativeDocumentMoniker": "Client\\SocketData.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketData.cs",
+              "RelativeToolTip": "Client\\SocketData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T01:54:36.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SocketManager.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketManager.cs",
+              "RelativeDocumentMoniker": "Client\\SocketManager.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SocketManager.cs",
+              "RelativeToolTip": "Client\\SocketManager.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAAwGwAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T01:54:30.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ChessBoard.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoard.cs",
+              "RelativeDocumentMoniker": "Client\\ChessBoard.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoard.cs",
+              "RelativeToolTip": "Client\\ChessBoard.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAJEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T01:07:48.987Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Login.cs [Design]",
-              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Login.cs",
-              "RelativeDocumentMoniker": "Client\\Login.cs",
-              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\Login.cs [Design]",
-              "RelativeToolTip": "Client\\Login.cs [Design]",
+              "Title": "ChessBoard.cs [Design]",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoard.cs",
+              "RelativeDocumentMoniker": "Client\\ChessBoard.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoard.cs [Design]",
+              "RelativeToolTip": "Client\\ChessBoard.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T07:53:13.606Z",
+              "WhenOpened": "2024-11-28T01:07:47.053Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SignUp.cs [Design]",
-              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SignUp.cs",
-              "RelativeDocumentMoniker": "Client\\SignUp.cs",
-              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\SignUp.cs [Design]",
-              "RelativeToolTip": "Client\\SignUp.cs [Design]",
+              "DocumentIndex": 0,
+              "Title": "ChessBoardManager.cs",
+              "DocumentMoniker": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
+              "RelativeDocumentMoniker": "Client\\ChessBoardManager.cs",
+              "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
+              "RelativeToolTip": "Client\\ChessBoardManager.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAuwEUAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T07:47:17.63Z"
+              "WhenOpened": "2024-11-28T01:07:33.353Z",
+              "EditorCaption": ""
             }
           ]
         }

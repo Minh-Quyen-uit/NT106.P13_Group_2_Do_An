@@ -115,7 +115,7 @@ namespace Client
                 else if (int.Parse(s) == 1)
                 {
 
-                    showChessBoard();
+                    showChessBoard(UserName.Text);
                 }
             }
         }
@@ -135,9 +135,9 @@ namespace Client
 
       
 
-        private void showChessBoard()
+        private void showChessBoard(string UserName)
         {
-            ChessBoard board = new ChessBoard();
+            ChessBoard board = new ChessBoard(UserName);
             this.Hide();
             board.ShowDialog();
             this.Show();
