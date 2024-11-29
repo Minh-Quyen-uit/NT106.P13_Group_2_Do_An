@@ -21,17 +21,21 @@ namespace Client
         IPEndPoint ipe;
         TcpClient tcpClient;
         Stream stream;
+        
 
         public Login()
         {
             InitializeComponent();
+            ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
+            ClientSocketManager.Instance.Connect(ipe);
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("SocketRequestData", loginResult);
         }
 
         #region system
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            Connect();
+
 
             string username = UserName.Text;
             string password = PassWord.Text;
@@ -49,7 +53,7 @@ namespace Client
                 var sha256 = SHA256.Create();
                 byte[] EnteredPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 string EncryptEnteredPassword = Convert.ToBase64String(EnteredPassword);
-                Send(username, EncryptEnteredPassword);
+                SendLoginRequest(username, EncryptEnteredPassword);
 
             }
         }
@@ -78,68 +82,36 @@ namespace Client
 
 
         #region TCP
-        void Connect()
+        void SendLoginRequest(string username, string password)
         {
-            ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
-            tcpClient = new TcpClient();
-            tcpClient.Connect(ipe);
-            stream = tcpClient.GetStream();
-            Thread recv = new Thread(Receive);
-            recv.IsBackground = true;
-            recv.Start();
+            string[] Credentials = { username, password };
+            ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.Login, Credentials));
         }
 
-        void Send(string username, string password)
+        private void loginResult(SocketRequestData loginResult)
         {
-            string str = "0" + Environment.NewLine + username + Environment.NewLine + password + Environment.NewLine;
-            byte[] data = Encoding.UTF8.GetBytes(str);
-            stream.Write(data, 0, data.Length);
-
-        }
-
-        void Receive()
-        {
-            while (true)
+            if ((int)loginResult.RequestType == (int)SocketRequestType.Login)
             {
-
-                byte[] recv = new byte[1024];
-                stream.Read(recv, 0, recv.Length);
-                string xmlStr = Encoding.UTF8.GetString(recv);
-                string s = DeserializeXMLData(xmlStr);
-
-                //AddMessage(s);
-                if (int.Parse(s) == 0)
+                bool result = (bool)loginResult.Data;
+                if (!result)
                 {
                     MessageBox.Show("Tên tài khoản hoặc mật khẩu không chính xác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (int.Parse(s) == 1)
+                else
                 {
-
-                    showChessBoard();
+                    showMainMenu(tcpClient);
                 }
-            }
-        }
-
-
-        public string DeserializeXMLData(string xmlString)
-        {
-            xmlString = xmlString.TrimEnd('\0');
-            using (var stringReader = new StringReader(xmlString))
-            using (var xmlReader = XmlReader.Create(stringReader))
-            {
-                var serializer = new DataContractSerializer(typeof(string));
-                return (string)serializer.ReadObject(xmlReader);
             }
         }
         #endregion
 
-      
 
-        private void showChessBoard()
+
+        private void showMainMenu(TcpClient tcpClient)
         {
-            ChessBoard board = new ChessBoard();
+            MainMenu mainMenu = new MainMenu();
             this.Hide();
-            board.ShowDialog();
+            mainMenu.ShowDialog();
             this.Show();
         }
 
@@ -155,6 +127,11 @@ namespace Client
                 // Ẩn mật khẩu
                 PassWord.PasswordChar = '*';
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

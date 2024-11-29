@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             label1 = new Label();
             panel6 = new Panel();
@@ -44,6 +45,7 @@
             panel2 = new Panel();
             UserName = new TextBox();
             label2 = new Label();
+            guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             panel1.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -61,10 +63,11 @@
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(23, 63);
+            panel1.Location = new Point(23, 58);
             panel1.Name = "panel1";
-            panel1.Size = new Size(524, 415);
+            panel1.Size = new Size(524, 420);
             panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
             // 
             // label1
             // 
@@ -208,13 +211,19 @@
             label2.TabIndex = 0;
             label2.Text = "Tên đăng nhập:";
             // 
+            // guna2BorderlessForm1
+            // 
+            guna2BorderlessForm1.ContainerControl = this;
+            guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
+            guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
             // Login
             // 
             AcceptButton = LoginBtn;
             AutoScaleDimensions = new SizeF(14F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 255, 255);
-            ClientSize = new Size(578, 505);
+            ClientSize = new Size(564, 498);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ButtonHighlight;
@@ -254,5 +263,6 @@
         private CheckBox PasswordCheck;
         private TextBox PassWord;
         private TextBox UserName;
+        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
     }
 }

@@ -28,24 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ContainerPn = new Guna.UI2.WinForms.Guna2Panel();
             PlayBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
             PlayerBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
             AccountBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
             ExitBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
             MenuPn = new Guna.UI2.WinForms.Guna2Panel();
+            label1 = new Label();
             MenuPn.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,11 +54,11 @@
             // 
             ContainerPn.BackColor = Color.FromArgb(245, 244, 179);
             ContainerPn.CustomBorderThickness = new Padding(2);
-            ContainerPn.CustomizableEdges = customizableEdges13;
+            ContainerPn.CustomizableEdges = customizableEdges1;
             ContainerPn.Dock = DockStyle.Right;
             ContainerPn.Location = new Point(200, 0);
             ContainerPn.Name = "ContainerPn";
-            ContainerPn.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            ContainerPn.ShadowDecoration.CustomizableEdges = customizableEdges2;
             ContainerPn.Size = new Size(1062, 753);
             ContainerPn.TabIndex = 1;
             // 
@@ -68,7 +69,7 @@
             PlayBtn.CheckedState.FillColor2 = Color.Lime;
             PlayBtn.CustomBorderColor = Color.White;
             PlayBtn.CustomBorderThickness = new Padding(2);
-            PlayBtn.CustomizableEdges = customizableEdges15;
+            PlayBtn.CustomizableEdges = customizableEdges3;
             PlayBtn.DisabledState.BorderColor = Color.DarkGray;
             PlayBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             PlayBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -82,7 +83,7 @@
             PlayBtn.HoverState.FillColor2 = Color.FromArgb(107, 203, 119);
             PlayBtn.Location = new Point(0, 218);
             PlayBtn.Name = "PlayBtn";
-            PlayBtn.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            PlayBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
             PlayBtn.Size = new Size(200, 81);
             PlayBtn.TabIndex = 1;
             PlayBtn.Text = "Play";
@@ -93,7 +94,7 @@
             // 
             PlayerBtn.CustomBorderColor = Color.White;
             PlayerBtn.CustomBorderThickness = new Padding(2);
-            PlayerBtn.CustomizableEdges = customizableEdges17;
+            PlayerBtn.CustomizableEdges = customizableEdges5;
             PlayerBtn.DisabledState.BorderColor = Color.DarkGray;
             PlayerBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             PlayerBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -107,7 +108,7 @@
             PlayerBtn.HoverState.FillColor2 = Color.FromArgb(107, 203, 119);
             PlayerBtn.Location = new Point(-1, 305);
             PlayerBtn.Name = "PlayerBtn";
-            PlayerBtn.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            PlayerBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
             PlayerBtn.Size = new Size(200, 81);
             PlayerBtn.TabIndex = 2;
             PlayerBtn.Text = "Player";
@@ -118,7 +119,7 @@
             // 
             AccountBtn.CustomBorderColor = Color.White;
             AccountBtn.CustomBorderThickness = new Padding(2);
-            AccountBtn.CustomizableEdges = customizableEdges19;
+            AccountBtn.CustomizableEdges = customizableEdges7;
             AccountBtn.DisabledState.BorderColor = Color.DarkGray;
             AccountBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             AccountBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -132,7 +133,7 @@
             AccountBtn.HoverState.FillColor2 = Color.Gray;
             AccountBtn.Location = new Point(-1, 392);
             AccountBtn.Name = "AccountBtn";
-            AccountBtn.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            AccountBtn.ShadowDecoration.CustomizableEdges = customizableEdges8;
             AccountBtn.Size = new Size(200, 81);
             AccountBtn.TabIndex = 3;
             AccountBtn.Text = "Account";
@@ -143,7 +144,7 @@
             // 
             ExitBtn.BackColor = Color.IndianRed;
             ExitBtn.BorderColor = SystemColors.Window;
-            ExitBtn.CustomizableEdges = customizableEdges21;
+            ExitBtn.CustomizableEdges = customizableEdges9;
             ExitBtn.DisabledState.BorderColor = Color.DarkGray;
             ExitBtn.DisabledState.CustomBorderColor = Color.DarkGray;
             ExitBtn.DisabledState.FillColor = Color.Red;
@@ -158,7 +159,7 @@
             ExitBtn.Location = new Point(-1, 660);
             ExitBtn.Name = "ExitBtn";
             ExitBtn.PressedDepth = 50;
-            ExitBtn.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            ExitBtn.ShadowDecoration.CustomizableEdges = customizableEdges10;
             ExitBtn.Size = new Size(200, 81);
             ExitBtn.TabIndex = 4;
             ExitBtn.Text = "Exit";
@@ -167,17 +168,27 @@
             // MenuPn
             // 
             MenuPn.BackColor = Color.FromArgb(13, 146, 244);
+            MenuPn.Controls.Add(label1);
             MenuPn.Controls.Add(ExitBtn);
             MenuPn.Controls.Add(PlayBtn);
             MenuPn.Controls.Add(AccountBtn);
             MenuPn.Controls.Add(PlayerBtn);
-            MenuPn.CustomizableEdges = customizableEdges23;
+            MenuPn.CustomizableEdges = customizableEdges11;
             MenuPn.Dock = DockStyle.Left;
             MenuPn.Location = new Point(0, 0);
             MenuPn.Name = "MenuPn";
-            MenuPn.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            MenuPn.ShadowDecoration.CustomizableEdges = customizableEdges12;
             MenuPn.Size = new Size(200, 753);
             MenuPn.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(12, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(163, 195);
+            label1.TabIndex = 5;
+            label1.Text = "Need more pictures :/";
             // 
             // MainMenu
             // 
@@ -201,5 +212,6 @@
         private Guna.UI2.WinForms.Guna2GradientTileButton AccountBtn;
         private Guna.UI2.WinForms.Guna2GradientTileButton ExitBtn;
         private Guna.UI2.WinForms.Guna2Panel MenuPn;
+        private Label label1;
     }
 }

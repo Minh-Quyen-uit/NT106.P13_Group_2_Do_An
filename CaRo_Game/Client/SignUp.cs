@@ -25,6 +25,8 @@ namespace Client
             InitializeComponent();
             BirthDay.Format = DateTimePickerFormat.Custom;
             BirthDay.CustomFormat = "yyyy-MM-dd";
+
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("SocketRequestData", SignUpResult);
         }
 
         #region System
@@ -35,7 +37,6 @@ namespace Client
 
         private void SignUpBtn_Click(object sender, EventArgs e)
         {
-            Connect();
             string username = UserName.Text;
             string password = PassWord.Text;
             string REpassword = PassWordConfirm.Text;
@@ -52,7 +53,9 @@ namespace Client
             byte[] Encrypt = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
             string EncryptedPassword = Convert.ToBase64String(Encrypt);
 
-            Send(username, EncryptedPassword, fullname, email, birthday);
+            string[] Credentials = { username, EncryptedPassword, fullname, email, birthday };
+
+            ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.SignUp, Credentials));
         }
 
         private void LoginBtn_Click(object sender, EventArgs e)
@@ -77,65 +80,22 @@ namespace Client
         #endregion
 
         #region TCP
-        void Connect()
+        private void SignUpResult(SocketRequestData signUpResult)
         {
-            ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
-            tcpClient = new TcpClient();
-            tcpClient.Connect(ipe);
-            stream = tcpClient.GetStream();
-            Thread recv = new Thread(Receive);
-            recv.IsBackground = true;
-            recv.Start();
-        }
-
-        void Send(string username, string password, string fullname, string email, string birthday)
-        {
-            string str = "1" + Environment.NewLine + username + Environment.NewLine + password + Environment.NewLine
-                + fullname + Environment.NewLine
-                + email + Environment.NewLine + birthday;
-            byte[] data = Encoding.UTF8.GetBytes(str);
-            stream.Write(data, 0, data.Length);
-            //AddMessage(Message.str);
-
-        }
-
-        void Receive()
-        {
-            while (true)
+            if ((int)signUpResult.RequestType == (int)SocketRequestType.SignUp)
             {
-
-                byte[] recv = new byte[1024];
-                stream.Read(recv, 0, recv.Length);
-                string xmlStr = Encoding.UTF8.GetString(recv);
-                string s = DeserializeXMLData(xmlStr);
-                //AddMessage(s);
-
-                int result = int.Parse(s);
-                if (result == 1)
+                if (signUpResult.Data.ToString() == "0")
                 {
-                    if (MessageBox.Show("Bạn đăng kí thành công", "Thông báo", MessageBoxButtons.OK) == System.Windows.Forms.DialogResult.OK)
-                    {
-                        this.Close();
-                    }
+                    MessageBox.Show("sign up failed");
+                    return;
                 }
                 else
                 {
-                    return;
+                    MessageBox.Show("sign up success");
                 }
             }
-
         }
 
-        public string DeserializeXMLData(string xmlString)
-        {
-            xmlString = xmlString.TrimEnd('\0');
-            using (var stringReader = new StringReader(xmlString))
-            using (var xmlReader = XmlReader.Create(stringReader))
-            {
-                var serializer = new DataContractSerializer(typeof(string));
-                return (string)serializer.ReadObject(xmlReader);
-            }
-        }
         #endregion
 
 
