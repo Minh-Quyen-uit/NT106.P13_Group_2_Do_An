@@ -54,8 +54,7 @@
               "RelativeToolTip": "Client\\Player.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T02:04:02.625Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T02:04:02.625Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "Client\\SocketData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T01:54:36.017Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T01:54:36.017Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "Client\\SocketManager.cs",
               "ViewState": "AgIAAFYAAAAAAAAAAAAAwGwAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T01:54:30.087Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T01:54:30.087Z"
             },
             {
               "$type": "Document",
@@ -105,8 +102,7 @@
               "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoard.cs [Design]",
               "RelativeToolTip": "Client\\ChessBoard.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T01:07:47.053Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-11-28T01:07:47.053Z"
             },
             {
               "$type": "Document",
@@ -116,7 +112,7 @@
               "RelativeDocumentMoniker": "Client\\ChessBoardManager.cs",
               "ToolTip": "D:\\code\\C#\\Do_An_2\\CaRo_Game\\Client\\ChessBoardManager.cs",
               "RelativeToolTip": "Client\\ChessBoardManager.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAuwEMAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAIwDcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T01:07:33.353Z",
               "EditorCaption": ""
