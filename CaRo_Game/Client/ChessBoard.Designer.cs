@@ -29,17 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panel_Board = new Panel();
             panel2 = new Panel();
             Message_Box = new TextBox();
-            Send_Btn = new Guna.UI2.WinForms.Guna2Button();
-            ChatTxt = new Guna.UI2.WinForms.Guna2TextBox();
             Avatar_Player = new PictureBox();
             panel3 = new Panel();
+            ExitBtn = new Button();
             IPMessage = new TextBox();
             LAN_Btn = new Button();
             PrcBCoolDown = new ProgressBar();
@@ -52,7 +47,8 @@
             menuToolStripMenuItem = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
             quitToolStripMenuItem = new ToolStripMenuItem();
-            ExitBtn = new Button();
+            ChatTxt = new TextBox();
+            Send_Btn = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
@@ -74,9 +70,9 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.BackColor = SystemColors.ActiveCaption;
-            panel2.Controls.Add(Message_Box);
             panel2.Controls.Add(Send_Btn);
             panel2.Controls.Add(ChatTxt);
+            panel2.Controls.Add(Message_Box);
             panel2.Font = new Font("Times New Roman", 13.8F);
             panel2.Location = new Point(3, 4);
             panel2.Margin = new Padding(5, 4, 5, 4);
@@ -92,46 +88,6 @@
             Message_Box.ScrollBars = ScrollBars.Vertical;
             Message_Box.Size = new Size(392, 275);
             Message_Box.TabIndex = 6;
-            // 
-            // Send_Btn
-            // 
-            Send_Btn.CustomizableEdges = customizableEdges1;
-            Send_Btn.DisabledState.BorderColor = Color.DarkGray;
-            Send_Btn.DisabledState.CustomBorderColor = Color.DarkGray;
-            Send_Btn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            Send_Btn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            Send_Btn.FillColor = Color.Aquamarine;
-            Send_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Send_Btn.ForeColor = Color.DimGray;
-            Send_Btn.Location = new Point(287, 286);
-            Send_Btn.Name = "Send_Btn";
-            Send_Btn.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            Send_Btn.Size = new Size(110, 41);
-            Send_Btn.TabIndex = 5;
-            Send_Btn.Text = "Gửi";
-            Send_Btn.Click += Send_Btn_Click_1;
-            // 
-            // ChatTxt
-            // 
-            ChatTxt.CustomizableEdges = customizableEdges3;
-            ChatTxt.DefaultText = "";
-            ChatTxt.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            ChatTxt.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            ChatTxt.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            ChatTxt.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            ChatTxt.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            ChatTxt.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ChatTxt.ForeColor = Color.Black;
-            ChatTxt.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            ChatTxt.Location = new Point(5, 286);
-            ChatTxt.Margin = new Padding(5);
-            ChatTxt.Name = "ChatTxt";
-            ChatTxt.PasswordChar = '\0';
-            ChatTxt.PlaceholderText = "";
-            ChatTxt.SelectedText = "";
-            ChatTxt.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            ChatTxt.Size = new Size(274, 41);
-            ChatTxt.TabIndex = 4;
             // 
             // Avatar_Player
             // 
@@ -161,6 +117,18 @@
             panel3.Size = new Size(400, 285);
             panel3.TabIndex = 2;
             // 
+            // ExitBtn
+            // 
+            ExitBtn.BackColor = Color.OrangeRed;
+            ExitBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ExitBtn.ForeColor = SystemColors.ButtonFace;
+            ExitBtn.Location = new Point(219, 165);
+            ExitBtn.Name = "ExitBtn";
+            ExitBtn.Size = new Size(178, 38);
+            ExitBtn.TabIndex = 6;
+            ExitBtn.Text = "Thoát";
+            ExitBtn.UseVisualStyleBackColor = false;
+            // 
             // IPMessage
             // 
             IPMessage.Location = new Point(219, 80);
@@ -172,6 +140,7 @@
             // 
             LAN_Btn.BackColor = Color.Yellow;
             LAN_Btn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LAN_Btn.ForeColor = Color.FromArgb(0, 0, 192);
             LAN_Btn.Location = new Point(219, 121);
             LAN_Btn.Name = "LAN_Btn";
             LAN_Btn.Size = new Size(178, 38);
@@ -263,17 +232,24 @@
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
-            // ExitBtn
+            // ChatTxt
             // 
-            ExitBtn.BackColor = Color.OrangeRed;
-            ExitBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ExitBtn.ForeColor = SystemColors.ButtonFace;
-            ExitBtn.Location = new Point(219, 165);
-            ExitBtn.Name = "ExitBtn";
-            ExitBtn.Size = new Size(178, 38);
-            ExitBtn.TabIndex = 6;
-            ExitBtn.Text = "Thoát";
-            ExitBtn.UseVisualStyleBackColor = false;
+            ChatTxt.Location = new Point(5, 288);
+            ChatTxt.Name = "ChatTxt";
+            ChatTxt.Size = new Size(276, 34);
+            ChatTxt.TabIndex = 7;
+            // 
+            // Send_Btn
+            // 
+            Send_Btn.BackColor = Color.Lime;
+            Send_Btn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Send_Btn.ForeColor = Color.Navy;
+            Send_Btn.Location = new Point(287, 286);
+            Send_Btn.Name = "Send_Btn";
+            Send_Btn.Size = new Size(110, 38);
+            Send_Btn.TabIndex = 8;
+            Send_Btn.Text = "Gửi";
+            Send_Btn.UseVisualStyleBackColor = false;
             // 
             // ChessBoard
             // 
@@ -322,9 +298,9 @@
         private Button LAN_Btn;
         private TextBox IPMessage;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
-        private Guna.UI2.WinForms.Guna2TextBox ChatTxt;
-        private Guna.UI2.WinForms.Guna2Button Send_Btn;
         private TextBox Message_Box;
         private Button ExitBtn;
+        private TextBox ChatTxt;
+        private Button Send_Btn;
     }
 }

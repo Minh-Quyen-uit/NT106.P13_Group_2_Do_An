@@ -186,9 +186,7 @@ namespace Client
         private void LoginRequest(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client Login form:\n");
-            string[] Credentials = ((IEnumerable)Request.Data).Cast<object>()
-                                                    .Select(x => x.ToString())
-                                                    .ToArray();
+            string[] Credentials = ((IEnumerable)Request.Data).Cast<object>().Select(x => x.ToString()).ToArray();
 
             string username = Credentials[0];
             string password = Credentials[1];
@@ -205,9 +203,7 @@ namespace Client
         private void SignUpRequest(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client Sign Up form:\n");
-            string[] Credentials = ((IEnumerable)Request.Data).Cast<object>()
-                                                .Select(x => x.ToString())
-                                                .ToArray();
+            string[] Credentials = ((IEnumerable)Request.Data).Cast<object>().Select(x => x.ToString()).ToArray();
             string username = Credentials[0];
             string password = Credentials[1];
             string fullname = Credentials[2];

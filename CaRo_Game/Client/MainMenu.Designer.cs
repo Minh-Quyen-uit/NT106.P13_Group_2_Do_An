@@ -28,190 +28,240 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ContainerPn = new Guna.UI2.WinForms.Guna2Panel();
-            PlayBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            PlayerBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            AccountBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            ExitBtn = new Guna.UI2.WinForms.Guna2GradientTileButton();
-            MenuPn = new Guna.UI2.WinForms.Guna2Panel();
+            tabControlMain = new TabControl();
+            tabMain1 = new TabPage();
+            panel1 = new Panel();
+            panel4 = new Panel();
+            button2 = new Button();
+            panel3 = new Panel();
+            button1 = new Button();
+            panel2 = new Panel();
+            RoomID = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
+            JoinRoomByID = new Button();
             label1 = new Label();
-            MenuPn.SuspendLayout();
+            textBox1 = new TextBox();
+            pictureBox1 = new PictureBox();
+            tabPage2 = new TabPage();
+            tabControlMain.SuspendLayout();
+            tabMain1.SuspendLayout();
+            panel1.SuspendLayout();
+            panel4.SuspendLayout();
+            panel3.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // ContainerPn
+            // tabControlMain
             // 
-            ContainerPn.BackColor = Color.FromArgb(245, 244, 179);
-            ContainerPn.CustomBorderThickness = new Padding(2);
-            ContainerPn.CustomizableEdges = customizableEdges1;
-            ContainerPn.Dock = DockStyle.Right;
-            ContainerPn.Location = new Point(200, 0);
-            ContainerPn.Name = "ContainerPn";
-            ContainerPn.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            ContainerPn.Size = new Size(1062, 753);
-            ContainerPn.TabIndex = 1;
+            tabControlMain.Controls.Add(tabMain1);
+            tabControlMain.Controls.Add(tabPage2);
+            tabControlMain.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tabControlMain.ImeMode = ImeMode.NoControl;
+            tabControlMain.ItemSize = new Size(120, 50);
+            tabControlMain.Location = new Point(14, 26);
+            tabControlMain.Name = "tabControlMain";
+            tabControlMain.Padding = new Point(5, 5);
+            tabControlMain.SelectedIndex = 0;
+            tabControlMain.Size = new Size(772, 472);
+            tabControlMain.TabIndex = 0;
             // 
-            // PlayBtn
+            // tabMain1
             // 
-            PlayBtn.CheckedState.BorderColor = SystemColors.WindowText;
-            PlayBtn.CheckedState.CustomBorderColor = Color.Silver;
-            PlayBtn.CheckedState.FillColor2 = Color.Lime;
-            PlayBtn.CustomBorderColor = Color.White;
-            PlayBtn.CustomBorderThickness = new Padding(2);
-            PlayBtn.CustomizableEdges = customizableEdges3;
-            PlayBtn.DisabledState.BorderColor = Color.DarkGray;
-            PlayBtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            PlayBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            PlayBtn.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            PlayBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            PlayBtn.FillColor = Color.FromArgb(119, 205, 255);
-            PlayBtn.FillColor2 = Color.FromArgb(119, 205, 255);
-            PlayBtn.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            PlayBtn.ForeColor = Color.White;
-            PlayBtn.HoverState.FillColor = Color.FromArgb(107, 203, 119);
-            PlayBtn.HoverState.FillColor2 = Color.FromArgb(107, 203, 119);
-            PlayBtn.Location = new Point(0, 218);
-            PlayBtn.Name = "PlayBtn";
-            PlayBtn.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            PlayBtn.Size = new Size(200, 81);
-            PlayBtn.TabIndex = 1;
-            PlayBtn.Text = "Play";
-            PlayBtn.TextAlign = HorizontalAlignment.Left;
-            PlayBtn.Click += PlayBtn_Click;
+            tabMain1.BackColor = Color.Cyan;
+            tabMain1.Controls.Add(panel1);
+            tabMain1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tabMain1.ForeColor = Color.Black;
+            tabMain1.Location = new Point(4, 54);
+            tabMain1.Name = "tabMain1";
+            tabMain1.Padding = new Padding(3);
+            tabMain1.Size = new Size(764, 414);
+            tabMain1.TabIndex = 0;
+            tabMain1.Text = "Đấu ";
             // 
-            // PlayerBtn
+            // panel1
             // 
-            PlayerBtn.CustomBorderColor = Color.White;
-            PlayerBtn.CustomBorderThickness = new Padding(2);
-            PlayerBtn.CustomizableEdges = customizableEdges5;
-            PlayerBtn.DisabledState.BorderColor = Color.DarkGray;
-            PlayerBtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            PlayerBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            PlayerBtn.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            PlayerBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            PlayerBtn.FillColor = Color.FromArgb(119, 205, 255);
-            PlayerBtn.FillColor2 = Color.FromArgb(119, 205, 255);
-            PlayerBtn.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            PlayerBtn.ForeColor = Color.White;
-            PlayerBtn.HoverState.FillColor = Color.FromArgb(107, 203, 119);
-            PlayerBtn.HoverState.FillColor2 = Color.FromArgb(107, 203, 119);
-            PlayerBtn.Location = new Point(-1, 305);
-            PlayerBtn.Name = "PlayerBtn";
-            PlayerBtn.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            PlayerBtn.Size = new Size(200, 81);
-            PlayerBtn.TabIndex = 2;
-            PlayerBtn.Text = "Player";
-            PlayerBtn.TextAlign = HorizontalAlignment.Left;
-            PlayerBtn.Click += OnlineBtn_Click;
+            panel1.BackColor = Color.FromArgb(0, 192, 192);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(pictureBox1);
+            panel1.Location = new Point(17, 18);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(730, 379);
+            panel1.TabIndex = 0;
             // 
-            // AccountBtn
+            // panel4
             // 
-            AccountBtn.CustomBorderColor = Color.White;
-            AccountBtn.CustomBorderThickness = new Padding(2);
-            AccountBtn.CustomizableEdges = customizableEdges7;
-            AccountBtn.DisabledState.BorderColor = Color.DarkGray;
-            AccountBtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            AccountBtn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            AccountBtn.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            AccountBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            AccountBtn.FillColor = Color.FromArgb(119, 205, 255);
-            AccountBtn.FillColor2 = Color.FromArgb(119, 205, 255);
-            AccountBtn.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AccountBtn.ForeColor = Color.White;
-            AccountBtn.HoverState.FillColor = Color.Gray;
-            AccountBtn.HoverState.FillColor2 = Color.Gray;
-            AccountBtn.Location = new Point(-1, 392);
-            AccountBtn.Name = "AccountBtn";
-            AccountBtn.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            AccountBtn.Size = new Size(200, 81);
-            AccountBtn.TabIndex = 3;
-            AccountBtn.Text = "Account";
-            AccountBtn.TextAlign = HorizontalAlignment.Left;
-            AccountBtn.Click += AccountBtn_Click;
+            panel4.Controls.Add(button2);
+            panel4.Location = new Point(231, 299);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(477, 55);
+            panel4.TabIndex = 5;
             // 
-            // ExitBtn
+            // button2
             // 
-            ExitBtn.BackColor = Color.IndianRed;
-            ExitBtn.BorderColor = SystemColors.Window;
-            ExitBtn.CustomizableEdges = customizableEdges9;
-            ExitBtn.DisabledState.BorderColor = Color.DarkGray;
-            ExitBtn.DisabledState.CustomBorderColor = Color.DarkGray;
-            ExitBtn.DisabledState.FillColor = Color.Red;
-            ExitBtn.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            ExitBtn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            ExitBtn.FillColor = Color.MidnightBlue;
-            ExitBtn.FillColor2 = Color.MidnightBlue;
-            ExitBtn.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ExitBtn.ForeColor = Color.White;
-            ExitBtn.HoverState.FillColor = Color.FromArgb(255, 107, 107);
-            ExitBtn.HoverState.FillColor2 = Color.FromArgb(255, 107, 107);
-            ExitBtn.Location = new Point(-1, 660);
-            ExitBtn.Name = "ExitBtn";
-            ExitBtn.PressedDepth = 50;
-            ExitBtn.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            ExitBtn.Size = new Size(200, 81);
-            ExitBtn.TabIndex = 4;
-            ExitBtn.Text = "Exit";
-            ExitBtn.TextAlign = HorizontalAlignment.Left;
+            button2.BackColor = Color.FromArgb(38, 65, 94);
+            button2.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(3, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(471, 49);
+            button2.TabIndex = 0;
+            button2.Text = "Ghép Ngẫu Nhiên";
+            button2.UseVisualStyleBackColor = false;
             // 
-            // MenuPn
+            // panel3
             // 
-            MenuPn.BackColor = Color.FromArgb(13, 146, 244);
-            MenuPn.Controls.Add(label1);
-            MenuPn.Controls.Add(ExitBtn);
-            MenuPn.Controls.Add(PlayBtn);
-            MenuPn.Controls.Add(AccountBtn);
-            MenuPn.Controls.Add(PlayerBtn);
-            MenuPn.CustomizableEdges = customizableEdges11;
-            MenuPn.Dock = DockStyle.Left;
-            MenuPn.Location = new Point(0, 0);
-            MenuPn.Name = "MenuPn";
-            MenuPn.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            MenuPn.Size = new Size(200, 753);
-            MenuPn.TabIndex = 2;
+            panel3.Controls.Add(button1);
+            panel3.Location = new Point(230, 209);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(478, 62);
+            panel3.TabIndex = 4;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.RoyalBlue;
+            button1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(3, 5);
+            button1.Name = "button1";
+            button1.Size = new Size(475, 51);
+            button1.TabIndex = 0;
+            button1.Text = "Tạo Phòng";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(RoomID);
+            panel2.Controls.Add(label3);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(JoinRoomByID);
+            panel2.Controls.Add(label1);
+            panel2.Location = new Point(230, 20);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(478, 180);
+            panel2.TabIndex = 3;
+            // 
+            // RoomID
+            // 
+            RoomID.BackColor = Color.Aquamarine;
+            RoomID.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RoomID.Location = new Point(209, 13);
+            RoomID.Name = "RoomID";
+            RoomID.Size = new Size(266, 39);
+            RoomID.TabIndex = 6;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(7, 139);
+            label3.Name = "label3";
+            label3.Size = new Size(464, 32);
+            label3.TabIndex = 5;
+            label3.Text = "--------------------------------------------------";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(9, 119);
+            label2.Name = "label2";
+            label2.Size = new Size(462, 32);
+            label2.TabIndex = 4;
+            label2.Text = "^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
+            // 
+            // JoinRoomByID
+            // 
+            JoinRoomByID.BackColor = Color.FromArgb(109, 163, 190);
+            JoinRoomByID.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            JoinRoomByID.ForeColor = Color.White;
+            JoinRoomByID.Location = new Point(3, 62);
+            JoinRoomByID.Name = "JoinRoomByID";
+            JoinRoomByID.Size = new Size(472, 54);
+            JoinRoomByID.TabIndex = 3;
+            JoinRoomByID.Text = "Vào Phòng";
+            JoinRoomByID.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
-            label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 0);
+            label1.AutoSize = true;
+            label1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.WhiteSmoke;
+            label1.Location = new Point(3, 15);
             label1.Name = "label1";
-            label1.Size = new Size(163, 195);
-            label1.TabIndex = 5;
-            label1.Text = "Need more pictures :/";
+            label1.Size = new Size(209, 32);
+            label1.TabIndex = 2;
+            label1.Text = "Nhập ID phòng:";
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.FromArgb(10, 112, 117);
+            textBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.ForeColor = Color.WhiteSmoke;
+            textBox1.Location = new Point(21, 215);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(180, 39);
+            textBox1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Silver;
+            pictureBox1.Location = new Point(21, 20);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(180, 180);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 54);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(764, 414);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Tài Khoản";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // MainMenu
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Window;
-            ClientSize = new Size(1262, 753);
-            Controls.Add(MenuPn);
-            Controls.Add(ContainerPn);
+            ClientSize = new Size(804, 516);
+            Controls.Add(tabControlMain);
+            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ForeColor = SystemColors.ActiveCaptionText;
             Name = "MainMenu";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "MainMenu";
-            MenuPn.ResumeLayout(false);
+            tabControlMain.ResumeLayout(false);
+            tabMain1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private Guna.UI2.WinForms.Guna2Panel ContainerPn;
-        private Guna.UI2.WinForms.Guna2GradientTileButton PlayBtn;
-        private Guna.UI2.WinForms.Guna2GradientTileButton PlayerBtn;
-        private Guna.UI2.WinForms.Guna2GradientTileButton AccountBtn;
-        private Guna.UI2.WinForms.Guna2GradientTileButton ExitBtn;
-        private Guna.UI2.WinForms.Guna2Panel MenuPn;
+
+        private TabControl tabControlMain;
+        private TabPage tabMain1;
+        private TabPage tabPage2;
+        private Panel panel1;
+        private TextBox textBox1;
+        private PictureBox pictureBox1;
+        private Panel panel2;
+        private Button JoinRoomByID;
         private Label label1;
+        private Label label3;
+        private Label label2;
+        private TextBox RoomID;
+        private Panel panel4;
+        private Button button2;
+        private Panel panel3;
+        private Button button1;
     }
 }
