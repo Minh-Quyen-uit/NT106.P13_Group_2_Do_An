@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             panel_Board = new Panel();
             panel2 = new Panel();
+            Send_Btn = new Button();
+            ChatTxt = new TextBox();
             Message_Box = new TextBox();
             Avatar_Player = new PictureBox();
             panel3 = new Panel();
@@ -47,8 +49,6 @@
             menuToolStripMenuItem = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
             quitToolStripMenuItem = new ToolStripMenuItem();
-            ChatTxt = new TextBox();
-            Send_Btn = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
@@ -80,18 +80,39 @@
             panel2.Size = new Size(400, 333);
             panel2.TabIndex = 1;
             // 
+            // Send_Btn
+            // 
+            Send_Btn.BackColor = Color.Lime;
+            Send_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Send_Btn.ForeColor = Color.Navy;
+            Send_Btn.Location = new Point(287, 284);
+            Send_Btn.Name = "Send_Btn";
+            Send_Btn.Size = new Size(110, 41);
+            Send_Btn.TabIndex = 8;
+            Send_Btn.Text = "Gửi";
+            Send_Btn.UseVisualStyleBackColor = false;
+            // 
+            // ChatTxt
+            // 
+            ChatTxt.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ChatTxt.Location = new Point(3, 284);
+            ChatTxt.Name = "ChatTxt";
+            ChatTxt.Size = new Size(276, 39);
+            ChatTxt.TabIndex = 7;
+            // 
             // Message_Box
             // 
-            Message_Box.Location = new Point(5, 3);
+            Message_Box.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Message_Box.Location = new Point(3, 3);
             Message_Box.Multiline = true;
             Message_Box.Name = "Message_Box";
             Message_Box.ScrollBars = ScrollBars.Vertical;
-            Message_Box.Size = new Size(392, 275);
+            Message_Box.Size = new Size(394, 275);
             Message_Box.TabIndex = 6;
             // 
             // Avatar_Player
             // 
-            Avatar_Player.Location = new Point(19, 80);
+            Avatar_Player.Location = new Point(11, 87);
             Avatar_Player.Name = "Avatar_Player";
             Avatar_Player.Size = new Size(183, 183);
             Avatar_Player.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -120,30 +141,31 @@
             // ExitBtn
             // 
             ExitBtn.BackColor = Color.OrangeRed;
-            ExitBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ExitBtn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ExitBtn.ForeColor = SystemColors.ButtonFace;
-            ExitBtn.Location = new Point(219, 165);
+            ExitBtn.Location = new Point(219, 223);
             ExitBtn.Name = "ExitBtn";
-            ExitBtn.Size = new Size(178, 38);
+            ExitBtn.Size = new Size(178, 47);
             ExitBtn.TabIndex = 6;
             ExitBtn.Text = "Thoát";
             ExitBtn.UseVisualStyleBackColor = false;
             // 
             // IPMessage
             // 
-            IPMessage.Location = new Point(219, 80);
+            IPMessage.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            IPMessage.Location = new Point(219, 89);
             IPMessage.Name = "IPMessage";
-            IPMessage.Size = new Size(178, 34);
+            IPMessage.Size = new Size(178, 39);
             IPMessage.TabIndex = 5;
             // 
             // LAN_Btn
             // 
             LAN_Btn.BackColor = Color.Yellow;
-            LAN_Btn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LAN_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LAN_Btn.ForeColor = Color.FromArgb(0, 0, 192);
-            LAN_Btn.Location = new Point(219, 121);
+            LAN_Btn.Location = new Point(219, 135);
             LAN_Btn.Name = "LAN_Btn";
-            LAN_Btn.Size = new Size(178, 38);
+            LAN_Btn.Size = new Size(178, 50);
             LAN_Btn.TabIndex = 4;
             LAN_Btn.Text = "LAN";
             LAN_Btn.UseVisualStyleBackColor = false;
@@ -151,7 +173,7 @@
             // 
             // PrcBCoolDown
             // 
-            PrcBCoolDown.Location = new Point(219, 45);
+            PrcBCoolDown.Location = new Point(219, 51);
             PrcBCoolDown.Name = "PrcBCoolDown";
             PrcBCoolDown.Size = new Size(178, 29);
             PrcBCoolDown.TabIndex = 3;
@@ -159,7 +181,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(5, 48);
+            label2.Location = new Point(5, 52);
             label2.Name = "label2";
             label2.Size = new Size(197, 26);
             label2.TabIndex = 2;
@@ -176,11 +198,11 @@
             // 
             // FullName
             // 
-            FullName.Font = new Font("Times New Roman", 13.8F);
+            FullName.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FullName.Location = new Point(219, 4);
             FullName.Margin = new Padding(5, 4, 5, 4);
             FullName.Name = "FullName";
-            FullName.Size = new Size(178, 34);
+            FullName.Size = new Size(178, 39);
             FullName.TabIndex = 0;
             // 
             // panel4
@@ -231,25 +253,6 @@
             quitToolStripMenuItem.Size = new Size(289, 30);
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
-            // 
-            // ChatTxt
-            // 
-            ChatTxt.Location = new Point(5, 288);
-            ChatTxt.Name = "ChatTxt";
-            ChatTxt.Size = new Size(276, 34);
-            ChatTxt.TabIndex = 7;
-            // 
-            // Send_Btn
-            // 
-            Send_Btn.BackColor = Color.Lime;
-            Send_Btn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Send_Btn.ForeColor = Color.Navy;
-            Send_Btn.Location = new Point(287, 286);
-            Send_Btn.Name = "Send_Btn";
-            Send_Btn.Size = new Size(110, 38);
-            Send_Btn.TabIndex = 8;
-            Send_Btn.Text = "Gửi";
-            Send_Btn.UseVisualStyleBackColor = false;
             // 
             // ChessBoard
             // 

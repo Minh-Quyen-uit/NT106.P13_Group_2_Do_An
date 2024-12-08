@@ -142,7 +142,8 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(174, 15);
+            label1.ForeColor = Color.FromArgb(255, 255, 192);
+            label1.Location = new Point(219, 15);
             label1.Name = "label1";
             label1.Size = new Size(147, 38);
             label1.TabIndex = 8;
@@ -253,7 +254,7 @@
             // PasswordChar
             // 
             PasswordChar.AutoSize = true;
-            PasswordChar.Location = new Point(349, 11);
+            PasswordChar.Location = new Point(349, 12);
             PasswordChar.Name = "PasswordChar";
             PasswordChar.Size = new Size(214, 29);
             PasswordChar.TabIndex = 10;

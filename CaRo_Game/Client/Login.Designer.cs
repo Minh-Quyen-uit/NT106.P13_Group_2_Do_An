@@ -90,9 +90,9 @@
             // ExitBtn
             // 
             ExitBtn.BackColor = Color.Red;
-            ExitBtn.Location = new Point(336, 9);
+            ExitBtn.Location = new Point(336, 3);
             ExitBtn.Name = "ExitBtn";
-            ExitBtn.Size = new Size(173, 34);
+            ExitBtn.Size = new Size(173, 46);
             ExitBtn.TabIndex = 5;
             ExitBtn.Text = "Thoát";
             ExitBtn.UseVisualStyleBackColor = false;
@@ -111,9 +111,9 @@
             // 
             SignUpBtn.BackColor = Color.FromArgb(0, 192, 0);
             SignUpBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            SignUpBtn.Location = new Point(333, 9);
+            SignUpBtn.Location = new Point(333, 3);
             SignUpBtn.Name = "SignUpBtn";
-            SignUpBtn.Size = new Size(173, 40);
+            SignUpBtn.Size = new Size(173, 53);
             SignUpBtn.TabIndex = 4;
             SignUpBtn.Text = "Đăng ký";
             SignUpBtn.UseVisualStyleBackColor = false;
@@ -141,9 +141,9 @@
             // 
             LoginBtn.BackColor = Color.DeepSkyBlue;
             LoginBtn.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LoginBtn.Location = new Point(333, 5);
+            LoginBtn.Location = new Point(333, 0);
             LoginBtn.Name = "LoginBtn";
-            LoginBtn.Size = new Size(173, 40);
+            LoginBtn.Size = new Size(173, 54);
             LoginBtn.TabIndex = 3;
             LoginBtn.Text = "Đăng nhập";
             LoginBtn.UseVisualStyleBackColor = false;
