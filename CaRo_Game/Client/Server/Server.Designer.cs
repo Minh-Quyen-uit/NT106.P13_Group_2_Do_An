@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿namespace Client.Server
 {
     partial class Server
     {

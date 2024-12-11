@@ -32,30 +32,30 @@
             tabMain1 = new TabPage();
             panel1 = new Panel();
             panel4 = new Panel();
-            button2 = new Button();
+            JoinRandom_Btn = new Button();
             panel3 = new Panel();
-            button1 = new Button();
+            CreateRoom_Btn = new Button();
             panel2 = new Panel();
             RoomID = new TextBox();
             label3 = new Label();
             label2 = new Label();
-            JoinRoomByID = new Button();
+            JoinRoomByID_Btn = new Button();
             label1 = new Label();
             textBox1 = new TextBox();
             pictureBox1 = new PictureBox();
             tabPage2 = new TabPage();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            UserName = new TextBox();
-            PassWord = new TextBox();
-            FullName = new TextBox();
-            Email = new TextBox();
-            Birthday = new TextBox();
-            updateAccBtn = new Button();
             ExitBtn = new Button();
+            updateAccBtn = new Button();
+            Birthday = new TextBox();
+            Email = new TextBox();
+            FullName = new TextBox();
+            PassWord = new TextBox();
+            UserName = new TextBox();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
             tabControlMain.SuspendLayout();
             tabMain1.SuspendLayout();
             panel1.SuspendLayout();
@@ -108,50 +108,52 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(button2);
+            panel4.Controls.Add(JoinRandom_Btn);
             panel4.Location = new Point(231, 299);
             panel4.Name = "panel4";
             panel4.Size = new Size(477, 55);
             panel4.TabIndex = 5;
             // 
-            // button2
+            // JoinRandom_Btn
             // 
-            button2.BackColor = Color.FromArgb(38, 65, 94);
-            button2.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(3, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(471, 49);
-            button2.TabIndex = 0;
-            button2.Text = "Ghép Ngẫu Nhiên";
-            button2.UseVisualStyleBackColor = false;
+            JoinRandom_Btn.BackColor = Color.FromArgb(38, 65, 94);
+            JoinRandom_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            JoinRandom_Btn.ForeColor = Color.White;
+            JoinRandom_Btn.Location = new Point(3, 3);
+            JoinRandom_Btn.Name = "JoinRandom_Btn";
+            JoinRandom_Btn.Size = new Size(471, 49);
+            JoinRandom_Btn.TabIndex = 0;
+            JoinRandom_Btn.Text = "Ghép Ngẫu Nhiên";
+            JoinRandom_Btn.UseVisualStyleBackColor = false;
+            JoinRandom_Btn.Click += JoinRandom_Btn_Click;
             // 
             // panel3
             // 
-            panel3.Controls.Add(button1);
+            panel3.Controls.Add(CreateRoom_Btn);
             panel3.Location = new Point(230, 209);
             panel3.Name = "panel3";
             panel3.Size = new Size(478, 62);
             panel3.TabIndex = 4;
             // 
-            // button1
+            // CreateRoom_Btn
             // 
-            button1.BackColor = Color.RoyalBlue;
-            button1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(3, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(475, 51);
-            button1.TabIndex = 0;
-            button1.Text = "Tạo Phòng";
-            button1.UseVisualStyleBackColor = false;
+            CreateRoom_Btn.BackColor = Color.RoyalBlue;
+            CreateRoom_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            CreateRoom_Btn.ForeColor = Color.White;
+            CreateRoom_Btn.Location = new Point(3, 5);
+            CreateRoom_Btn.Name = "CreateRoom_Btn";
+            CreateRoom_Btn.Size = new Size(475, 51);
+            CreateRoom_Btn.TabIndex = 0;
+            CreateRoom_Btn.Text = "Tạo Phòng";
+            CreateRoom_Btn.UseVisualStyleBackColor = false;
+            CreateRoom_Btn.Click += CreateRoom_Btn_Click;
             // 
             // panel2
             // 
             panel2.Controls.Add(RoomID);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label2);
-            panel2.Controls.Add(JoinRoomByID);
+            panel2.Controls.Add(JoinRoomByID_Btn);
             panel2.Controls.Add(label1);
             panel2.Location = new Point(230, 20);
             panel2.Name = "panel2";
@@ -187,17 +189,18 @@
             label2.TabIndex = 4;
             label2.Text = "^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
             // 
-            // JoinRoomByID
+            // JoinRoomByID_Btn
             // 
-            JoinRoomByID.BackColor = Color.FromArgb(109, 163, 190);
-            JoinRoomByID.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            JoinRoomByID.ForeColor = Color.White;
-            JoinRoomByID.Location = new Point(3, 62);
-            JoinRoomByID.Name = "JoinRoomByID";
-            JoinRoomByID.Size = new Size(472, 54);
-            JoinRoomByID.TabIndex = 3;
-            JoinRoomByID.Text = "Vào Phòng";
-            JoinRoomByID.UseVisualStyleBackColor = false;
+            JoinRoomByID_Btn.BackColor = Color.FromArgb(109, 163, 190);
+            JoinRoomByID_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            JoinRoomByID_Btn.ForeColor = Color.White;
+            JoinRoomByID_Btn.Location = new Point(3, 62);
+            JoinRoomByID_Btn.Name = "JoinRoomByID_Btn";
+            JoinRoomByID_Btn.Size = new Size(472, 54);
+            JoinRoomByID_Btn.TabIndex = 3;
+            JoinRoomByID_Btn.Text = "Vào Phòng";
+            JoinRoomByID_Btn.UseVisualStyleBackColor = false;
+            JoinRoomByID_Btn.Click += JoinRoomByID_Btn_Click;
             // 
             // label1
             // 
@@ -252,85 +255,16 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Tài Khoản";
             // 
-            // label4
+            // ExitBtn
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(48, 51);
-            label4.Name = "label4";
-            label4.Size = new Size(205, 32);
-            label4.TabIndex = 0;
-            label4.Text = "Tên đăng nhập:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(48, 105);
-            label5.Name = "label5";
-            label5.Size = new Size(148, 32);
-            label5.TabIndex = 1;
-            label5.Text = "Mật Khẩu:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(48, 159);
-            label6.Name = "label6";
-            label6.Size = new Size(138, 32);
-            label6.TabIndex = 2;
-            label6.Text = "Họ và tên:";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(48, 212);
-            label7.Name = "label7";
-            label7.Size = new Size(101, 32);
-            label7.TabIndex = 3;
-            label7.Text = "Email: ";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(48, 267);
-            label8.Name = "label8";
-            label8.Size = new Size(143, 32);
-            label8.TabIndex = 4;
-            label8.Text = "Ngày sinh:";
-            // 
-            // UserName
-            // 
-            UserName.Location = new Point(274, 48);
-            UserName.Name = "UserName";
-            UserName.Size = new Size(437, 39);
-            UserName.TabIndex = 5;
-            // 
-            // PassWord
-            // 
-            PassWord.Location = new Point(274, 102);
-            PassWord.Name = "PassWord";
-            PassWord.Size = new Size(437, 39);
-            PassWord.TabIndex = 6;
-            // 
-            // FullName
-            // 
-            FullName.Location = new Point(274, 156);
-            FullName.Name = "FullName";
-            FullName.Size = new Size(437, 39);
-            FullName.TabIndex = 7;
-            // 
-            // Email
-            // 
-            Email.Location = new Point(274, 209);
-            Email.Name = "Email";
-            Email.Size = new Size(437, 39);
-            Email.TabIndex = 8;
-            // 
-            // Birthday
-            // 
-            Birthday.Location = new Point(274, 264);
-            Birthday.Name = "Birthday";
-            Birthday.Size = new Size(437, 39);
-            Birthday.TabIndex = 9;
+            ExitBtn.BackColor = Color.Red;
+            ExitBtn.ForeColor = Color.White;
+            ExitBtn.Location = new Point(274, 337);
+            ExitBtn.Name = "ExitBtn";
+            ExitBtn.Size = new Size(204, 47);
+            ExitBtn.TabIndex = 11;
+            ExitBtn.Text = "Thoát";
+            ExitBtn.UseVisualStyleBackColor = false;
             // 
             // updateAccBtn
             // 
@@ -343,16 +277,85 @@
             updateAccBtn.Text = "Cập Nhật";
             updateAccBtn.UseVisualStyleBackColor = false;
             // 
-            // ExitBtn
+            // Birthday
             // 
-            ExitBtn.BackColor = Color.Red;
-            ExitBtn.ForeColor = Color.White;
-            ExitBtn.Location = new Point(274, 337);
-            ExitBtn.Name = "ExitBtn";
-            ExitBtn.Size = new Size(204, 47);
-            ExitBtn.TabIndex = 11;
-            ExitBtn.Text = "Thoát";
-            ExitBtn.UseVisualStyleBackColor = false;
+            Birthday.Location = new Point(274, 264);
+            Birthday.Name = "Birthday";
+            Birthday.Size = new Size(437, 39);
+            Birthday.TabIndex = 9;
+            // 
+            // Email
+            // 
+            Email.Location = new Point(274, 209);
+            Email.Name = "Email";
+            Email.Size = new Size(437, 39);
+            Email.TabIndex = 8;
+            // 
+            // FullName
+            // 
+            FullName.Location = new Point(274, 156);
+            FullName.Name = "FullName";
+            FullName.Size = new Size(437, 39);
+            FullName.TabIndex = 7;
+            // 
+            // PassWord
+            // 
+            PassWord.Location = new Point(274, 102);
+            PassWord.Name = "PassWord";
+            PassWord.Size = new Size(437, 39);
+            PassWord.TabIndex = 6;
+            // 
+            // UserName
+            // 
+            UserName.Location = new Point(274, 48);
+            UserName.Name = "UserName";
+            UserName.Size = new Size(437, 39);
+            UserName.TabIndex = 5;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(48, 267);
+            label8.Name = "label8";
+            label8.Size = new Size(143, 32);
+            label8.TabIndex = 4;
+            label8.Text = "Ngày sinh:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(48, 212);
+            label7.Name = "label7";
+            label7.Size = new Size(101, 32);
+            label7.TabIndex = 3;
+            label7.Text = "Email: ";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(48, 159);
+            label6.Name = "label6";
+            label6.Size = new Size(138, 32);
+            label6.TabIndex = 2;
+            label6.Text = "Họ và tên:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(48, 105);
+            label5.Name = "label5";
+            label5.Size = new Size(148, 32);
+            label5.TabIndex = 1;
+            label5.Text = "Mật Khẩu:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(48, 51);
+            label4.Name = "label4";
+            label4.Size = new Size(205, 32);
+            label4.TabIndex = 0;
+            label4.Text = "Tên đăng nhập:";
             // 
             // MainMenu
             // 
@@ -384,15 +387,15 @@
         private TextBox textBox1;
         private PictureBox pictureBox1;
         private Panel panel2;
-        private Button JoinRoomByID;
+        private Button JoinRoomByID_Btn;
         private Label label1;
         private Label label3;
         private Label label2;
         private TextBox RoomID;
         private Panel panel4;
-        private Button button2;
+        private Button JoinRandom_Btn;
         private Panel panel3;
-        private Button button1;
+        private Button CreateRoom_Btn;
         private Label label7;
         private Label label6;
         private Label label5;

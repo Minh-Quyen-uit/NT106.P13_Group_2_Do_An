@@ -14,8 +14,9 @@ using Client.DAO;
 using Newtonsoft.Json;
 using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Client.Server;
 
-namespace Client
+namespace Client.Server
 {
     public partial class Server : Form
     {
@@ -25,6 +26,13 @@ namespace Client
 
         //Create a dictionary to handle specific datatype sent by the client
         private readonly Dictionary<string, (Delegate handler, Type targetType)> _typehandler = new();
+
+        private readonly Dictionary<string, Socket> _matchQueue = new();
+        private readonly Dictionary<int, MatchRoom> _matchRooms = new();
+        private int MatchID = 0;
+
+        //Replace ClientInfo with a proper class later
+        private readonly List<Socket> _clients = new();
 
         public Server()
         {
@@ -45,6 +53,10 @@ namespace Client
                 {
                     tcpListen.Start();
                     client = tcpListen.AcceptSocket();
+                    if (client != null)
+                    {
+                        _clients.Add(client);
+                    }
                     Thread rec = new Thread(Receive);
                     rec.IsBackground = true;
                     rec.Start(client);
@@ -83,6 +95,9 @@ namespace Client
                         
                         case (int)SocketRequestType.SignUp:
                             SignUpRequest(client, Request); break;
+                        
+                        case (int)SocketRequestType.CreateRoom:
+                            CreateRoomRequest(client, Request); break;
                     }
 
                 });
@@ -101,7 +116,7 @@ namespace Client
                 {
                     var (handler, targetType) = _typehandler[messageType];
 
-                    Console.WriteLine($"Handler found for type '{messageType}'. Expected data type: '{targetType.Name}'.");
+                    //MessageBox.Show($"Handler found for type '{messageType}'. Expected data type: '{targetType.Name}'.");
 
                     try
                     {
@@ -113,7 +128,7 @@ namespace Client
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error deserializing data for type '{messageType}': {ex.Message}");
+                        MessageBox.Show($"Error deserializing data for type '{messageType}': {ex.Message}");
                     }
                 }
                 else
@@ -195,7 +210,7 @@ namespace Client
             ReceiveMessage(password);
 
             bool LoginResult = AccountDAO.Instance.login(username, password);
-            byte[] LoginData = SerializeData("SocketRequestData", new SocketRequestData((int)SocketRequestType.Login, LoginResult));
+            byte[] LoginData = SerializeData("LoginResult", new SocketRequestData((int)SocketRequestType.Login, LoginResult));
 
             client.Send(LoginData);
         }
@@ -217,10 +232,55 @@ namespace Client
             ReceiveMessage(birthday);
 
             int result = AccountDAO.Instance.signin(username, password, fullname, email, birthday);
-            byte[] data = SerializeData("SocketRequestData", new SocketRequestData((int)SocketRequestType.SignUp, result));
+            byte[] data = SerializeData("SignUpResult", new SocketRequestData((int)SocketRequestType.SignUp, result));
 
             client.Send(data);
         }
+
+        private void CreateRoomRequest(Socket client, SocketRequestData Request)
+        {
+            ReceiveMessage("Client create room:\n");
+            string IPAddress = ((IPEndPoint)client.RemoteEndPoint).Address.ToString();
+            _matchQueue[IPAddress] = client;
+
+            bool result = false;
+            if (_matchQueue.ContainsKey(IPAddress))
+                result = true;
+
+            byte[] data = SerializeData("CreateRoomResult", new SocketRequestData((int)SocketRequestType.CreateRoom, result));
+            
+            client.Send(data);
+        }
+
+        private Socket FindPlayerIP(string IP)
+        {
+            lock (_matchQueue)
+            {
+                if (_matchQueue.TryGetValue(IP, out var socket))
+                {
+                    return socket;
+                }
+            }
+            return null;
+        }
+
+        private void EnterRoomByIDRequest(Socket client, SocketRequestData Request)
+        {
+            ReceiveMessage("Client Enter room ID");
+            
+            String ID = Request.Data.ToString();
+            var TargetPlayer = FindPlayerIP(ID);
+            
+            if (_matchQueue.ContainsKey(ID))
+            {
+                _matchRooms[MatchID] = new MatchRoom(TargetPlayer, client);
+                MatchID += 1;
+
+                _matchQueue.Remove(ID);
+            }
+
+        }
+
         #endregion
     }
 }

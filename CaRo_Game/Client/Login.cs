@@ -13,30 +13,27 @@ using System.Runtime.Serialization;
 using System.Xml;
 using System.Security.Cryptography;
 using System.Drawing.Drawing2D;
+using Client.DAO;
 
 namespace Client
 {
     public partial class Login : MetroFramework.Forms.MetroForm
     {
         IPEndPoint ipe;
-        TcpClient tcpClient;
-        Stream stream;
-        
+        private bool _loginResult = false;
 
         public Login()
         {
             InitializeComponent();
             ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             ClientSocketManager.Instance.Connect(ipe);
-            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("SocketRequestData", loginResult);
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("LoginResult", loginResult);
         }
 
         #region system
 
-        private void LoginBtn_Click(object sender, EventArgs e)
+        private async void LoginBtn_Click(object sender, EventArgs e)
         {
-
-
             string username = UserName.Text;
             string password = PassWord.Text;
             if (username.Trim() == "")
@@ -55,6 +52,12 @@ namespace Client
                 string EncryptEnteredPassword = Convert.ToBase64String(EnteredPassword);
                 SendLoginRequest(username, EncryptEnteredPassword);
 
+            }
+
+            await Task.Delay(100);
+            if (_loginResult)
+            {
+                showMainMenu();
             }
         }
 
@@ -99,7 +102,7 @@ namespace Client
                 }
                 else
                 {
-                    showMainMenu(tcpClient);
+                    _loginResult = true;
                 }
             }
         }
@@ -107,9 +110,11 @@ namespace Client
 
 
 
-        private void showMainMenu(TcpClient tcpClient)
+        private void showMainMenu()
         {
-            MainMenu mainMenu = new MainMenu();
+            using MainMenu mainMenu = new MainMenu();
+            //mainMenu.Show();
+            //this.Close();
             this.Hide();
             mainMenu.ShowDialog();
             this.Show();

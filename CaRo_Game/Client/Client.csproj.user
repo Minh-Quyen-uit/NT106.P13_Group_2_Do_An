@@ -16,7 +16,7 @@
     <Compile Update="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Server.cs">
+    <Compile Update="Server\Server.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SignUp.cs">

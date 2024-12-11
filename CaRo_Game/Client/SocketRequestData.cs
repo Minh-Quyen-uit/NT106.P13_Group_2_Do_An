@@ -24,6 +24,7 @@ namespace Client
     {
         Login,
         SignUp,
-        CreateRoom
+        CreateRoom,
+        JoinRoomByID
     }
 }

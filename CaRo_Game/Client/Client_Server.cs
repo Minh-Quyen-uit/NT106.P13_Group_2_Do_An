@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.Server;
 
 namespace Client
 {
@@ -25,7 +26,7 @@ namespace Client
 
         private void ServerBtn_Click(object sender, EventArgs e)
         {
-            Server server = new Server();
+            Client.Server.Server server = new Client.Server.Server();
             server.Show();
         }
     }

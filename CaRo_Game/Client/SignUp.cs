@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Runtime.Serialization;
 using System.Xml;
+using Client.DAO;
 
 namespace Client
 {
@@ -26,7 +27,7 @@ namespace Client
             BirthDay.Format = DateTimePickerFormat.Custom;
             BirthDay.CustomFormat = "yyyy-MM-dd";
 
-            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("SocketRequestData", SignUpResult);
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("SignUpResult", SignUpResult);
         }
 
         #region System

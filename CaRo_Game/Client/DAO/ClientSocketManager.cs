@@ -13,9 +13,9 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Client
+namespace Client.DAO
 {
-    public class ClientSocketManager
+    public sealed class ClientSocketManager
     {
         private static readonly Lazy<ClientSocketManager> instance = new(() => new ClientSocketManager());
 
@@ -25,7 +25,7 @@ namespace Client
 
         //Create a dictionary to handle specific datatype
         //List<(Delegate handler, Type targetType)>> to allow multiple handler to handle a datatype in different form
-        private readonly Dictionary<string, List<(Delegate handler, Type targetType)>> _typehandler = new();
+        private readonly Dictionary<string, (Delegate handler, Type targetType)> _typehandler = new();
 
         public static ClientSocketManager Instance
         {
@@ -47,11 +47,11 @@ namespace Client
 
         public void Listen()
         {
-            byte[] buffer = new byte[1024];
-
-            try
+            while (true)
             {
-                while (true)
+                byte[] buffer = new byte[1024];
+
+                try
                 {
                     int bytesRead = _stream.Read(buffer, 0, buffer.Length);
                     if (bytesRead > 0)
@@ -63,22 +63,21 @@ namespace Client
 
                         if (_typehandler.ContainsKey(messageType))
                         {
-                            //Iterate to find the handler
-                            foreach (var (handler, targetType) in _typehandler[messageType])
+                            var (handler, targetType) = _typehandler[messageType];
+
+                            //MessageBox.Show($"Handler found for type '{messageType}'. Expected data type: '{targetType.Name}'.");
+
+                            try
                             {
+                                // Deserialize the data to the correct type
+                                var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), targetType);
 
-                                try
-                                {
-                                    // Deserialize the data to the correct type
-                                    var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), targetType);
-
-                                    // Invoke the handler
-                                    handler.DynamicInvoke(deserializedData);
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show($"Error deserializing data for type '{messageType}': {ex.Message}");
-                                }
+                                // Invoke the handler
+                                handler.DynamicInvoke(deserializedData);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Error deserializing data for type '{messageType}': {ex.Message}");
                             }
                         }
                         else
@@ -87,26 +86,26 @@ namespace Client
                         }
 
                     }
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
         }
 
-        //ONLY USE THIS WHEN INITIALIZING THE FORM TO AVOID CREATING THE SAME HANDLER
+        //USE THIS TO REGISTER A HANDLER ACCORDING TO EACH TYPE
         public void RegisterHandler<T>(string type, Action<T> handler)
-        {
-            //Add a new list that handles a specific type
-            if (!_typehandler.ContainsKey(type))
+        {   
+            //Don't add a new handler if its already exist
+            if (_typehandler.ContainsKey(type))
             {
-                _typehandler[type] = new List<(Delegate handler, Type targetType)>();
+                return;
             }
-
-            //Add a handler when registered
-            _typehandler[type].Add((handler, typeof(T)));
+            
+            //Add a new handler
+            _typehandler[type] = (handler, typeof(T));
         }
 
         public void Send<T>(string type, T data)
