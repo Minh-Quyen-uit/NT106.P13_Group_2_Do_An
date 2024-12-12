@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Client.Server;
+using Newtonsoft.Json.Bson;
 
 namespace Client.Server
 {
@@ -68,12 +69,12 @@ namespace Client.Server
 
         }
 
-        void Send(Socket client, object result)
-        {
-            byte[] data = SerializeData(result);
-            client.Send(data);
+        //void Send(Socket client, object result)
+        //{
+        //    byte[] data = SerializeData(result);
+        //    client.Send(data);
 
-        }
+        //}
 
         void Receive(object obj)
         {
@@ -98,42 +99,53 @@ namespace Client.Server
                         
                         case (int)SocketRequestType.CreateRoom:
                             CreateRoomRequest(client, Request); break;
+                        
+                        case (int)SocketRequestType.JoinRoomByID:
+                            EnterRoomByIDRequest(client, Request); break;
                     }
 
                 });
 
+                RegisterHandler<SocketData>("SocketData", MatchData =>
+                {
+                    MatchDataFoward(client, MatchData);
+                });
+
                 byte[] recv = new byte[5000*1024];
                 int bytesReceived = client.Receive(recv);
-                
-                string json = Encoding.UTF8.GetString(recv, 0, bytesReceived);
-                dynamic message = JsonConvert.DeserializeObject<dynamic>(json);
-                string messageType = message.Type;
-                var data = message.Data;
-                
-                ReceiveMessage(json);
 
-                if (_typehandler.ContainsKey(messageType))
+                if (bytesReceived > 0)
                 {
-                    var (handler, targetType) = _typehandler[messageType];
+                    string json = Encoding.UTF8.GetString(recv, 0, bytesReceived);
+                    dynamic message = JsonConvert.DeserializeObject<dynamic>(json);
+                    string messageType = message.Type;
+                    var data = message.Data;
 
-                    //MessageBox.Show($"Handler found for type '{messageType}'. Expected data type: '{targetType.Name}'.");
+                    ReceiveMessage(json);
 
-                    try
+                    if (_typehandler.ContainsKey(messageType))
                     {
-                        // Deserialize the data to the correct type
-                        var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), targetType);
+                        var (handler, targetType) = _typehandler[messageType];
 
-                        // Invoke the handler
-                        handler.DynamicInvoke(deserializedData);
+                        //MessageBox.Show($"Handler found for type '{messageType}'. Expected data type: '{targetType.Name}'.");
+
+                        try
+                        {
+                            // Deserialize the data to the correct type
+                            var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), targetType);
+
+                            // Invoke the handler
+                            handler.DynamicInvoke(deserializedData);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error deserializing data for type '{messageType}': {ex.Message}");
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"Error deserializing data for type '{messageType}': {ex.Message}");
+                        MessageBox.Show($"No handler found for type: {messageType}");
                     }
-                }
-                else
-                {
-                    MessageBox.Show($"No handler found for type: {messageType}");
                 }
             }
 
@@ -156,15 +168,15 @@ namespace Client.Server
             return Encoding.UTF8.GetBytes(json);
         }
         
-        public byte[] SerializeData(object obj)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                DataContractSerializer serializer = new DataContractSerializer(obj.GetType());
-                serializer.WriteObject(ms, obj);
-                return ms.ToArray();
-            }
-        }
+        //public byte[] SerializeData(object obj)
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        DataContractSerializer serializer = new DataContractSerializer(obj.GetType());
+        //        serializer.WriteObject(ms, obj);
+        //        return ms.ToArray();
+        //    }
+        //}
         #endregion
 
         #region system
@@ -212,6 +224,7 @@ namespace Client.Server
             bool LoginResult = AccountDAO.Instance.login(username, password);
             byte[] LoginData = SerializeData("LoginResult", new SocketRequestData((int)SocketRequestType.Login, LoginResult));
 
+
             client.Send(LoginData);
         }
 
@@ -254,13 +267,10 @@ namespace Client.Server
 
         private Socket FindPlayerIP(string IP)
         {
-            lock (_matchQueue)
-            {
-                if (_matchQueue.TryGetValue(IP, out var socket))
-                {
-                    return socket;
-                }
-            }
+
+            if(_matchQueue.ContainsKey(IP))
+                return _matchQueue[IP];
+
             return null;
         }
 
@@ -270,6 +280,7 @@ namespace Client.Server
             
             String ID = Request.Data.ToString();
             var TargetPlayer = FindPlayerIP(ID);
+            bool result = false;
             
             if (_matchQueue.ContainsKey(ID))
             {
@@ -277,10 +288,32 @@ namespace Client.Server
                 MatchID += 1;
 
                 _matchQueue.Remove(ID);
+                result = true;
             }
 
-        }
+            byte[] data = SerializeData("JoinRoomIDResult", new SocketRequestData((int)SocketRequestType.JoinRoomByID, result));
 
+            client.Send(data);
+        } 
+
+
+
+        private void MatchDataFoward(Socket client, SocketData Data)
+        {
+            ReceiveMessage("Something");
+            
+            //Unhandled exception: Null matchroom
+            int MatchID = _matchRooms.FirstOrDefault(MatchRoomInfo => MatchRoomInfo.Value == MatchRoomInfo.Value.GetRoom(client)).Key;
+            
+            MatchRoom CurrMatchRoom = _matchRooms[MatchID];
+            var Opponent = CurrMatchRoom.GetOpponent(client);
+            if (Opponent != null)
+            {
+                byte[] data = SerializeData("SocketData", Data);
+                Opponent.Send(data);
+            }
+        }
+        
         #endregion
     }
 }
