@@ -71,6 +71,18 @@ namespace Client
                 new Player("player 2", Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png"))
             };
         }
+
+        public void setUpPlayer1(string pName)
+        {
+            this.player[0].Name = pName;
+            //this.player.Add(new Player(pName, Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png")));
+        }
+
+        public void setUpPlayer2(string pName)
+        {
+            this.player[1].Name = pName;
+            //this.player.Add(new Player(pName, Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg")));
+        }
         #endregion
 
         #region Method

@@ -31,6 +31,8 @@
             tabControlMain = new TabControl();
             tabMain1 = new TabPage();
             panel1 = new Panel();
+            RankTxt = new Label();
+            label9 = new Label();
             panel4 = new Panel();
             JoinRandom_Btn = new Button();
             panel3 = new Panel();
@@ -70,6 +72,7 @@
             // 
             tabControlMain.Controls.Add(tabMain1);
             tabControlMain.Controls.Add(tabPage2);
+            tabControlMain.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControlMain.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tabControlMain.ImeMode = ImeMode.NoControl;
             tabControlMain.ItemSize = new Size(120, 50);
@@ -86,16 +89,20 @@
             tabMain1.Controls.Add(panel1);
             tabMain1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabMain1.ForeColor = Color.Black;
+            tabMain1.ImageIndex = 0;
             tabMain1.Location = new Point(4, 54);
             tabMain1.Name = "tabMain1";
             tabMain1.Padding = new Padding(3);
             tabMain1.Size = new Size(764, 414);
             tabMain1.TabIndex = 0;
             tabMain1.Text = "Đấu ";
+            tabMain1.Click += tabMain1_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(0, 192, 192);
+            panel1.Controls.Add(RankTxt);
+            panel1.Controls.Add(label9);
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
@@ -105,6 +112,24 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(730, 379);
             panel1.TabIndex = 0;
+            // 
+            // RankTxt
+            // 
+            RankTxt.AutoSize = true;
+            RankTxt.Location = new Point(103, 271);
+            RankTxt.Name = "RankTxt";
+            RankTxt.Size = new Size(78, 26);
+            RankTxt.TabIndex = 7;
+            RankTxt.Text = "label10";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(21, 271);
+            label9.Name = "label9";
+            label9.Size = new Size(67, 26);
+            label9.TabIndex = 6;
+            label9.Text = "Rank:";
             // 
             // panel4
             // 
@@ -408,5 +433,7 @@
         private TextBox UserName;
         private Button updateAccBtn;
         private Button ExitBtn;
+        private Label RankTxt;
+        private Label label9;
     }
 }

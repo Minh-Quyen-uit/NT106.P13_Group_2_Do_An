@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -128,11 +129,32 @@ namespace Client
                     MessageBox.Show(data.Message);
                     break;
                 case (int)SocketCommand.END_GAME:
-                    MessageBox.Show(data.Message);
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        endGame();
+                        MessageBox.Show(" đã chiến thắng ♥ !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }));
                     break;
                 case (int)SocketCommand.TIME_OUT:
-                    tmCoolDown.Stop();
-                    MessageBox.Show(data.Message);
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        endGame();
+                        MessageBox.Show("Hết giờ rồi !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }));
+                    break;
+                case (int)SocketCommand.PLAYER_1:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        Board.setUpPlayer1(data.Message);
+                        Board.setUpPlayer2(FullName.Text);
+                    }));
+                    break;
+                case (int)SocketCommand.PLAYER_2:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        Board.setUpPlayer2(data.Message);
+                        ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.PLAYER_1, FullName.Text, new Point()));
+                    }));
                     break;
                 default:
                     break;

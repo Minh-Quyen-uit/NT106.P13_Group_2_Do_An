@@ -21,39 +21,49 @@ namespace Client
         private bool _CreateRoomResult = false;
         private bool _JoinRoomIDResult = false;
 
+        private Image[] tabImages;
 
         public MainMenu()
         {
             InitializeComponent();
             //ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             //ClientSocketManager.Instance.Connect(ipe);
+
+            
+
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
 
         }
 
+        #region system
         private async void JoinRoomByID_Btn_Click(object sender, EventArgs e)
         {
             string ID = RoomID.Text;
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.JoinRoomByID, ID));
-            
+
             await Task.Delay(1000);
-            if(_JoinRoomIDResult) 
+            if (_JoinRoomIDResult)
                 ShowChessBoard();
         }
 
         private async void CreateRoom_Btn_Click(object sender, EventArgs e)
         {
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.CreateRoom, "CreateRequest"));
-            
+
             await Task.Delay(1000);
-            if(_CreateRoomResult) ShowChessBoard();
+            if (_CreateRoomResult) ShowChessBoard();
         }
-        
+
         private void JoinRandom_Btn_Click(object sender, EventArgs e)
         {
 
         }
+        private void tabMain1_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
 
         #region DataHandler
 
@@ -76,7 +86,7 @@ namespace Client
 
         private void JoinRoomIDResult(SocketRequestData Result)
         {
-            if((int)Result.RequestType == (int)SocketRequestType.JoinRoomByID)
+            if ((int)Result.RequestType == (int)SocketRequestType.JoinRoomByID)
             {
                 bool result = (bool)Result.Data;
                 if (result)
@@ -99,5 +109,7 @@ namespace Client
             chessBoard.ShowDialog();
             this.Show();
         }
+
+        
     }
 }

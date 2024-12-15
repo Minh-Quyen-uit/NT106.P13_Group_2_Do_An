@@ -11,8 +11,8 @@ namespace Client.DAO
     public class DataProvider
     {
         private static DataProvider instance;
-
-        private string connectionStr = @"Data Source=.\SQLExpress;Initial Catalog=CAROACCOUNTS;Integrated Security=True;Trust Server Certificate=True";
+        //LAPTOP-SLVPL967
+        private string connectionStr = @"Data Source=LAPTOP-SLVPL967;Initial Catalog=CAROACCOUNTS;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public static DataProvider Instance
         {

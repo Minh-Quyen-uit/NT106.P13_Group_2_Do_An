@@ -33,6 +33,8 @@ namespace Client
         CHAT,
         QUIT,
         END_GAME,
-        TIME_OUT
+        TIME_OUT,
+        PLAYER_1,
+        PLAYER_2
     }
 }

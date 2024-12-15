@@ -9,6 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\account_image.png" />
+    <None Remove="Resources\attack-icon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\account_image.png" />
+    <EmbeddedResource Include="Resources\attack-icon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Baseline" Version="4.1.0" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.6" />
     <PackageReference Include="MessagePack" Version="3.0.238-rc.1" />
