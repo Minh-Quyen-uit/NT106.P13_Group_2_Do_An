@@ -43,7 +43,7 @@
             label2 = new Label();
             JoinRoomByID_Btn = new Button();
             label1 = new Label();
-            textBox1 = new TextBox();
+            Username_Tb = new TextBox();
             pictureBox1 = new PictureBox();
             tabPage2 = new TabPage();
             ExitBtn = new Button();
@@ -106,7 +106,7 @@
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(Username_Tb);
             panel1.Controls.Add(pictureBox1);
             panel1.Location = new Point(17, 18);
             panel1.Name = "panel1";
@@ -238,15 +238,15 @@
             label1.TabIndex = 2;
             label1.Text = "Nhập ID phòng:";
             // 
-            // textBox1
+            // Username_Tb
             // 
-            textBox1.BackColor = Color.FromArgb(10, 112, 117);
-            textBox1.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.ForeColor = Color.WhiteSmoke;
-            textBox1.Location = new Point(21, 215);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(180, 39);
-            textBox1.TabIndex = 1;
+            Username_Tb.BackColor = Color.FromArgb(10, 112, 117);
+            Username_Tb.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Username_Tb.ForeColor = Color.WhiteSmoke;
+            Username_Tb.Location = new Point(21, 215);
+            Username_Tb.Name = "Username_Tb";
+            Username_Tb.Size = new Size(180, 39);
+            Username_Tb.TabIndex = 1;
             // 
             // pictureBox1
             // 
@@ -301,6 +301,7 @@
             updateAccBtn.TabIndex = 10;
             updateAccBtn.Text = "Cập Nhật";
             updateAccBtn.UseVisualStyleBackColor = false;
+            updateAccBtn.Click += updateAccBtn_Click;
             // 
             // Birthday
             // 
@@ -409,7 +410,7 @@
         private TabPage tabMain1;
         private TabPage tabPage2;
         private Panel panel1;
-        private TextBox textBox1;
+        private TextBox Username_Tb;
         private PictureBox pictureBox1;
         private Panel panel2;
         private Button JoinRoomByID_Btn;

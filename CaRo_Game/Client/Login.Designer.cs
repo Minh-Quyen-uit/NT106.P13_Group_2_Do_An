@@ -230,7 +230,6 @@
             Margin = new Padding(5);
             Name = "Login";
             Text = "Login";
-            FormClosing += Login_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel6.ResumeLayout(false);
