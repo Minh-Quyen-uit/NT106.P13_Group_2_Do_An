@@ -14,5 +14,8 @@ create table CaRoGameAccounts (
 	BirthDay Date not null,
 )
 
+alter table CaRoGameAccounts add Wins int default 0 
+alter table CaRoGameAccounts add Rank nvarchar(100) default 'plastic'
+
 select * from dbo.CaRoGameAccounts
 

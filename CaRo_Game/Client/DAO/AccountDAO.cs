@@ -25,6 +25,10 @@ namespace Client.DAO
         private string AccFullname;
         private string AccEmail;
         private string AccBirthday;
+        private int AccWins;
+        private string AccRank;
+
+        #region GetSet
         public string GetSetAccUsername
         {
             get { if (AccUsername == null) AccUsername = "Guest"; return AccUsername; }
@@ -46,6 +50,20 @@ namespace Client.DAO
             private set => AccBirthday = value;
         }
 
+        public int GetSetAccWins
+        {
+            get { if (AccWins == 0) AccWins = 0; return AccWins; }
+            private set => AccWins = value;
+        }
+
+        public string GetSetAccRank
+        {
+            get { if (AccRank == null) AccRank = "Dirt"; return AccRank; }
+            private set => AccRank = value;
+        }
+        #endregion
+
+        #region login/signup
         public bool login(string username, string password)
         {
             string query = " begin select * from dbo.CaRoGameAccounts where UserName = N'" + username + "' and PassWord = N'" + password + "' end";
@@ -76,6 +94,8 @@ namespace Client.DAO
             return result;
         }
 
+        #endregion
+
         public void GetUserInfo(string username)
         {
 
@@ -85,6 +105,8 @@ namespace Client.DAO
             GetSetAccFullname = result[2];
             GetSetAccEmail = result[3];
             GetSetAccBirthday = result[4];
+            GetSetAccWins = Convert.ToInt32(result[5]);
+            GetSetAccRank = result[6];
         }
 
         private bool checkSigninEmail(string email)

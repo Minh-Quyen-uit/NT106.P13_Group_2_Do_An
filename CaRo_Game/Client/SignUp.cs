@@ -33,7 +33,7 @@ namespace Client
         #region System
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void SignUpBtn_Click(object sender, EventArgs e)

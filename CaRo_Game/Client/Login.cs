@@ -57,7 +57,7 @@ namespace Client
             await Task.Delay(1000);
             if (_loginResult)
             {
-                showMainMenu();
+                showMainMenu(username);
             }
         }
 
@@ -72,13 +72,6 @@ namespace Client
         private void ExitBtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-        private void Login_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Bạn có muốn thoát chương trình ?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
-            {
-                e.Cancel = true;
-            }
         }
 
         #endregion
@@ -95,14 +88,18 @@ namespace Client
         {
             if ((int)loginResult.RequestType == (int)SocketRequestType.Login)
             {
-                bool result = (bool)loginResult.Data;
-                if (!result)
+                int result = Convert.ToInt32(loginResult.Data);
+                if (result == 0)
                 {
                     MessageBox.Show("Tên tài khoản hoặc mật khẩu không chính xác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                else if (result == 1) 
                 {
                     _loginResult = true;
+                }
+                else if (result == 2)
+                {
+                    MessageBox.Show("Tài khoản đã được đăng nhập trên thiết bị khác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -110,14 +107,14 @@ namespace Client
 
 
 
-        private void showMainMenu()
+        private void showMainMenu(string username)
         {
-            using MainMenu mainMenu = new MainMenu();
-            //mainMenu.Show();
-            //this.Close();
-            this.Hide();
-            mainMenu.ShowDialog();
-            this.Show();
+            MainMenu mainMenu = new MainMenu(username);
+            mainMenu.Show();
+            this.Close();
+            //this.Hide();
+            //mainMenu.ShowDialog();
+            //this.Show();
         }
 
         private void PasswordCheck_CheckedChanged(object sender, EventArgs e)

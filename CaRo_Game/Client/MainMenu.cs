@@ -19,20 +19,22 @@ namespace Client
     {
         //IPEndPoint ipe;
         private bool _CreateRoomResult = false;
-        private bool _JoinRoomIDResult = false;
+        private bool _JoinRoomResult = false;
 
         private Image[] tabImages;
 
-        public MainMenu()
+        public MainMenu(string username)
         {
             InitializeComponent();
             //ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             //ClientSocketManager.Instance.Connect(ipe);
 
-            
+            AccountDAO.Instance.GetUserInfo(username);
+            Username_Tb.Text = AccountDAO.Instance.GetSetAccUsername;
 
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomRandomResult", JoinRoomRandomResult);
 
         }
 
@@ -43,7 +45,7 @@ namespace Client
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.JoinRoomByID, ID));
 
             await Task.Delay(1000);
-            if (_JoinRoomIDResult)
+            if (_JoinRoomResult)
                 ShowChessBoard();
         }
 
@@ -52,17 +54,36 @@ namespace Client
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.CreateRoom, "CreateRequest"));
 
             await Task.Delay(1000);
-            if (_CreateRoomResult) ShowChessBoard();
+            if (_CreateRoomResult)
+                ShowChessBoard();
         }
 
-        private void JoinRandom_Btn_Click(object sender, EventArgs e)
+        private async void JoinRandom_Btn_Click(object sender, EventArgs e)
         {
+            ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.JoinRoomRandom, "JoinRequest"));
 
+            await Task.Delay(1000);
+            if (_JoinRoomResult)
+                ShowChessBoard();
         }
         private void tabMain1_Click(object sender, EventArgs e)
         {
-
+            //UserName.Text = Username_Tb.Text;
+            //PassWord.Text = ">_<";
+            //FullName.Text = AccountDAO.Instance.GetSetAccFullname;
+            //Email.Text = AccountDAO.Instance.GetSetAccEmail;
+            //Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
         }
+
+        private void updateAccBtn_Click(object sender, EventArgs e)
+        {
+            UserName.Text = Username_Tb.Text;
+            PassWord.Text = ">_<";
+            FullName.Text = AccountDAO.Instance.GetSetAccFullname;
+            Email.Text = AccountDAO.Instance.GetSetAccEmail;
+            Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+        }
+
         #endregion
 
         #region DataHandler
@@ -91,7 +112,23 @@ namespace Client
                 bool result = (bool)Result.Data;
                 if (result)
                 {
-                    _JoinRoomIDResult = true;
+                    _JoinRoomResult = true;
+                }
+                else
+                {
+                    MessageBox.Show("Vào phòng không thành công!");
+                }
+            }
+        }
+
+        private void JoinRoomRandomResult(SocketRequestData Result)
+        {
+            if ((int)Result.RequestType == (int)SocketRequestType.JoinRoomRandom)
+            {
+                bool result = (bool)Result.Data;
+                if (result)
+                {
+                    _JoinRoomResult = true;
                 }
                 else
                 {
@@ -108,8 +145,8 @@ namespace Client
             this.Hide();
             chessBoard.ShowDialog();
             this.Show();
+            _JoinRoomResult = false;
         }
 
-        
     }
 }

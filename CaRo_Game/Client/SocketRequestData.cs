@@ -25,6 +25,7 @@ namespace Client
         Login,
         SignUp,
         CreateRoom,
-        JoinRoomByID
+        JoinRoomByID,
+        JoinRoomRandom
     }
 }
