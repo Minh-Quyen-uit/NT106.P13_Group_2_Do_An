@@ -25,6 +25,7 @@ namespace Client
         public Login()
         {
             InitializeComponent();
+            //192.168.218.111
             ipe = new IPEndPoint(IPAddress.Parse("192.168.218.111"), 9999);
             ClientSocketManager.Instance.Connect(ipe);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("LoginResult", loginResult);

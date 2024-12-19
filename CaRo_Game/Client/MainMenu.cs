@@ -29,8 +29,8 @@ namespace Client
             //ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             //ClientSocketManager.Instance.Connect(ipe);
 
-            AccountDAO.Instance.GetUserInfo(username);
-            Username_Tb.Text = AccountDAO.Instance.GetSetAccUsername;
+            //AccountDAO.Instance.GetUserInfo(username);
+            //Username_Tb.Text = AccountDAO.Instance.GetSetAccUsername;
 
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
