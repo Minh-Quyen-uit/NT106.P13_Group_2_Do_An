@@ -39,6 +39,13 @@ namespace Client.Server
         {
             InitializeComponent();
 
+            RegisterHandler<SocketRequestData>("SocketRequestData", ProcessSocReqData);
+
+            //RegisterHandler<SocketData>("SocketData", MatchData =>
+            //{
+            //    MatchDataFoward(MatchData);
+            //});
+
             Control.CheckForIllegalCrossThreadCalls = false;
             Connect();
         }
@@ -78,37 +85,7 @@ namespace Client.Server
             {
                 try
                 {
-                    RegisterHandler<SocketRequestData>("SocketRequestData", Request =>
-                    {
-                        switch ((int)Request.RequestType)
-                        {
-                            case (int)SocketRequestType.Login:
-                                LoginRequest(client, Request);
-                                SendMessage(client); break;
-
-                            case (int)SocketRequestType.SignUp:
-                                SignUpRequest(client, Request);
-                                SendMessage(client); break;
-
-                            case (int)SocketRequestType.CreateRoom:
-                                CreateRoomRequest(client, Request);
-                                SendMessage(client); break;
-
-                            case (int)SocketRequestType.JoinRoomByID:
-                                EnterRoomByIDRequest(client, Request);
-                                SendMessage(client); break;
-
-                            case (int)SocketRequestType.JoinRoomRandom:
-                                EnterRoomRandom(client, Request);
-                                SendMessage(client); break;
-                        }
-
-                    });
-
-                    RegisterHandler<SocketData>("SocketData", MatchData =>
-                    {
-                        MatchDataFoward(client, MatchData);
-                    });
+                    
 
                     byte[] recv = new byte[5000 * 1024];
                     int bytesReceived = client.Receive(recv);
@@ -138,16 +115,52 @@ namespace Client.Server
                                 var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), targetType);
 
                                 // Invoke the handler
-                                handler.DynamicInvoke(deserializedData);
+                                //handler.DynamicInvoke(deserializedData);
+                                
+                                byte[] SendData = handler.DynamicInvoke(deserializedData);
+                                if (SendData != null)
+                                {
+                                    client.Send(SendData);
+                                }
+                                else
+                                {
+                                    
+                                    SocketRequestData Request = deserializedData as SocketRequestData;
+                                    switch ((int)Request.RequestType)
+                                    {
+                                        case((int)SocketRequestType.CreateRoom):
+                                            byte[] CreateReq = CreateRoomRequest(client, Request);
+                                            client.Send(CreateReq); break;
+
+                                        case ((int)SocketRequestType.JoinRoomByID):
+                                            byte[] JoinIDReq = EnterRoomByIDRequest(client, Request);
+                                            client.Send(JoinIDReq); break;
+
+                                        case ((int)SocketRequestType.JoinRoomRandom):
+                                            byte[] JoinRanReq = EnterRoomRandom(client, Request);
+                                            client.Send(JoinRanReq); break;
+                                    }
+                                    
+                                    
+                                }
+                                SendMessage(client);
                             }
                             catch (Exception ex)
                             {
                                 MessageBox.Show($"Error deserializing data for type '{messageType}': {ex.Message}");
                             }
                         }
-                        else
+                        //else
+                        //{
+                        //    MessageBox.Show($"No handler found for type: {messageType}");
+                        //}
+
+                        if(messageType == "SocketData")
                         {
-                            MessageBox.Show($"No handler found for type: {messageType}");
+                            Type type = typeof(SocketData);
+                            var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), type);
+                            SocketData socketData = (SocketData)deserializedData;
+                            MatchDataFoward(client, socketData);
                         }
                     }
                 }
@@ -160,7 +173,7 @@ namespace Client.Server
         }
 
         //Register a handler to handle a specific type
-        public void RegisterHandler<T>(string type, Action<T> handler)
+        public void RegisterHandler<T>(string type, Func<T, byte[]> handler)
         {
             _typehandler[type] = (handler, typeof(T));
         }
@@ -181,9 +194,12 @@ namespace Client.Server
             client.Close();
             string key = _clients.FirstOrDefault(kvp => kvp.Value == client).Key;
 
-            if(_clients.ContainsKey(key))
+            if (key != null)
             {
-                _clients.Remove(key);
+                if (_clients.ContainsKey(key))
+                {
+                    _clients.Remove(key);
+                }
             }
         }
         #endregion
@@ -232,7 +248,31 @@ namespace Client.Server
         }
 
         #region DataHandler
-        private void LoginRequest(Socket client, SocketRequestData Request)
+
+        private byte[] ProcessSocReqData(SocketRequestData Request)
+        {
+            switch ((int)Request.RequestType)
+            {
+                case (int)SocketRequestType.Login:
+                    return LoginRequest(Request);
+
+                case (int)SocketRequestType.SignUp:
+                    return SignUpRequest(Request);
+
+                //case (int)SocketRequestType.CreateRoom:
+                //    return CreateRoomRequest(Request);
+
+                //case (int)SocketRequestType.JoinRoomByID:
+                //    return EnterRoomByIDRequest(Request);
+
+                //case (int)SocketRequestType.JoinRoomRandom:
+                //    return EnterRoomRandom(Request);
+            }
+
+            return null;
+        }
+
+        private byte[] LoginRequest(SocketRequestData Request)
         {
             ReceiveMessage("Client Login form:\n");
             string[] Credentials = ((IEnumerable)Request.Data).Cast<object>().Select(x => x.ToString()).ToArray();
@@ -260,10 +300,10 @@ namespace Client.Server
             }
 
             byte[] LoginData = SerializeData("LoginResult", new SocketRequestData((int)SocketRequestType.Login, Data));
-            client.Send(LoginData);
+            return LoginData;
         }
 
-        private void SignUpRequest(Socket client, SocketRequestData Request)
+        private byte[] SignUpRequest(SocketRequestData Request)
         {
             ReceiveMessage("Client Sign Up form:\n");
             string[] Credentials = ((IEnumerable)Request.Data).Cast<object>().Select(x => x.ToString()).ToArray();
@@ -282,10 +322,10 @@ namespace Client.Server
             int result = AccountDAO.Instance.signin(username, password, fullname, email, birthday);
             byte[] data = SerializeData("SignUpResult", new SocketRequestData((int)SocketRequestType.SignUp, result));
 
-            client.Send(data);
+            return data;
         }
 
-        private void CreateRoomRequest(Socket client, SocketRequestData Request)
+        private byte[] CreateRoomRequest(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client create room:\n");
             string IPAddress = ((IPEndPoint)client.RemoteEndPoint).Address.ToString();
@@ -296,8 +336,8 @@ namespace Client.Server
                 result = true;
 
             byte[] data = SerializeData("CreateRoomResult", new SocketRequestData((int)SocketRequestType.CreateRoom, result));
-            
-            client.Send(data);
+
+            return data;
         }
 
         private Socket FindPlayerIP(string IP)
@@ -309,7 +349,7 @@ namespace Client.Server
             return null;
         }
 
-        private void EnterRoomByIDRequest(Socket client, SocketRequestData Request)
+        private byte[] EnterRoomByIDRequest(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client Enter room ID");
             
@@ -328,10 +368,10 @@ namespace Client.Server
 
             byte[] data = SerializeData("JoinRoomIDResult", new SocketRequestData((int)SocketRequestType.JoinRoomByID, result));
 
-            client.Send(data);
+            return data;
         }
 
-        private void EnterRoomRandom(Socket client, SocketRequestData Request)
+        private byte[] EnterRoomRandom(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client Enter room random");
             bool result = false;
@@ -353,7 +393,7 @@ namespace Client.Server
             
             byte[] data = SerializeData("JoinRoomIDResult", new SocketRequestData((int)SocketRequestType.JoinRoomByID, result));
 
-            client.Send(data);
+            return data;
         }
 
         private bool MatchEndCondition(SocketData Data)

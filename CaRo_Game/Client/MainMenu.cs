@@ -141,10 +141,12 @@ namespace Client
 
         private void ShowChessBoard()
         {
-            using ChessBoard chessBoard = new ChessBoard();
-            this.Hide();
-            chessBoard.ShowDialog();
-            this.Show();
+            ChessBoard chessBoard = new ChessBoard();
+
+            //this.Hide();
+            chessBoard.Show();
+
+            //this.Show();
             _JoinRoomResult = false;
         }
 

@@ -39,7 +39,7 @@
             // ExtBtn
             // 
             ExtBtn.BackColor = Color.Red;
-            ExtBtn.Location = new Point(470, 389);
+            ExtBtn.Location = new Point(622, 770);
             ExtBtn.Name = "ExtBtn";
             ExtBtn.Size = new Size(128, 42);
             ExtBtn.TabIndex = 0;
@@ -53,16 +53,16 @@
             ServerScreen.Multiline = true;
             ServerScreen.Name = "ServerScreen";
             ServerScreen.ScrollBars = ScrollBars.Vertical;
-            ServerScreen.Size = new Size(588, 121);
+            ServerScreen.Size = new Size(588, 360);
             ServerScreen.TabIndex = 1;
             // 
             // SendMess
             // 
-            SendMess.Location = new Point(12, 264);
+            SendMess.Location = new Point(12, 492);
             SendMess.Multiline = true;
             SendMess.Name = "SendMess";
             SendMess.ScrollBars = ScrollBars.Vertical;
-            SendMess.Size = new Size(588, 119);
+            SendMess.Size = new Size(588, 320);
             SendMess.TabIndex = 2;
             // 
             // label1
@@ -87,7 +87,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 234);
+            label3.Location = new Point(12, 464);
             label3.Name = "label3";
             label3.Size = new Size(391, 25);
             label3.TabIndex = 5;
@@ -98,7 +98,7 @@
             AutoScaleDimensions = new SizeF(14F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(67, 206, 162);
-            ClientSize = new Size(610, 443);
+            ClientSize = new Size(756, 824);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
