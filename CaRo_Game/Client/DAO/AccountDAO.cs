@@ -28,6 +28,8 @@ namespace Client.DAO
         private int AccWins;
         private string AccRank;
 
+        private string[] Ranks = { "Dirt", "Plastic", "A", "B", "C" };
+
         #region GetSet
         public string GetSetAccUsername
         {
@@ -95,6 +97,26 @@ namespace Client.DAO
         }
 
         #endregion
+
+        public int UpdateWins(string username)
+        {
+            string query = "update dbo.CaRoGameAccounts set Wins = Wins+1 where UserName = N'" + username + "'";
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result;
+        }
+
+        public int UpdateRank(string username, string rank)
+        {
+            string query = "update dbo.CaRoGameAccounts set Rank = @Rank where Username = N'" + username + "'";
+            
+            int RankIndex = Array.IndexOf(Ranks, rank);
+            string NextRank = RankIndex != rank.Length-1 ? Ranks[RankIndex+1] : Ranks[rank.Length-1];
+
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { NextRank });
+            return result;
+
+        }
 
         public void GetUserInfo(string username)
         {
