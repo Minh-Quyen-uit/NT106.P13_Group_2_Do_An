@@ -23,6 +23,7 @@ namespace Client
     public enum SocketRequestType
     {
         Login,
+        AccountInfo,
         SignUp,
         CreateRoom,
         JoinRoomByID,

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -28,7 +30,7 @@ namespace Client.DAO
         private int AccWins;
         private string AccRank;
 
-        private string[] Ranks = { "Dirt", "Plastic", "A", "B", "C" };
+        private string[] Ranks = { "Dirt", "Plastic", "C", "B", "A", "SSR" };
 
         #region GetSet
         public string GetSetAccUsername
@@ -100,25 +102,43 @@ namespace Client.DAO
 
         public int UpdateWins(string username)
         {
+            int CurrWins = AccountDAO.Instance.GetSetAccWins;
             string query = "update dbo.CaRoGameAccounts set Wins = Wins+1 where UserName = N'" + username + "'";
             int result = DataProvider.Instance.ExecuteNonQuery(query);
+            if (result > 0) 
+                AccountDAO.Instance.GetSetAccWins = CurrWins+1;
 
             return result;
         }
 
         public int UpdateRank(string username, string rank)
         {
+            string CurrRank = AccountDAO.Instance.GetSetAccRank;
             string query = "update dbo.CaRoGameAccounts set Rank = @Rank where Username = N'" + username + "'";
             
             int RankIndex = Array.IndexOf(Ranks, rank);
             string NextRank = RankIndex != rank.Length-1 ? Ranks[RankIndex+1] : Ranks[rank.Length-1];
 
             int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { NextRank });
+            if (result > 0)
+                AccountDAO.Instance.GetSetAccRank = NextRank;
+
             return result;
 
         }
 
-        public void GetUserInfo(string username)
+        public int ResetWins(string username)
+        {
+            string resetRankQuery = "update dbo.CaRoGameAccounts set Wins = 0 where UserName = N'" + username + "'";
+            int ResetResult = DataProvider.Instance.ExecuteNonQuery(resetRankQuery);
+
+            if (ResetResult > 0)
+                AccountDAO.Instance.GetSetAccWins = 0;
+            
+            return ResetResult;
+        }
+
+        public string[] GetUserInfo(string username)
         {
 
             string query = "select * from dbo.CaRoGameAccounts where UserName = N'" + username + "'";
@@ -129,6 +149,17 @@ namespace Client.DAO
             GetSetAccBirthday = result[4];
             GetSetAccWins = Convert.ToInt32(result[5]);
             GetSetAccRank = result[6];
+
+            string[] Result =
+            {
+                GetSetAccUsername,
+                GetSetAccFullname,
+                GetSetAccEmail,
+                GetSetAccBirthday,
+                GetSetAccWins.ToString(),
+                GetSetAccRank
+            };
+            return Result;
         }
 
         private bool checkSigninEmail(string email)

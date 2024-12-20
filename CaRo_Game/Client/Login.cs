@@ -14,6 +14,10 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Drawing.Drawing2D;
 using Client.DAO;
+using System.Runtime.InteropServices;
+using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
+using Azure.Core;
+using System.Collections;
 
 namespace Client
 {
@@ -28,6 +32,7 @@ namespace Client
             ipe = new IPEndPoint(IPAddress.Parse("172.17.23.21"), 9999);
             ClientSocketManager.Instance.Connect(ipe);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("LoginResult", loginResult);
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("AccountInfoResult", AccountInfoResult);
         }
 
         #region system
@@ -52,11 +57,15 @@ namespace Client
                 string EncryptEnteredPassword = Convert.ToBase64String(EnteredPassword);
                 SendLoginRequest(username, EncryptEnteredPassword);
 
+                await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("LoginResult", TimeSpan.FromSeconds(5));
             }
 
-            await Task.Delay(1000);
+            //await Task.Delay(1000);
             if (_loginResult)
             {
+                ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, username));
+                await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("AccountInfoResult", TimeSpan.FromSeconds(5));
+
                 showMainMenu(username);
             }
         }
@@ -103,13 +112,22 @@ namespace Client
                 }
             }
         }
+
+        private void AccountInfoResult(SocketRequestData AccountInfo)
+        {
+            if ((int)AccountInfo.RequestType == (int)SocketRequestType.AccountInfo)
+            {
+                string[] result = ((IEnumerable)AccountInfo.Data).Cast<object>().Select(x => x.ToString()).ToArray();
+                ClientAccountDAO.Instance.GetUserInfo(result);
+            }
+        }
         #endregion
 
 
 
         private void showMainMenu(string username)
         {
-            MainMenu mainMenu = new MainMenu(username);
+            MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Close();
             //this.Hide();

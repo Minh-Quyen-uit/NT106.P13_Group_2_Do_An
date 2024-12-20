@@ -23,14 +23,15 @@ namespace Client
 
         private Image[] tabImages;
 
-        public MainMenu(string username)
+        public MainMenu()
         {
             InitializeComponent();
             //ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             //ClientSocketManager.Instance.Connect(ipe);
 
-            AccountDAO.Instance.GetUserInfo(username);
-            Username_Tb.Text = AccountDAO.Instance.GetSetAccUsername;
+
+            Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
+            RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
 
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
@@ -44,27 +45,36 @@ namespace Client
             string ID = RoomID.Text;
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.JoinRoomByID, ID));
 
-            await Task.Delay(1000);
+            await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("JoinRoomIDResult", TimeSpan.FromSeconds(5));
             if (_JoinRoomResult)
+            {
+                _JoinRoomResult = false;
                 ShowChessBoard();
+            }
         }
 
         private async void CreateRoom_Btn_Click(object sender, EventArgs e)
         {
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.CreateRoom, "CreateRequest"));
 
-            await Task.Delay(1000);
+            await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("CreateRoomResult", TimeSpan.FromSeconds(5));
             if (_CreateRoomResult)
+            {
+                _CreateRoomResult = false;
                 ShowChessBoard();
+            }
         }
 
         private async void JoinRandom_Btn_Click(object sender, EventArgs e)
         {
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.JoinRoomRandom, "JoinRequest"));
 
-            await Task.Delay(1000);
+            await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("JoinRoomRandomResult", TimeSpan.FromSeconds(5));
             if (_JoinRoomResult)
+            {
+                _JoinRoomResult = false;
                 ShowChessBoard();
+            }
         }
         private void tabMain1_Click(object sender, EventArgs e)
         {
@@ -141,13 +151,13 @@ namespace Client
 
         private void ShowChessBoard()
         {
-            ChessBoard chessBoard = new ChessBoard();
+            using ChessBoard chessBoard = new ChessBoard();
 
-            //this.Hide();
-            chessBoard.Show();
+            this.Hide();
+            chessBoard.ShowDialog();
+            this.Show();
 
             //this.Show();
-            _JoinRoomResult = false;
         }
 
     }

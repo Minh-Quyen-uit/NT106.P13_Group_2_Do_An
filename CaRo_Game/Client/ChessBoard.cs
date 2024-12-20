@@ -41,6 +41,8 @@ namespace Client
             //socket.IP = GenerateRandomIPAddress();
             newGame();
             ClientSocketManager.Instance.RegisterHandler<SocketData>("SocketData", processData);
+
+            panel_Board.Enabled = false;
         }
 
         #region SelectionMode
@@ -61,13 +63,12 @@ namespace Client
         void endGame()
         {
             tmCoolDown.Stop();
-            panel_Board.Enabled = false;
             //MessageBox.Show("kết thúc!!!");
         }
 
         void Quit()
         {
-            Application.Exit();
+            this.Close();
         }
 
         #endregion
@@ -98,6 +99,7 @@ namespace Client
             {
                 case (int)SocketCommand.NOTIFY:
                     MessageBox.Show(data.Message);
+                    panel_Board.Enabled = true;
                     break;
                 case (int)SocketCommand.NEW_GAME:
                     this.Invoke((MethodInvoker)(() =>
@@ -132,7 +134,8 @@ namespace Client
                     this.Invoke((MethodInvoker)(() =>
                     {
                         endGame();
-                        MessageBox.Show(" đã chiến thắng ♥ !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        panel_Board.Enabled = false;
+                        MessageBox.Show(data.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }));
                     break;
                 case (int)SocketCommand.TIME_OUT:
@@ -156,6 +159,11 @@ namespace Client
                         ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.PLAYER_1, FullName.Text, new Point()));
                     }));
                     break;
+
+                case(int)SocketCommand.EXIT_GAME:
+                    this.Close();
+                    break;
+
                 default:
                     break;
             }
@@ -170,16 +178,15 @@ namespace Client
         private void ChessBoard_PlayerMarked(object? sender, BtnClickEvent e)
         {
             tmCoolDown.Start();
-            panel_Board.Enabled=false;
+            panel_Board.Enabled = false;
             PrcBCoolDown.Value = 0;
-            ClientSocketManager.Instance.Send("SocketData",new SocketData((int)SocketCommand.SEND_POINT, "", e.ClickPoint));
+            ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.SEND_POINT, "", e.ClickPoint));
             //Listen();
         }
 
         private void ChessBoard_EndedGame(object? sender, EventArgs e)
         {
             endGame();
-            ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.END_GAME, "Đã có 5 con!!!", new Point()));
         }
 
         private void tmCoolDown_Tick(object sender, EventArgs e)
@@ -189,7 +196,15 @@ namespace Client
             if (PrcBCoolDown.Value >= PrcBCoolDown.Maximum)
             {
                 endGame();
-                ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.TIME_OUT, "Hết giờ!!!", new Point()));
+                if(panel_Board.Enabled)
+                {
+                    ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.TIME_OUT, "Client", new Point()));
+                }
+                else
+                {
+                    ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.TIME_OUT, "Opponent", new Point()));
+                }
+                
             }
         }
 
@@ -224,20 +239,21 @@ namespace Client
             {
                 try
                 {
-                    ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.QUIT, "Đối thủ đã bỏ cuộc :))", new Point()));
+                    ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.QUIT, "", new Point()));
                 }
                 catch { }
             }
 
+            ClientSocketManager.Instance.RemoveHandler("SocketData");
         }
 
-        private void Send_Btn_Click_1(object sender, EventArgs e)
-        {
-            //string text = "[" + socket.IP + "]" + ": " + ChatTxt.Text;
-            //AddMessage(text);
-            //socket.Send1(new SocketData((int)SocketCommand.CHAT, text, new Point()));
-            //ChatTxt.Clear();
-        }
+        //private void Send_Btn_Click_1(object sender, EventArgs e)
+        //{
+        //    string text = "[" + ClientAccountDAO.Instance.GetSetAccFullname + "]" + ": " + ChatTxt.Text;
+        //    AddMessage(text);
+        //    ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.CHAT, text, new Point()));
+        //    ChatTxt.Clear();
+        //}
 
         private void LAN_Btn_Click(object sender, EventArgs e)
         {
@@ -274,7 +290,7 @@ namespace Client
         {
             if (string.IsNullOrEmpty(Message_Box.Text))
             {
-                Message_Box.Text = msg ;
+                Message_Box.Text = msg;
             }
             else
             {
@@ -283,7 +299,19 @@ namespace Client
         }
         #endregion
 
-        
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Send_Btn_Click(object sender, EventArgs e)
+        {
+            string text = "[" + ClientAccountDAO.Instance.GetSetAccFullname + "]" + ": " + ChatTxt.Text;
+            AddMessage(text);
+            ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.CHAT, text, new Point()));
+            ChatTxt.Clear();
+        }
     }
 
 
