@@ -11,7 +11,7 @@ using Client.Server;
 
 namespace Client
 {
-    public partial class Client_Server : Form
+    public partial class Client_Server : MetroFramework.Forms.MetroForm
     {
         public Client_Server()
         {

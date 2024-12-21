@@ -244,7 +244,6 @@ E:\Uni\HK3\Network programming\checkout\CaRo_Game\Client\obj\Debug\net8.0-window
 E:\Uni\HK3\Network programming\checkout\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Server.Server.resources
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\Azure.Core.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\Azure.Identity.dll
-D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\Guna.UI2.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.Annotations.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\MetroFramework.Design.dll
@@ -265,7 +264,6 @@ D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\Microsoft.SqlServer.S
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\System.ClientModel.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
-D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Management.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Memory.Data.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Runtime.Caching.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\de\Microsoft.Data.SqlClient.resources.dll
@@ -284,16 +282,12 @@ D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-arm\nati
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
 D:\code\C#\Do_an\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
 D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Client_Server.resources
 D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Login.resources
 D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.MainMenu.resources
 D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Server.Server.resources
 D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.SignUp.resources
-D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.User_Control.AccountInfoScreen.resources
-D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.User_Control.OnlineScreen.resources
-D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.User_Control.PlayScreen.resources
 D:\code\C#\Do_an\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.g.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Client.exe
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Client.deps.json

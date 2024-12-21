@@ -34,34 +34,41 @@
             // 
             // ClientBtn
             // 
-            ClientBtn.Location = new Point(112, 163);
+            ClientBtn.BackColor = Color.DodgerBlue;
+            ClientBtn.ForeColor = Color.AliceBlue;
+            ClientBtn.Location = new Point(154, 151);
+            ClientBtn.Margin = new Padding(4, 4, 4, 4);
             ClientBtn.Name = "ClientBtn";
-            ClientBtn.Size = new Size(118, 60);
+            ClientBtn.Size = new Size(152, 84);
             ClientBtn.TabIndex = 0;
             ClientBtn.Text = "clients";
-            ClientBtn.UseVisualStyleBackColor = true;
+            ClientBtn.UseVisualStyleBackColor = false;
             ClientBtn.Click += ClientBtn_Click;
             // 
             // ServerBtn
             // 
-            ServerBtn.Location = new Point(401, 163);
+            ServerBtn.BackColor = Color.FromArgb(0, 192, 0);
+            ServerBtn.ForeColor = SystemColors.ButtonHighlight;
+            ServerBtn.Location = new Point(461, 151);
+            ServerBtn.Margin = new Padding(4, 4, 4, 4);
             ServerBtn.Name = "ServerBtn";
-            ServerBtn.Size = new Size(135, 60);
+            ServerBtn.Size = new Size(174, 84);
             ServerBtn.TabIndex = 1;
             ServerBtn.Text = "Server";
-            ServerBtn.UseVisualStyleBackColor = true;
+            ServerBtn.UseVisualStyleBackColor = false;
             ServerBtn.Click += ServerBtn_Click;
             // 
             // Client_Server
             // 
-            AutoScaleDimensions = new SizeF(14F, 25F);
+            AutoScaleDimensions = new SizeF(18F, 35F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(601, 349);
+            ClientSize = new Size(773, 364);
             Controls.Add(ServerBtn);
             Controls.Add(ClientBtn);
-            Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Margin = new Padding(5, 4, 5, 4);
+            Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Margin = new Padding(6, 6, 6, 6);
             Name = "Client_Server";
+            Padding = new Padding(26, 84, 26, 28);
             Text = "Client_Server";
             ResumeLayout(false);
         }

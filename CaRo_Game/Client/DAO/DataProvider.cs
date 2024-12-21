@@ -12,7 +12,7 @@ namespace Client.DAO
     {
         private static DataProvider instance;
         //LAPTOP-SLVPL967
-        private string connectionStr = @"Data Source=.\LAPTOP-SLVPL967;Initial Catalog=CAROACCOUNTS;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private string connectionStr = @"Data Source=LAPTOP-SLVPL967;Initial Catalog=CAROACCOUNTS;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
 
         public static DataProvider Instance
         {

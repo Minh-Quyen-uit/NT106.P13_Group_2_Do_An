@@ -1,17 +1,4 @@
 ﻿using Client.DAO;
-using Client.User_Control;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using TheArtOfDevHtmlRenderer.Adapters;
 
 namespace Client
 {
@@ -29,14 +16,9 @@ namespace Client
             //ipe = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
             //ClientSocketManager.Instance.Connect(ipe);
 
-<<<<<<< HEAD
-            //AccountDAO.Instance.GetUserInfo(username);
-            //Username_Tb.Text = AccountDAO.Instance.GetSetAccUsername;
-=======
 
             Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
             RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
->>>>>>> 23ed81f0f7657483af40671174c6f1b257ed587c
 
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);

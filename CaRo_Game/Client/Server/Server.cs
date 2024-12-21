@@ -19,7 +19,7 @@ using Newtonsoft.Json.Bson;
 
 namespace Client.Server
 {
-    public partial class Server : Form
+    public partial class Server : MetroFramework.Forms.MetroForm
     {
         IPEndPoint ipe;
         Socket client;

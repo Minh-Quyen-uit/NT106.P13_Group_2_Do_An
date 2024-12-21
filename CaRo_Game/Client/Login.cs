@@ -29,7 +29,7 @@ namespace Client
         public Login()
         {
             InitializeComponent();
-            ipe = new IPEndPoint(IPAddress.Parse("172.17.23.21"), 9999);
+            ipe = new IPEndPoint(IPAddress.Parse("172.17.19.166"), 9999);
             ClientSocketManager.Instance.Connect(ipe);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("LoginResult", loginResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("AccountInfoResult", AccountInfoResult);

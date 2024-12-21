@@ -7,9 +7,6 @@
     <Compile Update="Client_Server.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="InforClient.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -21,15 +18,6 @@
     </Compile>
     <Compile Update="SignUp.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="User Control\AccountInfoScreen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="User Control\OnlineScreen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="User Control\PlayScreen.cs">
-      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

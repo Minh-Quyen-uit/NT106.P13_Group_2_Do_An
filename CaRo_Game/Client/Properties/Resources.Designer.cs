@@ -63,6 +63,16 @@ namespace Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BackgroundMain {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundMain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconfinder_technologymachineelectronicdevice30_4026430_113312 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder-technologymachineelectronicdevice30-4026430_113312", resourceCulture);

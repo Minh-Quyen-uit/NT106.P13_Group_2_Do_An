@@ -58,6 +58,8 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
+            label10 = new Label();
+            AchievementTxt = new Label();
             tabControlMain.SuspendLayout();
             tabMain1.SuspendLayout();
             panel1.SuspendLayout();
@@ -72,7 +74,6 @@
             // 
             tabControlMain.Controls.Add(tabMain1);
             tabControlMain.Controls.Add(tabPage2);
-            tabControlMain.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControlMain.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tabControlMain.ImeMode = ImeMode.NoControl;
             tabControlMain.ItemSize = new Size(120, 50);
@@ -101,6 +102,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(0, 192, 192);
+            panel1.Controls.Add(AchievementTxt);
+            panel1.Controls.Add(label10);
             panel1.Controls.Add(RankTxt);
             panel1.Controls.Add(label9);
             panel1.Controls.Add(panel4);
@@ -116,18 +119,22 @@
             // RankTxt
             // 
             RankTxt.AutoSize = true;
-            RankTxt.Location = new Point(103, 271);
+            RankTxt.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            RankTxt.ForeColor = Color.Maroon;
+            RankTxt.Location = new Point(104, 257);
             RankTxt.Name = "RankTxt";
-            RankTxt.Size = new Size(78, 26);
+            RankTxt.Size = new Size(68, 32);
             RankTxt.TabIndex = 7;
-            RankTxt.Text = "label10";
+            RankTxt.Text = "rank";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(21, 271);
+            label9.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold);
+            label9.ForeColor = Color.Maroon;
+            label9.Location = new Point(22, 257);
             label9.Name = "label9";
-            label9.Size = new Size(67, 26);
+            label9.Size = new Size(88, 32);
             label9.TabIndex = 6;
             label9.Text = "Rank:";
             // 
@@ -259,7 +266,7 @@
             // 
             // tabPage2
             // 
-            tabPage2.BackColor = Color.FromArgb(255, 255, 192);
+            tabPage2.BackColor = Color.Turquoise;
             tabPage2.Controls.Add(ExitBtn);
             tabPage2.Controls.Add(updateAccBtn);
             tabPage2.Controls.Add(Birthday);
@@ -341,6 +348,7 @@
             // label8
             // 
             label8.AutoSize = true;
+            label8.ForeColor = Color.Blue;
             label8.Location = new Point(48, 267);
             label8.Name = "label8";
             label8.Size = new Size(143, 32);
@@ -350,6 +358,7 @@
             // label7
             // 
             label7.AutoSize = true;
+            label7.ForeColor = Color.Blue;
             label7.Location = new Point(48, 212);
             label7.Name = "label7";
             label7.Size = new Size(101, 32);
@@ -359,6 +368,7 @@
             // label6
             // 
             label6.AutoSize = true;
+            label6.ForeColor = Color.Blue;
             label6.Location = new Point(48, 159);
             label6.Name = "label6";
             label6.Size = new Size(138, 32);
@@ -368,6 +378,7 @@
             // label5
             // 
             label5.AutoSize = true;
+            label5.ForeColor = Color.Blue;
             label5.Location = new Point(48, 105);
             label5.Name = "label5";
             label5.Size = new Size(148, 32);
@@ -377,11 +388,34 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.ForeColor = Color.Blue;
             label4.Location = new Point(48, 51);
             label4.Name = "label4";
             label4.Size = new Size(205, 32);
             label4.TabIndex = 0;
             label4.Text = "Tên đăng nhập:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold);
+            label10.ForeColor = Color.Blue;
+            label10.Location = new Point(22, 293);
+            label10.Name = "label10";
+            label10.Size = new Size(155, 32);
+            label10.TabIndex = 8;
+            label10.Text = "Thành tích:";
+            // 
+            // AchievementTxt
+            // 
+            AchievementTxt.AutoSize = true;
+            AchievementTxt.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            AchievementTxt.ForeColor = Color.Blue;
+            AchievementTxt.Location = new Point(22, 325);
+            AchievementTxt.Name = "AchievementTxt";
+            AchievementTxt.Size = new Size(156, 32);
+            AchievementTxt.TabIndex = 9;
+            AchievementTxt.Text = "0 trận thắng";
             // 
             // MainMenu
             // 
@@ -436,5 +470,7 @@
         private Button ExitBtn;
         private Label RankTxt;
         private Label label9;
+        private Label label10;
+        private Label AchievementTxt;
     }
 }

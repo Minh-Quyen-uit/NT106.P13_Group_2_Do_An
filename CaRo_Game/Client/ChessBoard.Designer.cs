@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             panel_Board = new Panel();
             panel2 = new Panel();
+            label3 = new Label();
             Send_Btn = new Button();
             ChatTxt = new TextBox();
             Message_Box = new TextBox();
@@ -38,29 +39,23 @@
             panel3 = new Panel();
             ExitBtn = new Button();
             IPMessage = new TextBox();
-            LAN_Btn = new Button();
             PrcBCoolDown = new ProgressBar();
             label2 = new Label();
             label1 = new Label();
             FullName = new TextBox();
             panel4 = new Panel();
             tmCoolDown = new System.Windows.Forms.Timer(components);
-            menuStrip1 = new MenuStrip();
-            menuToolStripMenuItem = new ToolStripMenuItem();
-            newGameToolStripMenuItem = new ToolStripMenuItem();
-            quitToolStripMenuItem = new ToolStripMenuItem();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Avatar_Player).BeginInit();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
-            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Board
             // 
             panel_Board.BackColor = Color.FromArgb(128, 255, 255);
             panel_Board.Font = new Font("Times New Roman", 13.8F);
-            panel_Board.Location = new Point(20, 92);
+            panel_Board.Location = new Point(20, 64);
             panel_Board.Margin = new Padding(5, 4, 5, 4);
             panel_Board.Name = "panel_Board";
             panel_Board.Size = new Size(810, 630);
@@ -70,6 +65,7 @@
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.BackColor = SystemColors.ActiveCaption;
+            panel2.Controls.Add(label3);
             panel2.Controls.Add(Send_Btn);
             panel2.Controls.Add(ChatTxt);
             panel2.Controls.Add(Message_Box);
@@ -79,6 +75,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(400, 333);
             panel2.TabIndex = 1;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(11, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(122, 35);
+            label3.TabIndex = 9;
+            label3.Text = "Message";
             // 
             // Send_Btn
             // 
@@ -104,11 +110,11 @@
             // Message_Box
             // 
             Message_Box.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Message_Box.Location = new Point(3, 3);
+            Message_Box.Location = new Point(3, 50);
             Message_Box.Multiline = true;
             Message_Box.Name = "Message_Box";
             Message_Box.ScrollBars = ScrollBars.Vertical;
-            Message_Box.Size = new Size(394, 275);
+            Message_Box.Size = new Size(394, 228);
             Message_Box.TabIndex = 6;
             // 
             // Avatar_Player
@@ -127,7 +133,6 @@
             panel3.Controls.Add(ExitBtn);
             panel3.Controls.Add(Avatar_Player);
             panel3.Controls.Add(IPMessage);
-            panel3.Controls.Add(LAN_Btn);
             panel3.Controls.Add(PrcBCoolDown);
             panel3.Controls.Add(label2);
             panel3.Controls.Add(label1);
@@ -159,19 +164,6 @@
             IPMessage.Name = "IPMessage";
             IPMessage.Size = new Size(178, 39);
             IPMessage.TabIndex = 5;
-            // 
-            // LAN_Btn
-            // 
-            LAN_Btn.BackColor = Color.Yellow;
-            LAN_Btn.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LAN_Btn.ForeColor = Color.FromArgb(0, 0, 192);
-            LAN_Btn.Location = new Point(219, 135);
-            LAN_Btn.Name = "LAN_Btn";
-            LAN_Btn.Size = new Size(178, 50);
-            LAN_Btn.TabIndex = 4;
-            LAN_Btn.Text = "LAN";
-            LAN_Btn.UseVisualStyleBackColor = false;
-            LAN_Btn.Click += LAN_Btn_Click;
             // 
             // PrcBCoolDown
             // 
@@ -213,7 +205,7 @@
             panel4.BackColor = Color.FromArgb(224, 224, 224);
             panel4.Controls.Add(panel3);
             panel4.Controls.Add(panel2);
-            panel4.Location = new Point(837, 92);
+            panel4.Location = new Point(837, 64);
             panel4.Name = "panel4";
             panel4.Size = new Size(408, 630);
             panel4.TabIndex = 3;
@@ -222,51 +214,16 @@
             // 
             tmCoolDown.Tick += tmCoolDown_Tick;
             // 
-            // menuStrip1
-            // 
-            menuStrip1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem });
-            menuStrip1.Location = new Point(20, 60);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1205, 33);
-            menuStrip1.TabIndex = 4;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // menuToolStripMenuItem
-            // 
-            menuToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem, quitToolStripMenuItem });
-            menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            menuToolStripMenuItem.Size = new Size(86, 29);
-            menuToolStripMenuItem.Text = "Menu";
-            // 
-            // newGameToolStripMenuItem
-            // 
-            newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            newGameToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
-            newGameToolStripMenuItem.Size = new Size(289, 30);
-            newGameToolStripMenuItem.Text = "New Game";
-            newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
-            // 
-            // quitToolStripMenuItem
-            // 
-            quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            quitToolStripMenuItem.Size = new Size(289, 30);
-            quitToolStripMenuItem.Text = "Quit";
-            quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
-            // 
             // ChessBoard
             // 
             AutoScaleDimensions = new SizeF(13F, 26F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 255, 255);
-            ClientSize = new Size(1245, 754);
+            ClientSize = new Size(1245, 716);
             Controls.Add(panel4);
             Controls.Add(panel_Board);
-            Controls.Add(menuStrip1);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            MainMenuStrip = menuStrip1;
+            ForeColor = Color.Navy;
             Margin = new Padding(5, 4, 5, 4);
             Name = "ChessBoard";
             Text = "ChessBoard";
@@ -278,10 +235,7 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel4.ResumeLayout(false);
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -296,16 +250,11 @@
         private PictureBox Avatar_Player;
         private ProgressBar PrcBCoolDown;
         private System.Windows.Forms.Timer tmCoolDown;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem menuToolStripMenuItem;
-        private ToolStripMenuItem newGameToolStripMenuItem;
-        private ToolStripMenuItem quitToolStripMenuItem;
-        private Button LAN_Btn;
         private TextBox IPMessage;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
         private TextBox Message_Box;
         private Button ExitBtn;
         private TextBox ChatTxt;
         private Button Send_Btn;
+        private Label label3;
     }
 }

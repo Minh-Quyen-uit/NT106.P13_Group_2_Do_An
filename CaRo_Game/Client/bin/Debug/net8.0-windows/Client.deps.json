@@ -9,7 +9,6 @@
       "Client/1.0.0": {
         "dependencies": {
           "Baseline": "4.1.0",
-          "Guna.UI2.WinForms": "2.0.4.6",
           "MessagePack": "3.0.238-rc.1",
           "MetroModernUI": "1.4.0",
           "Microsoft.Data.SqlClient": "5.2.2",
@@ -62,17 +61,6 @@
           "lib/net7.0/Baseline.dll": {
             "assemblyVersion": "4.1.0.0",
             "fileVersion": "4.1.0.0"
-          }
-        }
-      },
-      "Guna.UI2.WinForms/2.0.4.6": {
-        "dependencies": {
-          "System.Management": "7.0.0"
-        },
-        "runtime": {
-          "lib/net7.0-windows7.0/Guna.UI2.dll": {
-            "assemblyVersion": "2.0.4.6",
-            "fileVersion": "2.0.4.6"
           }
         }
       },
@@ -344,7 +332,6 @@
           }
         }
       },
-      "System.CodeDom/7.0.0": {},
       "System.Configuration.ConfigurationManager/8.0.0": {
         "dependencies": {
           "System.Diagnostics.EventLog": "8.0.0",
@@ -366,25 +353,6 @@
           "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
             "assemblyVersion": "6.35.0.0",
             "fileVersion": "6.35.0.41201"
-          }
-        }
-      },
-      "System.Management/7.0.0": {
-        "dependencies": {
-          "System.CodeDom": "7.0.0"
-        },
-        "runtime": {
-          "lib/net7.0/System.Management.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net7.0/System.Management.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "7.0.22.51805"
           }
         }
       },
@@ -468,13 +436,6 @@
       "sha512": "sha512-uM4EJYhrn9OmjLOTI0nJuT6WwqsH/+ZM+d8uwLS1o/SX8MRp5xj/83Zoms7ffwi8D3AMK+qDyUJ4cx4jgVY9gg==",
       "path": "baseline/4.1.0",
       "hashPath": "baseline.4.1.0.nupkg.sha512"
-    },
-    "Guna.UI2.WinForms/2.0.4.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-NYzSJp7e47Cz3NgGCHvzadash8ycmxxUnpLg4Rr/MSYG9WDw0HOoTI4SkbDW+HbACrf6tsWYCuzWkgvjuM/O6w==",
-      "path": "guna.ui2.winforms/2.0.4.6",
-      "hashPath": "guna.ui2.winforms.2.0.4.6.nupkg.sha512"
     },
     "ImTools/4.0.0": {
       "type": "package",
@@ -637,13 +598,6 @@
       "path": "system.clientmodel/1.0.0",
       "hashPath": "system.clientmodel.1.0.0.nupkg.sha512"
     },
-    "System.CodeDom/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GLltyqEsE5/3IE+zYRP5sNa1l44qKl9v+bfdMcwg+M9qnQf47wK3H0SUR/T+3N4JEQXF3vV4CSuuo0rsg+nq2A==",
-      "path": "system.codedom/7.0.0",
-      "hashPath": "system.codedom.7.0.0.nupkg.sha512"
-    },
     "System.Configuration.ConfigurationManager/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -671,13 +625,6 @@
       "sha512": "sha512-yxGIQd3BFK7F6S62/7RdZk3C/mfwyVxvh6ngd1VYMBmbJ1YZZA9+Ku6suylVtso0FjI0wbElpJ0d27CdsyLpBQ==",
       "path": "system.identitymodel.tokens.jwt/6.35.0",
       "hashPath": "system.identitymodel.tokens.jwt.6.35.0.nupkg.sha512"
-    },
-    "System.Management/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-A4jed4QUviDOm7fJNKAJObEAEkEUXmkGL/w0iyCYTzrl1rezTj8LGFHfsVst4Vb9JwFcTpboiDrvdST48avBpw==",
-      "path": "system.management/7.0.0",
-      "hashPath": "system.management.7.0.0.nupkg.sha512"
     },
     "System.Memory/4.5.4": {
       "type": "package",

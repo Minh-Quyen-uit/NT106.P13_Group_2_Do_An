@@ -34,12 +34,15 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // ExtBtn
             // 
             ExtBtn.BackColor = Color.Red;
-            ExtBtn.Location = new Point(622, 770);
+            ExtBtn.ForeColor = SystemColors.ButtonHighlight;
+            ExtBtn.Location = new Point(626, 625);
             ExtBtn.Name = "ExtBtn";
             ExtBtn.Size = new Size(128, 42);
             ExtBtn.TabIndex = 0;
@@ -49,27 +52,27 @@
             // 
             // ServerScreen
             // 
-            ServerScreen.Location = new Point(12, 101);
+            ServerScreen.Location = new Point(10, 90);
             ServerScreen.Multiline = true;
             ServerScreen.Name = "ServerScreen";
             ServerScreen.ScrollBars = ScrollBars.Vertical;
-            ServerScreen.Size = new Size(588, 360);
+            ServerScreen.Size = new Size(773, 231);
             ServerScreen.TabIndex = 1;
             // 
             // SendMess
             // 
-            SendMess.Location = new Point(12, 492);
+            SendMess.Location = new Point(9, 376);
             SendMess.Multiline = true;
             SendMess.Name = "SendMess";
             SendMess.ScrollBars = ScrollBars.Vertical;
-            SendMess.Size = new Size(588, 320);
+            SendMess.Size = new Size(774, 231);
             SendMess.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(227, 21);
+            label1.Location = new Point(324, 2);
             label1.Name = "label1";
             label1.Size = new Size(113, 38);
             label1.TabIndex = 3;
@@ -78,40 +81,55 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 71);
+            label2.Location = new Point(6, 52);
             label2.Name = "label2";
-            label2.Size = new Size(400, 25);
+            label2.Size = new Size(486, 32);
             label2.TabIndex = 4;
             label2.Text = "Hiển thị thông tin clients gửi tới server:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 464);
+            label3.Location = new Point(7, 337);
             label3.Name = "label3";
-            label3.Size = new Size(391, 25);
+            label3.Size = new Size(474, 32);
             label3.TabIndex = 5;
             label3.Text = "Hiện thị thông tin server gửi tới client:";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = Properties.Resources.BackgroundMain;
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(SendMess);
+            panel1.Controls.Add(ServerScreen);
+            panel1.Controls.Add(ExtBtn);
+            panel1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            panel1.ForeColor = Color.Yellow;
+            panel1.Location = new Point(10, 28);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(796, 692);
+            panel1.TabIndex = 6;
             // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(14F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(67, 206, 162);
-            ClientSize = new Size(756, 824);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(SendMess);
-            Controls.Add(ServerScreen);
-            Controls.Add(ExtBtn);
+            BackColor = Color.FromArgb(255, 255, 255);
+            BackgroundImage = Properties.Resources.BackgroundMain;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(816, 730);
+            Controls.Add(panel1);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ForeColor = SystemColors.ButtonHighlight;
+            ForeColor = SystemColors.ActiveCaptionText;
             Margin = new Padding(5, 4, 5, 4);
             Name = "Server";
             Text = "Server";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -122,5 +140,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private Panel panel1;
     }
 }
