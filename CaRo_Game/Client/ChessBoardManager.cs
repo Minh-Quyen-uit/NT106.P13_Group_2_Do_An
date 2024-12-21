@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -150,6 +151,7 @@ namespace Client
             if(isEndGame(btn))
             {
                 endGame();
+                ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.END_GAME, "Đã có 5 con!!!", new Point()));
             }
         }
 

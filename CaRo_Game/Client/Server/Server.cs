@@ -33,7 +33,7 @@ namespace Client.Server
         private int MatchID = 1;
 
         //Replace ClientInfo with a proper class later
-        private readonly Dictionary<string, Socket> _clients = new();
+        private readonly Dictionary<Socket, string> _clients = new();
 
         public Server()
         {
@@ -139,6 +139,10 @@ namespace Client.Server
                                         case ((int)SocketRequestType.JoinRoomRandom):
                                             byte[] JoinRanReq = EnterRoomRandom(client, Request);
                                             client.Send(JoinRanReq); break;
+
+                                        case ((int)SocketRequestType.Login):
+                                            byte[] LoginReq = LoginRequest(client, Request);
+                                            client.Send(LoginReq); break;
                                     }
                                     
                                     
@@ -192,14 +196,19 @@ namespace Client.Server
         void DisconnectClient(Socket client)
         {
             client.Close();
-            string key = _clients.FirstOrDefault(kvp => kvp.Value == client).Key;
+            //string key = _clients.FirstOrDefault(kvp => kvp.Value == client).Key;
 
-            if (key != null)
+            //if (key != null)
+            //{
+            //    if (_clients.ContainsKey(key))
+            //    {
+            //        _clients.Remove(key);
+            //    }
+            //}
+
+            if(_clients.ContainsKey(client))
             {
-                if (_clients.ContainsKey(key))
-                {
-                    _clients.Remove(key);
-                }
+                _clients.Remove(client);
             }
         }
         #endregion
@@ -253,26 +262,29 @@ namespace Client.Server
         {
             switch ((int)Request.RequestType)
             {
-                case (int)SocketRequestType.Login:
-                    return LoginRequest(Request);
+                //case (int)SocketRequestType.Login:
+                //    return LoginRequest(Request);
 
                 case (int)SocketRequestType.SignUp:
                     return SignUpRequest(Request);
 
-                //case (int)SocketRequestType.CreateRoom:
-                //    return CreateRoomRequest(Request);
+                case (int)SocketRequestType.AccountInfo:
+                    return AccountInfoRequest(Request);
 
-                //case (int)SocketRequestType.JoinRoomByID:
-                //    return EnterRoomByIDRequest(Request);
+                    //case (int)SocketRequestType.CreateRoom:
+                    //    return CreateRoomRequest(Request);
 
-                //case (int)SocketRequestType.JoinRoomRandom:
-                //    return EnterRoomRandom(Request);
+                    //case (int)SocketRequestType.JoinRoomByID:
+                    //    return EnterRoomByIDRequest(Request);
+
+                    //case (int)SocketRequestType.JoinRoomRandom:
+                    //    return EnterRoomRandom(Request);
             }
 
             return null;
         }
 
-        private byte[] LoginRequest(SocketRequestData Request)
+        private byte[] LoginRequest(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client Login form:\n");
             string[] Credentials = ((IEnumerable)Request.Data).Cast<object>().Select(x => x.ToString()).ToArray();
@@ -288,9 +300,10 @@ namespace Client.Server
 
             if(LoginResult)
             {
-                if (!_clients.ContainsKey(username))
+                Socket key = _clients.FirstOrDefault(kvp => kvp.Value == username).Key;
+                if (key == null)
                 {
-                    _clients[username] = client;
+                    _clients[client] = username;
                     Data = 1;
                 }
                 else
@@ -301,6 +314,16 @@ namespace Client.Server
 
             byte[] LoginData = SerializeData("LoginResult", new SocketRequestData((int)SocketRequestType.Login, Data));
             return LoginData;
+        }
+
+        private byte[] AccountInfoRequest(SocketRequestData Request)
+        {
+            string Username = Request.Data.ToString();
+            
+            string[] AccountInfo = AccountDAO.Instance.GetUserInfo(Username);
+
+            byte[] data = SerializeData("AccountInfoResult", new SocketRequestData((int)SocketRequestType.AccountInfo, AccountInfo));
+            return data;
         }
 
         private byte[] SignUpRequest(SocketRequestData Request)
@@ -362,6 +385,9 @@ namespace Client.Server
                 _matchRooms[MatchID] = new MatchRoom(TargetPlayer, client);
                 MatchID += 1;
 
+                byte[] NotifyTargetPlayer = SerializeData("SocketData", new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+                TargetPlayer.Send(NotifyTargetPlayer);
+
                 _matchQueue.Remove(ID);
                 result = true;
             }
@@ -384,6 +410,9 @@ namespace Client.Server
                     var TargetPlayerIP = Queueing.Key;
                     _matchRooms[MatchID] = new MatchRoom(TargetPlayer, client);
                     MatchID += 1;
+                    
+                    byte[] NotifyTargetPlayer = SerializeData("SocketData", new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+                    TargetPlayer.Send(NotifyTargetPlayer);
 
                     _matchQueue.Remove(TargetPlayerIP);
                     result = true;
@@ -391,7 +420,7 @@ namespace Client.Server
                 }
             }
             
-            byte[] data = SerializeData("JoinRoomIDResult", new SocketRequestData((int)SocketRequestType.JoinRoomByID, result));
+            byte[] data = SerializeData("JoinRoomRandomResult", new SocketRequestData((int)SocketRequestType.JoinRoomRandom, result));
 
             return data;
         }
@@ -411,6 +440,29 @@ namespace Client.Server
             return false;
         }
 
+        private int UpdateUserWinsRank(string username)
+        {
+            int UpdateWinResult = AccountDAO.Instance.UpdateWins(username);
+            int ResetWinResult = 0;
+            int UpdateRankResult = 0;
+
+            AccountDAO.Instance.GetUserInfo(username);
+
+            if(AccountDAO.Instance.GetSetAccWins >= 10)
+            {
+                string rank = AccountDAO.Instance.GetSetAccRank;
+                UpdateWinResult = AccountDAO.Instance.UpdateRank(username, rank);
+
+                if (AccountDAO.Instance.GetSetAccRank != "SSR")
+                {
+                    ResetWinResult = AccountDAO.Instance.ResetWins(username);
+                }
+
+            }
+
+            return UpdateWinResult + UpdateRankResult + ResetWinResult;
+        }
+
         private void MatchDataFoward(Socket client, SocketData Data)
         {
             ReceiveMessage("Match Data from" + ((IPEndPoint)client.RemoteEndPoint).Address.ToString());
@@ -422,19 +474,107 @@ namespace Client.Server
             {
                 MatchRoom CurrMatchRoom = _matchRooms[MatchID];
                 var Opponent = CurrMatchRoom.GetOpponent(client);
+                
+                if ( Opponent != null && MatchEndCondition(Data))
+                {
+                    switch ((int)Data.Command)
+                    {
+                        case ((int)SocketCommand.END_GAME):
+                            {
+                                string WinnerUsernameEnd = _clients[client];
+
+                                byte[] EndGamedata = SerializeData("SocketData", new SocketData((int)SocketCommand.END_GAME, (WinnerUsernameEnd + "  đã chiến thắng ♥ !!!"), new Point()));
+                                Opponent.Send(EndGamedata);
+                                byte[] ClientEndGamedata = SerializeData("SocketData", new SocketData((int)SocketCommand.END_GAME, "You Win :D !!!", new Point()));
+                                client.Send(ClientEndGamedata);
+
+                                int UpdateWinRank = UpdateUserWinsRank(WinnerUsernameEnd);
+
+                                if (UpdateWinRank > 0)
+                                {
+                                    ReceiveMessage("Update successful!");
+                                }
+
+                                byte[] ExitGameData = SerializeData("SocketData", new SocketData((int)SocketCommand.EXIT_GAME, "", new Point()));
+                                client.Send(ExitGameData);
+                                Opponent.Send(ExitGameData);
+
+                                break;
+                            }
+
+                        case ((int)SocketCommand.TIME_OUT):
+                            {
+                                if (Data.Message == "Client")
+                                {
+                                    string WinnerUsernameTime = _clients[Opponent];
+                                    byte[] TimeOutdata = SerializeData("SocketData", new SocketData((int)SocketCommand.END_GAME, WinnerUsernameTime + " đã chiến thắng ♥ !!!", new Point()));
+                                    Opponent.Send(TimeOutdata);
+
+                                    int UpdateWinRankTime = UpdateUserWinsRank(WinnerUsernameTime);
+
+                                    if (UpdateWinRankTime > 0)
+                                    {
+                                        ReceiveMessage("Update successful!");
+                                    }
+                                }
+
+                                byte[] ExitGameData = SerializeData("SocketData", new SocketData((int)SocketCommand.EXIT_GAME, "", new Point()));
+                                client.Send(ExitGameData);
+                                Opponent.Send(ExitGameData);
+
+                                break;
+                            }
+
+                        case ((int)SocketCommand.QUIT):
+                            {
+                                string WinnerUsernameQuit = _clients[Opponent];
+                                byte[] QuitData = SerializeData("SocketData", new SocketData((int)SocketCommand.END_GAME, "Đối thủ đã bỏ cuộc :))", new Point()));
+                                Opponent.Send(QuitData);
+
+                                int UpdateWinRankQuit = UpdateUserWinsRank(WinnerUsernameQuit);
+
+                                if (UpdateWinRankQuit > 0)
+                                {
+                                    ReceiveMessage("Update successful!");
+                                }
+
+                                byte[] ExitGameData = SerializeData("SocketData", new SocketData((int)SocketCommand.EXIT_GAME, "", new Point()));
+                                Opponent.Send(ExitGameData);
+
+                                break;
+                            }
+                    }
+
+                    _matchRooms.Remove(MatchID);
+
+                    SendMess.Text += "ENDGAME" + Environment.NewLine;
+                    SendMess.Text += "**************" + Environment.NewLine;
+                    SendMess.Text += "Sender" + Environment.NewLine;
+                    SendMessage(client);
+                    SendMess.Text += "Receiver" + Environment.NewLine;
+                    SendMessage(Opponent);
+                    SendMess.Text += "**************" + Environment.NewLine;
+
+
+                    return;
+                }
+
                 if (Opponent != null)
                 {
                     byte[] data = SerializeData("SocketData", Data);
                     Opponent.Send(data);
+
+                    SendMess.Text += "**************" + Environment.NewLine;
+                    SendMess.Text += "Sender" + Environment.NewLine;
+                    SendMessage(client);
+                    SendMess.Text += "Receiver" + Environment.NewLine;
+                    SendMessage(Opponent);
+                    SendMess.Text += "**************" + Environment.NewLine;
                 }
 
-                if (MatchEndCondition(Data))
-                {
-                    byte[] data = SerializeData("SocketData", Data);
-                    Opponent.Send(data);
-                    _matchRooms.Remove(MatchID);
-                }
+                
             }
+            
         }
         
         #endregion

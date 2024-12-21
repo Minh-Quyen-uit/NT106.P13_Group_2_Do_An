@@ -91,6 +91,7 @@
             Send_Btn.TabIndex = 8;
             Send_Btn.Text = "Gửi";
             Send_Btn.UseVisualStyleBackColor = false;
+            Send_Btn.Click += Send_Btn_Click;
             // 
             // ChatTxt
             // 
@@ -149,6 +150,7 @@
             ExitBtn.TabIndex = 6;
             ExitBtn.Text = "Thoát";
             ExitBtn.UseVisualStyleBackColor = false;
+            ExitBtn.Click += ExitBtn_Click;
             // 
             // IPMessage
             // 

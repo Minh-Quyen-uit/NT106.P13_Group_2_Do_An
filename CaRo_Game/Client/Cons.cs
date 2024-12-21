@@ -17,5 +17,6 @@ namespace Client
         public static int Cool_Down_Step = 100;
         public static int Cool_Down_Time = 10000;
         public static int Cool_Down_Interval = 100;
+
     }
 }
