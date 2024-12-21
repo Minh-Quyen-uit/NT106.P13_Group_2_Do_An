@@ -16,6 +16,9 @@ create table CaRoGameAccounts (
 
 alter table CaRoGameAccounts add Wins int default 0 
 alter table CaRoGameAccounts add Rank nvarchar(100) default 'plastic'
+alter table CaRoGameAccounts add TotalWins int default 0
+alter table CaRoGameAccounts add AccountAvatar varbinary(max)
+alter table CaRoGameAccounts alter column AccountAvatar nvarchar(max)
 
 select * from dbo.CaRoGameAccounts
 

@@ -24,6 +24,8 @@ namespace Client.DAO
         private string AccBirthday;
         private int AccWins;
         private string AccRank;
+        private int AccTotalWins;
+        private string AccAvatar;
 
         private string[] Ranks = { "Dirt", "Plastic", "A", "B", "C" };
 
@@ -60,6 +62,18 @@ namespace Client.DAO
             get { if (AccRank == null) AccRank = "Dirt"; return AccRank; }
             private set => AccRank = value;
         }
+
+        public int GetSetAccTotalWins
+        {
+            get { if (AccTotalWins == 0) AccTotalWins = 0; return AccTotalWins; }
+            private set => AccTotalWins = value;
+        }
+
+        public string GetSetAccAvatar
+        {
+            get { if (AccAvatar == null) AccAvatar = ""; return AccAvatar; }
+            private set => AccAvatar = value;
+        }
         #endregion
 
         public void GetUserInfo(string[] Info)
@@ -71,6 +85,27 @@ namespace Client.DAO
             GetSetAccBirthday = Info[3];
             GetSetAccWins = Convert.ToInt32(Info[4]);
             GetSetAccRank = Info[5];
+            GetSetAccTotalWins = Convert.ToInt32(Info[6]);
+            GetSetAccAvatar = Info[7];
+        }
+
+        public Image GetUserAvatar(string Base64Image)
+        {
+            try
+            {
+                byte[] ImageData = Convert.FromBase64String(Base64Image);
+
+
+                using (MemoryStream ms = new MemoryStream(ImageData))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Error: Invalid Base64 string format.");
+                throw new ArgumentException("Invalid Base64 string format.", ex);
+            }
         }
     }
 }

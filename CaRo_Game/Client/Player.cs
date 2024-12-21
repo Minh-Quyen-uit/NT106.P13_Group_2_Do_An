@@ -13,7 +13,7 @@ namespace Client
 
         // Thêm thông tin người dùng
         public string Username { get; set; }
-        public string Avatar { get; set; }
+        public Image Avatar { get; set; }
         public int GamesPlayed { get; set; }
         public int Wins { get; set; }
         public int Rank { get; set; }

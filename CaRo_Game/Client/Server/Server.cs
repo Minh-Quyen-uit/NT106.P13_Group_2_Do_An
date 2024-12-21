@@ -385,7 +385,11 @@ namespace Client.Server
                 _matchRooms[MatchID] = new MatchRoom(TargetPlayer, client);
                 MatchID += 1;
 
-                byte[] NotifyTargetPlayer = SerializeData("SocketData", new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+                string PlayerName = _clients[client];
+                AccountDAO.Instance.GetUserInfo(PlayerName);
+
+                string PlayerAvatar = AccountDAO.Instance.GetSetAccAvatar;
+                byte[] NotifyTargetPlayer = SerializeData("SocketData", new SocketData((int)SocketCommand.NOTIFY, ("đã kết nối!@" + PlayerName + "@" + PlayerAvatar), new Point()));
                 TargetPlayer.Send(NotifyTargetPlayer);
 
                 _matchQueue.Remove(ID);
@@ -410,8 +414,13 @@ namespace Client.Server
                     var TargetPlayerIP = Queueing.Key;
                     _matchRooms[MatchID] = new MatchRoom(TargetPlayer, client);
                     MatchID += 1;
-                    
-                    byte[] NotifyTargetPlayer = SerializeData("SocketData", new SocketData((int)SocketCommand.NOTIFY, "đã kết nối", new Point()));
+
+                    string PlayerName = _clients[client];
+                    AccountDAO.Instance.GetUserInfo(PlayerName);
+
+                    string PlayerAvatar = AccountDAO.Instance.GetSetAccAvatar;
+
+                    byte[] NotifyTargetPlayer = SerializeData("SocketData", new SocketData((int)SocketCommand.NOTIFY, ("đã kết nối!@" + PlayerName + "@" + PlayerAvatar), new Point()));
                     TargetPlayer.Send(NotifyTargetPlayer);
 
                     _matchQueue.Remove(TargetPlayerIP);
@@ -466,7 +475,7 @@ namespace Client.Server
         private void MatchDataFoward(Socket client, SocketData Data)
         {
             ReceiveMessage("Match Data from" + ((IPEndPoint)client.RemoteEndPoint).Address.ToString());
-            
+
             //Unhandled exception: Null matchroom
             int MatchID = _matchRooms.FirstOrDefault(MatchRoomInfo => MatchRoomInfo.Value == MatchRoomInfo.Value.GetRoom(client)).Key;
 
@@ -474,7 +483,20 @@ namespace Client.Server
             {
                 MatchRoom CurrMatchRoom = _matchRooms[MatchID];
                 var Opponent = CurrMatchRoom.GetOpponent(client);
-                
+
+                if ((int)Data.Command == (int)SocketCommand.PLAYER_1)
+                {
+
+                    string TargetPlayerName = _clients[Opponent];
+                    AccountDAO.Instance.GetUserInfo(TargetPlayerName);
+
+                    string TargetPlayerAvatar = AccountDAO.Instance.GetSetAccAvatar;
+                    byte[] TargetPlayerInfo = SerializeData("SocketData", new SocketData((int)SocketCommand.PLAYER_1, (TargetPlayerName + "@" + TargetPlayerAvatar), new Point()));
+                    client.Send(TargetPlayerInfo);
+                    
+                    return;
+                }
+
                 if ( Opponent != null && MatchEndCondition(Data))
                 {
                     switch ((int)Data.Command)
@@ -508,6 +530,7 @@ namespace Client.Server
                                 {
                                     string WinnerUsernameTime = _clients[Opponent];
                                     byte[] TimeOutdata = SerializeData("SocketData", new SocketData((int)SocketCommand.END_GAME, WinnerUsernameTime + " đã chiến thắng ♥ !!!", new Point()));
+                                    client.Send(TimeOutdata);
                                     Opponent.Send(TimeOutdata);
 
                                     int UpdateWinRankTime = UpdateUserWinsRank(WinnerUsernameTime);

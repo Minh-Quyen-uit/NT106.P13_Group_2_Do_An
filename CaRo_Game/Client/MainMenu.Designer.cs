@@ -31,6 +31,8 @@
             tabControlMain = new TabControl();
             tabMain1 = new TabPage();
             panel1 = new Panel();
+            AchievementTxt = new Label();
+            label10 = new Label();
             RankTxt = new Label();
             label9 = new Label();
             panel4 = new Panel();
@@ -58,8 +60,6 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
-            label10 = new Label();
-            AchievementTxt = new Label();
             tabControlMain.SuspendLayout();
             tabMain1.SuspendLayout();
             panel1.SuspendLayout();
@@ -115,6 +115,28 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(730, 379);
             panel1.TabIndex = 0;
+            // 
+            // AchievementTxt
+            // 
+            AchievementTxt.AutoSize = true;
+            AchievementTxt.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            AchievementTxt.ForeColor = Color.Blue;
+            AchievementTxt.Location = new Point(22, 325);
+            AchievementTxt.Name = "AchievementTxt";
+            AchievementTxt.Size = new Size(156, 32);
+            AchievementTxt.TabIndex = 9;
+            AchievementTxt.Text = "0 trận thắng";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold);
+            label10.ForeColor = Color.Blue;
+            label10.Location = new Point(22, 293);
+            label10.Name = "label10";
+            label10.Size = new Size(155, 32);
+            label10.TabIndex = 8;
+            label10.Text = "Thành tích:";
             // 
             // RankTxt
             // 
@@ -261,6 +283,7 @@
             pictureBox1.Location = new Point(21, 20);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(180, 180);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -394,28 +417,6 @@
             label4.Size = new Size(205, 32);
             label4.TabIndex = 0;
             label4.Text = "Tên đăng nhập:";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold);
-            label10.ForeColor = Color.Blue;
-            label10.Location = new Point(22, 293);
-            label10.Name = "label10";
-            label10.Size = new Size(155, 32);
-            label10.TabIndex = 8;
-            label10.Text = "Thành tích:";
-            // 
-            // AchievementTxt
-            // 
-            AchievementTxt.AutoSize = true;
-            AchievementTxt.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            AchievementTxt.ForeColor = Color.Blue;
-            AchievementTxt.Location = new Point(22, 325);
-            AchievementTxt.Name = "AchievementTxt";
-            AchievementTxt.Size = new Size(156, 32);
-            AchievementTxt.TabIndex = 9;
-            AchievementTxt.Text = "0 trận thắng";
             // 
             // MainMenu
             // 

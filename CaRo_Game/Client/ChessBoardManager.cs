@@ -20,16 +20,16 @@ namespace Client
         private List<List<Button>> matrix;
         private event EventHandler<BtnClickEvent> playerMarked;
         private event EventHandler endedGame;
-        private Stack<PlayInfo> playTimeLine;
-        public Panel ChessBoard { get => chessBoard; set => chessBoard=value; }
+        //private Stack<PlayInfo> playTimeLine;
+        public Panel ChessBoard { get => chessBoard; set => chessBoard = value; }
 
-        public int CurrentPlayer { get => currentPlayer; set => currentPlayer=value; }
-        
-        public TextBox PlayerName { get => playerName; set => playerName=value; }
+        public int CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
 
-        public PictureBox PlayerMark { get => playerMark; set => playerMark=value; }
+        public TextBox PlayerName { get => playerName; set => playerName = value; }
 
-        public List<List<Button>> Matrix { get => matrix; set => matrix=value; }
+        public PictureBox PlayerMark { get => playerMark; set => playerMark = value; }
+
+        public List<List<Button>> Matrix { get => matrix; set => matrix = value; }
 
         public event EventHandler<BtnClickEvent> PlayerMarked
         {
@@ -55,7 +55,7 @@ namespace Client
             }
         }
 
-        public Stack<PlayInfo> PlayTimeLine { get => playTimeLine; set => playTimeLine=value; }
+        //public Stack<PlayInfo> PlayTimeLine { get => playTimeLine; set => playTimeLine = value; }
 
         #endregion
 
@@ -66,22 +66,24 @@ namespace Client
             this.chessBoard = chessBoard;
             this.playerName = playerName;
             this.playerMark = mark;
-            this.player = new List<Player>() 
-            { 
+            this.player = new List<Player>()
+            {
                 new Player("player 1", Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg")),
                 new Player("player 2", Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png"))
             };
         }
 
-        public void setUpPlayer1(string pName)
+        public void setUpPlayer1(string pName, Image avatar)
         {
             this.player[0].Name = pName;
+            this.player[0].Avatar = avatar;
             //this.player.Add(new Player(pName, Image.FromFile(Application.StartupPath + "\\Sources\\X_image.png")));
         }
 
-        public void setUpPlayer2(string pName)
+        public void setUpPlayer2(string pName, Image avatar)
         {
             this.player[1].Name = pName;
+            this.player[1].Avatar = avatar;
             //this.player.Add(new Player(pName, Image.FromFile(Application.StartupPath + "\\Sources\\O_image.jpg")));
         }
         #endregion
@@ -93,7 +95,7 @@ namespace Client
             chessBoard.Enabled = true;
             ChessBoard.Controls.Clear();
 
-            PlayTimeLine = new Stack<PlayInfo>();
+            //PlayTimeLine = new Stack<PlayInfo>();
             currentPlayer = 0;
 
             changePlayer();
@@ -101,7 +103,7 @@ namespace Client
             Matrix = new List<List<Button>>();
 
             Button oldBtn = new Button() { Width = 0, Location = new Point(0, 0) };
-            for (int i = 0; i<Cons.Chess_Board_Height; i++)
+            for (int i = 0; i < Cons.Chess_Board_Height; i++)
             {
                 Matrix.Add(new List<Button>());
                 for (int j = 0; j < Cons.Chess_Board_Width; j++)
@@ -137,7 +139,7 @@ namespace Client
                 return;
             Mark(btn);
 
-            playTimeLine.Push(new PlayInfo(player[currentPlayer].Username, player[currentPlayer].Avatar, getChessPoint(btn), CurrentPlayer));
+            //playTimeLine.Push(new PlayInfo(player[currentPlayer].Username, player[currentPlayer].Avatar, getChessPoint(btn), CurrentPlayer));
 
             currentPlayer = currentPlayer == 1 ? 0 : 1;
 
@@ -148,7 +150,7 @@ namespace Client
                 playerMarked(this, new BtnClickEvent(getChessPoint(btn)));
             }
 
-            if(isEndGame(btn))
+            if (isEndGame(btn))
             {
                 endGame();
                 ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.END_GAME, "Đã có 5 con!!!", new Point()));
@@ -166,7 +168,7 @@ namespace Client
 
             Mark(btn);
 
-            playTimeLine.Push(new PlayInfo(player[currentPlayer].Username, player[currentPlayer].Avatar, getChessPoint(btn), CurrentPlayer));
+            //playTimeLine.Push(new PlayInfo(player[currentPlayer].Username, player[currentPlayer].Avatar, getChessPoint(btn), CurrentPlayer));
 
             currentPlayer = currentPlayer == 1 ? 0 : 1;
 
@@ -180,7 +182,7 @@ namespace Client
 
         public void endGame()
         {
-            if(endedGame != null)
+            if (endedGame != null)
             {
                 endedGame(this, new EventArgs());
             }
@@ -191,42 +193,42 @@ namespace Client
             return isEndHorizontal(btn) || isEndVertical(btn) || isEndForwarDiagonal(btn) || isEndReverseDiagonal(btn);
         }
 
-        public bool Undo()
-        {
-            if (playTimeLine.Count <= 0)
-            {
-                return false;
-            }
-            bool isUndo1 = UndoAStep();
-            bool isUndo2 = UndoAStep();
-            PlayInfo oldPoint = playTimeLine.Peek();
-            currentPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
-            return isUndo1 && isUndo2;
-        }
+        //public bool Undo()
+        //{
+        //    if (playTimeLine.Count <= 0)
+        //    {
+        //        return false;
+        //    }
+        //    bool isUndo1 = UndoAStep();
+        //    bool isUndo2 = UndoAStep();
+        //    PlayInfo oldPoint = playTimeLine.Peek();
+        //    currentPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
+        //    return isUndo1 && isUndo2;
+        //}
 
-        private bool UndoAStep()
-        {
-            if (playTimeLine.Count <= 0)
-            {
-                return false;
-            }
+        //private bool UndoAStep()
+        //{
+        //    if (playTimeLine.Count <= 0)
+        //    {
+        //        return false;
+        //    }
 
-            PlayInfo oldPoint = playTimeLine.Pop();
-            Button btn = Matrix[oldPoint.Point.Y][oldPoint.Point.X];
-            btn.BackgroundImage = null;
+        //    PlayInfo oldPoint = playTimeLine.Pop();
+        //    Button btn = Matrix[oldPoint.Point.Y][oldPoint.Point.X];
+        //    btn.BackgroundImage = null;
 
-            if (playTimeLine.Count <= 0)
-            {
-                currentPlayer = 0;
-            }
-            else
-            {
-                oldPoint = playTimeLine.Peek();
-            }
+        //    if (playTimeLine.Count <= 0)
+        //    {
+        //        currentPlayer = 0;
+        //    }
+        //    else
+        //    {
+        //        oldPoint = playTimeLine.Peek();
+        //    }
 
-            changePlayer();
-            return true;
-        }
+        //    changePlayer();
+        //    return true;
+        //}
 
         private Point getChessPoint(Button btn)
         {
@@ -252,7 +254,7 @@ namespace Client
             }
 
             int countRight = 0;
-            for (int i = point.X+1; i < Cons.Chess_Board_Width; i++)
+            for (int i = point.X + 1; i < Cons.Chess_Board_Width; i++)
             {
                 if (Matrix[point.Y][i].BackgroundImage == btn.BackgroundImage)
                 {
@@ -312,7 +314,7 @@ namespace Client
             }
 
             int countBottom = 0;
-            for(int i = 1; i <= Cons.Chess_Board_Width - point.X; i++)
+            for (int i = 1; i <= Cons.Chess_Board_Width - point.X; i++)
             {
                 if (point.Y + i >= Cons.Chess_Board_Height || point.X + i >= Cons.Chess_Board_Width)
                     break;
@@ -369,7 +371,9 @@ namespace Client
         {
             PlayerName.Text = player[currentPlayer].Name;
 
-            playerMark.Image = player[currentPlayer].Mark;
+            playerMark.Image = player[currentPlayer].Avatar;
+
+
         }
         #endregion
 
@@ -379,7 +383,7 @@ namespace Client
     {
         private Point clickPoint;
 
-        public Point ClickPoint { get => clickPoint; set => clickPoint=value; }
+        public Point ClickPoint { get => clickPoint; set => clickPoint = value; }
 
         public BtnClickEvent(Point point)
         {

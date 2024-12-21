@@ -11,7 +11,7 @@ namespace Client
         //SocketManager socket;
 
         #endregion
-        public ChessBoard()
+        public ChessBoard(bool isCreate)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -22,12 +22,31 @@ namespace Client
             PrcBCoolDown.Step = Cons.Cool_Down_Step;
             PrcBCoolDown.Maximum = Cons.Cool_Down_Time;
             PrcBCoolDown.Value = 0;
-
+             
             tmCoolDown.Interval = Cons.Cool_Down_Interval;
             newGame();
             ClientSocketManager.Instance.RegisterHandler<SocketData>("SocketData", processData);
 
             panel_Board.Enabled = false;
+
+            string Username = ClientAccountDAO.Instance.GetSetAccUsername;
+            string Base64AccAvatar = ClientAccountDAO.Instance.GetSetAccAvatar;
+            Image Avatar = ClientAccountDAO.Instance.GetUserAvatar(Base64AccAvatar);
+            if (isCreate)
+            {
+                Board.setUpPlayer1(Username, Avatar);
+            }
+            else
+            {
+                Board.setUpPlayer2(Username, Avatar);
+                GetOpponentInfo();
+            }
+        }
+
+        private async void GetOpponentInfo()
+        {
+            ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.PLAYER_1, "", new Point()));
+            await ClientSocketManager.Instance.AwaitHandler<SocketData>("SocketData", TimeSpan.FromSeconds(10));
         }
 
         #region SelectionMode
@@ -39,11 +58,11 @@ namespace Client
             Board.DrawChessBoard();
         }
 
-        void Undo()
-        {
-            Board.Undo();
-            PrcBCoolDown.Value = 0;
-        }
+        //void Undo()
+        //{
+        //    Board.Undo();
+        //    PrcBCoolDown.Value = 0;
+        //}
 
         void endGame()
         {
@@ -58,8 +77,21 @@ namespace Client
             switch (data.Command)
             {
                 case (int)SocketCommand.NOTIFY:
-                    MessageBox.Show(data.Message);
-                    panel_Board.Enabled = true;
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        string[] message = data.Message.Split('@');
+                        MessageBox.Show(message[0], "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        string OpponentName = message[1];
+                        string OpponentAvatar = message[2];
+                        Image Avatar = ClientAccountDAO.Instance.GetUserAvatar(OpponentAvatar);
+                        Board.setUpPlayer2(OpponentName, Avatar);
+
+                        panel_Board.Enabled = true;
+                        tmCoolDown.Start();
+
+
+                    }));
                     break;
                 case (int)SocketCommand.NEW_GAME:
                     this.Invoke((MethodInvoker)(() =>
@@ -82,10 +114,10 @@ namespace Client
                 case (int)SocketCommand.CHAT:
                     AddMessage(data.Message);
                     break;
-                case (int)SocketCommand.UNDO:
-                    Undo();
-                    PrcBCoolDown.Value = 0;
-                    break;
+                //case (int)SocketCommand.UNDO:
+                //    Undo();
+                //    PrcBCoolDown.Value = 0;
+                //    break;
                 case (int)SocketCommand.QUIT:
                     tmCoolDown.Stop();
                     MessageBox.Show(data.Message);
@@ -105,18 +137,17 @@ namespace Client
                         MessageBox.Show("Hết giờ rồi !!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }));
                     break;
+
                 case (int)SocketCommand.PLAYER_1:
                     this.Invoke((MethodInvoker)(() =>
                     {
-                        Board.setUpPlayer1(data.Message);
-                        Board.setUpPlayer2(FullName.Text);
-                    }));
-                    break;
-                case (int)SocketCommand.PLAYER_2:
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        Board.setUpPlayer2(data.Message);
-                        ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.PLAYER_1, FullName.Text, new Point()));
+                        string[] message = data.Message.Split('@');
+
+                        string Player1Name = message[0];
+                        string Player1Avatar = message[1];
+                        Image Avatar = ClientAccountDAO.Instance.GetUserAvatar(Player1Avatar);
+                        Board.setUpPlayer1(Player1Name, Avatar);
+
                     }));
                     break;
 
@@ -157,12 +188,7 @@ namespace Client
                 if(panel_Board.Enabled)
                 {
                     ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.TIME_OUT, "Client", new Point()));
-                }
-                else
-                {
-                    ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.TIME_OUT, "Opponent", new Point()));
-                }
-                
+                }                
             }
         }
 

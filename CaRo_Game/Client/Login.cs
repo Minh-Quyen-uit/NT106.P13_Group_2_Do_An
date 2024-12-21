@@ -29,7 +29,7 @@ namespace Client
         public Login()
         {
             InitializeComponent();
-            ipe = new IPEndPoint(IPAddress.Parse("172.17.19.166"), 9999);
+            ipe = new IPEndPoint(IPAddress.Parse("172.17.18.36"), 9999);
             ClientSocketManager.Instance.Connect(ipe);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("LoginResult", loginResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("AccountInfoResult", AccountInfoResult);
@@ -63,6 +63,7 @@ namespace Client
             //await Task.Delay(1000);
             if (_loginResult)
             {
+                _loginResult = false;
                 ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, username));
                 await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("AccountInfoResult", TimeSpan.FromSeconds(5));
 

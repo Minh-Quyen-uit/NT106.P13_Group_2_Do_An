@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 
 namespace Client.DAO
@@ -22,8 +23,10 @@ namespace Client.DAO
         private string AccBirthday;
         private int AccWins;
         private string AccRank;
+        private int AccTotalWins;
+        private string AccAvatar;
 
-        private string[] Ranks = { "Dirt", "Plastic", "C", "B", "A", "SSR" };
+        private string[] Ranks = { "Plastic", "Dirt", "C", "B", "A", "SSR" };
 
         #region GetSet
         public string GetSetAccUsername
@@ -58,6 +61,18 @@ namespace Client.DAO
             get { if (AccRank == null) AccRank = "Dirt"; return AccRank; }
             private set => AccRank = value;
         }
+
+        public int GetSetAccTotalWins
+        {
+            get { if (AccTotalWins == 0) AccTotalWins = 0; return AccTotalWins; }
+            private set => AccTotalWins = value;
+        }
+
+        public string GetSetAccAvatar
+        {
+            get { if (AccAvatar == null) AccAvatar = ""; return AccAvatar; }
+            private set =>  AccAvatar = value;
+        }
         #endregion
 
         #region login/signup
@@ -85,9 +100,20 @@ namespace Client.DAO
                 if (emailResult.Rows.Count > 0) { MessageBox.Show("Email đã được đăng ký!"); return 0; }
             }
 
+            Image AccAvatar = Properties.Resources.BackgroundMain;
+            ImageFormat format = AccAvatar.RawFormat;
+            string Base64Image;
 
-            string query = "INSERT INTO dbo.CaRoGameAccounts (UserName, PassWord, FullName, Email, BirthDay) VALUES ( @Username , @Password , @Fullname , @Email , @Birthday )";
-            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { username, password, fullname, email, birthday });
+            using(MemoryStream ms = new MemoryStream())
+            {
+                AccAvatar.Save(ms, format);
+                byte[] ImageData = ms.ToArray();
+
+                Base64Image = Convert.ToBase64String(ImageData);
+            }
+
+            string query = "INSERT INTO dbo.CaRoGameAccounts (UserName, PassWord, FullName, Email, BirthDay, AccountAvatar) VALUES ( @Username , @Password , @Fullname , @Email , @Birthday , @AccountAvatar )";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { username, password, fullname, email, birthday, Base64Image });
             return result;
         }
 
@@ -96,7 +122,7 @@ namespace Client.DAO
         public int UpdateWins(string username)
         {
             int CurrWins = AccountDAO.Instance.GetSetAccWins;
-            string query = "update dbo.CaRoGameAccounts set Wins = Wins+1 where UserName = N'" + username + "'";
+            string query = "update dbo.CaRoGameAccounts set Wins = Wins+1, TotalWins = TotalWins+1 where UserName = N'" + username + "'";
             int result = DataProvider.Instance.ExecuteNonQuery(query);
             if (result > 0) 
                 AccountDAO.Instance.GetSetAccWins = CurrWins+1;
@@ -142,6 +168,8 @@ namespace Client.DAO
             GetSetAccBirthday = result[4];
             GetSetAccWins = Convert.ToInt32(result[5]);
             GetSetAccRank = result[6];
+            GetSetAccTotalWins = Convert.ToInt32(result[7]);
+            GetSetAccAvatar = result[8];
 
             string[] Result =
             {
@@ -150,7 +178,9 @@ namespace Client.DAO
                 GetSetAccEmail,
                 GetSetAccBirthday,
                 GetSetAccWins.ToString(),
-                GetSetAccRank
+                GetSetAccRank,
+                GetSetAccTotalWins.ToString(),
+                GetSetAccAvatar
             };
             return Result;
         }

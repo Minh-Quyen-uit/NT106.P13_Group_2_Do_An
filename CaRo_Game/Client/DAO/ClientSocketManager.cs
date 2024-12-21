@@ -52,7 +52,7 @@ namespace Client.DAO
         {
             while (true)
             {
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[5000*1024];
 
                 try
                 {

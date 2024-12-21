@@ -1,4 +1,5 @@
 ﻿using Client.DAO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Client
 {
@@ -7,6 +8,7 @@ namespace Client
         //IPEndPoint ipe;
         private bool _CreateRoomResult = false;
         private bool _JoinRoomResult = false;
+        private bool _CreateRoom = false;
 
         private Image[] tabImages;
 
@@ -19,6 +21,11 @@ namespace Client
 
             Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
             RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
+            AchievementTxt.Text = ClientAccountDAO.Instance.GetSetAccTotalWins.ToString() + " Trận thắng";
+
+            string Base64AccAvatar = ClientAccountDAO.Instance.GetSetAccAvatar;
+            Image Avatar = ClientAccountDAO.Instance.GetUserAvatar(Base64AccAvatar);
+            pictureBox1.Image = Avatar;
 
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
@@ -36,7 +43,7 @@ namespace Client
             if (_JoinRoomResult)
             {
                 _JoinRoomResult = false;
-                ShowChessBoard();
+                ShowChessBoard(_CreateRoom);
             }
         }
 
@@ -48,7 +55,8 @@ namespace Client
             if (_CreateRoomResult)
             {
                 _CreateRoomResult = false;
-                ShowChessBoard();
+                ShowChessBoard(_CreateRoom);
+                _CreateRoom = false;
             }
         }
 
@@ -60,7 +68,7 @@ namespace Client
             if (_JoinRoomResult)
             {
                 _JoinRoomResult = false;
-                ShowChessBoard();
+                ShowChessBoard(_CreateRoom);
             }
         }
         private void tabMain1_Click(object sender, EventArgs e)
@@ -79,6 +87,10 @@ namespace Client
             FullName.Text = AccountDAO.Instance.GetSetAccFullname;
             Email.Text = AccountDAO.Instance.GetSetAccEmail;
             Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+
+            Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
+            RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
+            AchievementTxt.Text = ClientAccountDAO.Instance.GetSetAccTotalWins.ToString() + " Trận thắng";
         }
 
         #endregion
@@ -94,6 +106,7 @@ namespace Client
                 if (result)
                 {
                     _CreateRoomResult = true;
+                    _CreateRoom = true;
                 }
                 else
                 {
@@ -136,14 +149,15 @@ namespace Client
 
         #endregion
 
-        private void ShowChessBoard()
+        private void ShowChessBoard(bool isCreate)
         {
-            using ChessBoard chessBoard = new ChessBoard();
+            using ChessBoard chessBoard = new ChessBoard(isCreate);
 
             this.Hide();
             chessBoard.ShowDialog();
             this.Show();
 
+            ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, ClientAccountDAO.Instance.GetSetAccUsername));
             //this.Show();
         }
 
