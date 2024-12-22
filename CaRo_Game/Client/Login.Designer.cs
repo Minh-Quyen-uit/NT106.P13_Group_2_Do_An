@@ -72,6 +72,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.FromArgb(0, 0, 192);
             label1.Location = new Point(200, 27);
             label1.Name = "label1";
             label1.Size = new Size(212, 45);
@@ -127,6 +128,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.Purple;
             label4.Location = new Point(3, 21);
             label4.Name = "label4";
             label4.Size = new Size(297, 32);
@@ -173,7 +175,7 @@
             // 
             panel3.Controls.Add(PassWord);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(3, 180);
+            panel3.Location = new Point(5, 180);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
             panel3.Size = new Size(591, 58);
@@ -191,7 +193,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(3, 14);
+            label3.Location = new Point(0, 14);
             label3.Name = "label3";
             label3.Size = new Size(140, 32);
             label3.TabIndex = 0;
@@ -218,7 +220,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(3, 14);
+            label2.Location = new Point(-3, 14);
             label2.Name = "label2";
             label2.Size = new Size(205, 32);
             label2.TabIndex = 0;
@@ -234,7 +236,7 @@
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ButtonHighlight;
-            Margin = new Padding(6, 6, 6, 6);
+            Margin = new Padding(6);
             Name = "Login";
             Padding = new Padding(23, 74, 23, 25);
             Text = "Login";

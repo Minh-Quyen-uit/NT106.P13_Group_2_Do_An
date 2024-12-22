@@ -87,12 +87,15 @@ namespace Client
             {
                 if (signUpResult.Data.ToString() == "0")
                 {
-                    MessageBox.Show("sign up failed");
+                    MessageBox.Show("Đăng ký thất bại!!!");
                     return;
                 }
                 else
                 {
-                    MessageBox.Show("sign up success");
+                    if (MessageBox.Show("Bạn đăng kí thành công", "Thông báo", MessageBoxButtons.OK) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        this.Close();
+                    }
                 }
             }
         }

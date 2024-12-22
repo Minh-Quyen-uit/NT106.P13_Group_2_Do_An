@@ -27,6 +27,8 @@ namespace Client
             Image Avatar = ClientAccountDAO.Instance.GetUserAvatar(Base64AccAvatar);
             pictureBox1.Image = Avatar;
 
+            informationOfPlayer();
+
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomRandomResult", JoinRoomRandomResult);
@@ -71,13 +73,13 @@ namespace Client
                 ShowChessBoard(_CreateRoom);
             }
         }
-        private void tabMain1_Click(object sender, EventArgs e)
+        private void informationOfPlayer()
         {
-            //UserName.Text = Username_Tb.Text;
-            //PassWord.Text = ">_<";
-            //FullName.Text = AccountDAO.Instance.GetSetAccFullname;
-            //Email.Text = AccountDAO.Instance.GetSetAccEmail;
-            //Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+            UserName.Text = Username_Tb.Text;
+            PassWord.Text = ">_<";
+            FullName.Text = AccountDAO.Instance.GetSetAccFullname;
+            Email.Text = AccountDAO.Instance.GetSetAccEmail;
+            Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
         }
 
         private void updateAccBtn_Click(object sender, EventArgs e)
@@ -91,6 +93,11 @@ namespace Client
             Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
             RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
             AchievementTxt.Text = ClientAccountDAO.Instance.GetSetAccTotalWins.ToString() + " Trận thắng";
+        }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         #endregion
@@ -161,5 +168,6 @@ namespace Client
             //this.Show();
         }
 
+        
     }
 }

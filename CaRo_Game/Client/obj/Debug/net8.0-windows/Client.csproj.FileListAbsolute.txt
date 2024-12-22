@@ -19,7 +19,6 @@ D:\code\C#\Do_An\CaRo_Game\Client\bin\Debug\net8.0-windows\Baseline.dll
 D:\code\C#\Do_An\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.csproj.AssemblyReference.cache
 D:\code\C#\Do_An\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.csproj.Up2Date
 D:\code\C#\Do_An\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Properties.Resources.resources
-D:\code\C#\Do_An\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.InforClient.resources
 D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\Client.exe
 D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\Client.deps.json
 D:\code\C#\Do_An_2\CaRo_Game\Client\bin\Debug\net8.0-windows\Client.runtimeconfig.json

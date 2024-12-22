@@ -98,8 +98,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Transparent;
-            panel1.BackgroundImage = Properties.Resources.BackgroundMain;
+            panel1.BackColor = Color.BlueViolet;
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);

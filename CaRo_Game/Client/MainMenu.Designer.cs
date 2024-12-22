@@ -47,7 +47,7 @@
             label1 = new Label();
             Username_Tb = new TextBox();
             pictureBox1 = new PictureBox();
-            tabPage2 = new TabPage();
+            tabMain2 = new TabPage();
             ExitBtn = new Button();
             updateAccBtn = new Button();
             Birthday = new TextBox();
@@ -67,14 +67,14 @@
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            tabPage2.SuspendLayout();
+            tabMain2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlMain
             // 
             tabControlMain.Controls.Add(tabMain1);
-            tabControlMain.Controls.Add(tabPage2);
-            tabControlMain.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tabControlMain.Controls.Add(tabMain2);
+            tabControlMain.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tabControlMain.ImeMode = ImeMode.NoControl;
             tabControlMain.ItemSize = new Size(120, 50);
             tabControlMain.Location = new Point(14, 26);
@@ -97,7 +97,6 @@
             tabMain1.Size = new Size(764, 414);
             tabMain1.TabIndex = 0;
             tabMain1.Text = "Đấu ";
-            tabMain1.Click += tabMain1_Click;
             // 
             // panel1
             // 
@@ -276,6 +275,7 @@
             Username_Tb.Name = "Username_Tb";
             Username_Tb.Size = new Size(180, 39);
             Username_Tb.TabIndex = 1;
+            Username_Tb.TextAlign = HorizontalAlignment.Center;
             // 
             // pictureBox1
             // 
@@ -287,28 +287,28 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // tabPage2
+            // tabMain2
             // 
-            tabPage2.BackColor = Color.Turquoise;
-            tabPage2.Controls.Add(ExitBtn);
-            tabPage2.Controls.Add(updateAccBtn);
-            tabPage2.Controls.Add(Birthday);
-            tabPage2.Controls.Add(Email);
-            tabPage2.Controls.Add(FullName);
-            tabPage2.Controls.Add(PassWord);
-            tabPage2.Controls.Add(UserName);
-            tabPage2.Controls.Add(label8);
-            tabPage2.Controls.Add(label7);
-            tabPage2.Controls.Add(label6);
-            tabPage2.Controls.Add(label5);
-            tabPage2.Controls.Add(label4);
-            tabPage2.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            tabPage2.Location = new Point(4, 54);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(764, 414);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Tài Khoản";
+            tabMain2.BackColor = Color.Turquoise;
+            tabMain2.Controls.Add(ExitBtn);
+            tabMain2.Controls.Add(updateAccBtn);
+            tabMain2.Controls.Add(Birthday);
+            tabMain2.Controls.Add(Email);
+            tabMain2.Controls.Add(FullName);
+            tabMain2.Controls.Add(PassWord);
+            tabMain2.Controls.Add(UserName);
+            tabMain2.Controls.Add(label8);
+            tabMain2.Controls.Add(label7);
+            tabMain2.Controls.Add(label6);
+            tabMain2.Controls.Add(label5);
+            tabMain2.Controls.Add(label4);
+            tabMain2.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tabMain2.Location = new Point(4, 54);
+            tabMain2.Name = "tabMain2";
+            tabMain2.Padding = new Padding(3);
+            tabMain2.Size = new Size(764, 414);
+            tabMain2.TabIndex = 1;
+            tabMain2.Text = "Tài Khoản";
             // 
             // ExitBtn
             // 
@@ -320,6 +320,7 @@
             ExitBtn.TabIndex = 11;
             ExitBtn.Text = "Thoát";
             ExitBtn.UseVisualStyleBackColor = false;
+            ExitBtn.Click += ExitBtn_Click;
             // 
             // updateAccBtn
             // 
@@ -335,37 +336,43 @@
             // 
             // Birthday
             // 
+            Birthday.BackColor = Color.FromArgb(192, 255, 192);
             Birthday.Location = new Point(274, 264);
             Birthday.Name = "Birthday";
-            Birthday.Size = new Size(437, 39);
+            Birthday.Size = new Size(437, 42);
             Birthday.TabIndex = 9;
             // 
             // Email
             // 
+            Email.BackColor = Color.FromArgb(192, 255, 192);
             Email.Location = new Point(274, 209);
             Email.Name = "Email";
-            Email.Size = new Size(437, 39);
+            Email.Size = new Size(437, 42);
             Email.TabIndex = 8;
             // 
             // FullName
             // 
+            FullName.BackColor = Color.FromArgb(192, 255, 192);
             FullName.Location = new Point(274, 156);
             FullName.Name = "FullName";
-            FullName.Size = new Size(437, 39);
+            FullName.Size = new Size(437, 42);
             FullName.TabIndex = 7;
             // 
             // PassWord
             // 
+            PassWord.BackColor = Color.FromArgb(192, 255, 192);
             PassWord.Location = new Point(274, 102);
             PassWord.Name = "PassWord";
-            PassWord.Size = new Size(437, 39);
+            PassWord.PasswordChar = '*';
+            PassWord.Size = new Size(437, 42);
             PassWord.TabIndex = 6;
             // 
             // UserName
             // 
+            UserName.BackColor = Color.FromArgb(192, 255, 192);
             UserName.Location = new Point(274, 48);
             UserName.Name = "UserName";
-            UserName.Size = new Size(437, 39);
+            UserName.Size = new Size(437, 42);
             UserName.TabIndex = 5;
             // 
             // label8
@@ -374,7 +381,7 @@
             label8.ForeColor = Color.Blue;
             label8.Location = new Point(48, 267);
             label8.Name = "label8";
-            label8.Size = new Size(143, 32);
+            label8.Size = new Size(151, 35);
             label8.TabIndex = 4;
             label8.Text = "Ngày sinh:";
             // 
@@ -384,7 +391,7 @@
             label7.ForeColor = Color.Blue;
             label7.Location = new Point(48, 212);
             label7.Name = "label7";
-            label7.Size = new Size(101, 32);
+            label7.Size = new Size(107, 35);
             label7.TabIndex = 3;
             label7.Text = "Email: ";
             // 
@@ -394,7 +401,7 @@
             label6.ForeColor = Color.Blue;
             label6.Location = new Point(48, 159);
             label6.Name = "label6";
-            label6.Size = new Size(138, 32);
+            label6.Size = new Size(147, 35);
             label6.TabIndex = 2;
             label6.Text = "Họ và tên:";
             // 
@@ -404,9 +411,9 @@
             label5.ForeColor = Color.Blue;
             label5.Location = new Point(48, 105);
             label5.Name = "label5";
-            label5.Size = new Size(148, 32);
+            label5.Size = new Size(146, 35);
             label5.TabIndex = 1;
-            label5.Text = "Mật Khẩu:";
+            label5.Text = "Mật khẩu:";
             // 
             // label4
             // 
@@ -414,7 +421,7 @@
             label4.ForeColor = Color.Blue;
             label4.Location = new Point(48, 51);
             label4.Name = "label4";
-            label4.Size = new Size(205, 32);
+            label4.Size = new Size(215, 35);
             label4.TabIndex = 0;
             label4.Text = "Tên đăng nhập:";
             // 
@@ -422,7 +429,7 @@
             // 
             ClientSize = new Size(804, 516);
             Controls.Add(tabControlMain);
-            Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "MainMenu";
             tabControlMain.ResumeLayout(false);
@@ -434,8 +441,8 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
+            tabMain2.ResumeLayout(false);
+            tabMain2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -443,7 +450,7 @@
 
         private TabControl tabControlMain;
         private TabPage tabMain1;
-        private TabPage tabPage2;
+        private TabPage tabMain2;
         private Panel panel1;
         private TextBox Username_Tb;
         private PictureBox pictureBox1;

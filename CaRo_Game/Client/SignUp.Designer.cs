@@ -125,6 +125,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.FromArgb(255, 192, 128);
             label8.Location = new Point(5, 15);
             label8.Name = "label8";
             label8.Size = new Size(267, 32);
@@ -148,7 +149,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(255, 255, 192);
+            label1.ForeColor = Color.Yellow;
             label1.Location = new Point(250, 19);
             label1.Name = "label1";
             label1.Size = new Size(147, 38);

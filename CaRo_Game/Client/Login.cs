@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using Azure.Core;
 using System.Collections;
+using System.Net.NetworkInformation;
 
 namespace Client
 {
@@ -26,10 +27,16 @@ namespace Client
         IPEndPoint ipe;
         private bool _loginResult = false;
 
-        public Login()
+        public Login(string ipTxt)
         {
             InitializeComponent();
-            ipe = new IPEndPoint(IPAddress.Parse("172.17.18.36"), 9999);
+
+            if (string.IsNullOrEmpty(ipTxt))
+            {
+                ipTxt = getIPV4();
+            } 
+                
+            ipe = new IPEndPoint(IPAddress.Parse(ipTxt), 9999);
             ClientSocketManager.Instance.Connect(ipe);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("LoginResult", loginResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("AccountInfoResult", AccountInfoResult);
@@ -103,7 +110,7 @@ namespace Client
                 {
                     MessageBox.Show("Tên tài khoản hoặc mật khẩu không chính xác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (result == 1) 
+                else if (result == 1)
                 {
                     _loginResult = true;
                 }
@@ -153,6 +160,18 @@ namespace Client
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private string getIPV4() { 
+            SocketManager socket;
+            socket = new SocketManager();
+            string IP = socket.GetLocalIPV4(NetworkInterfaceType.Wireless80211);
+
+            if (string.IsNullOrEmpty(IP))
+            {
+                IP = socket.GetLocalIPV4(NetworkInterfaceType.Ethernet);
+            }
+            return IP;
         }
     }
 }

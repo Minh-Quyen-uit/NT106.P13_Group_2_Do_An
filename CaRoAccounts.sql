@@ -21,4 +21,3 @@ alter table CaRoGameAccounts add AccountAvatar varbinary(max)
 alter table CaRoGameAccounts alter column AccountAvatar nvarchar(max)
 
 select * from dbo.CaRoGameAccounts
-
