@@ -12,7 +12,7 @@ namespace Client.DAO
         public static AccountDAO Instance
         {
             get { if (instance == null) instance = new AccountDAO(); return instance; }
-            private set => instance=value;
+            private set => instance = value;
         }
 
         private AccountDAO() { }
@@ -71,7 +71,7 @@ namespace Client.DAO
         public string GetSetAccAvatar
         {
             get { if (AccAvatar == null) AccAvatar = ""; return AccAvatar; }
-            private set =>  AccAvatar = value;
+            private set => AccAvatar = value;
         }
         #endregion
 
@@ -104,7 +104,7 @@ namespace Client.DAO
             ImageFormat format = AccAvatar.RawFormat;
             string Base64Image;
 
-            using(MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
                 AccAvatar.Save(ms, format);
                 byte[] ImageData = ms.ToArray();
@@ -124,8 +124,8 @@ namespace Client.DAO
             int CurrWins = AccountDAO.Instance.GetSetAccWins;
             string query = "update dbo.CaRoGameAccounts set Wins = Wins+1, TotalWins = TotalWins+1 where UserName = N'" + username + "'";
             int result = DataProvider.Instance.ExecuteNonQuery(query);
-            if (result > 0) 
-                AccountDAO.Instance.GetSetAccWins = CurrWins+1;
+            if (result > 0)
+                AccountDAO.Instance.GetSetAccWins = CurrWins + 1;
 
             return result;
         }
@@ -134,9 +134,9 @@ namespace Client.DAO
         {
             string CurrRank = AccountDAO.Instance.GetSetAccRank;
             string query = "update dbo.CaRoGameAccounts set Rank = @Rank where Username = N'" + username + "'";
-            
+
             int RankIndex = Array.IndexOf(Ranks, rank);
-            string NextRank = RankIndex != rank.Length-1 ? Ranks[RankIndex+1] : Ranks[rank.Length-1];
+            string NextRank = RankIndex != rank.Length - 1 ? Ranks[RankIndex + 1] : Ranks[rank.Length - 1];
 
             int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { NextRank });
             if (result > 0)
@@ -153,7 +153,7 @@ namespace Client.DAO
 
             if (ResetResult > 0)
                 AccountDAO.Instance.GetSetAccWins = 0;
-            
+
             return ResetResult;
         }
 
@@ -188,6 +188,17 @@ namespace Client.DAO
         private bool checkSigninEmail(string email)
         {
             return Regex.IsMatch(email, "^[a-zA-Z0-9_.]{3,24}@gmail.com$");
+        }
+
+        public int ChangeAvatar(string username, string avatar)
+        {
+            string query = "update dbo.CaRoGameAccounts set AccountAvatar = @Avatar where UserName = N'" + username + "'";
+            int ChangeResult = DataProvider.Instance.ExecuteNonQuery(query, new object[] { avatar });
+
+            if (ChangeResult > 0)
+                AccountDAO.Instance.GetSetAccAvatar = avatar;
+
+            return ChangeResult;
         }
     }
 }

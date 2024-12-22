@@ -36,6 +36,7 @@ namespace Client
         TIME_OUT,
         EXIT_GAME,
         PLAYER_1,
-        PLAYER_2
+        PLAYER_2,
+        GET_TURN
     }
 }

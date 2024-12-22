@@ -41,11 +41,6 @@ namespace Client.Server
 
             RegisterHandler<SocketRequestData>("SocketRequestData", ProcessSocReqData);
 
-            //RegisterHandler<SocketData>("SocketData", MatchData =>
-            //{
-            //    MatchDataFoward(MatchData);
-            //});
-
             Control.CheckForIllegalCrossThreadCalls = false;
             Connect();
         }
@@ -85,7 +80,7 @@ namespace Client.Server
             {
                 try
                 {
-                    
+
 
                     byte[] recv = new byte[5000 * 1024];
                     int bytesReceived = client.Receive(recv);
@@ -101,7 +96,7 @@ namespace Client.Server
                         string messageType = message.Type;
                         var data = message.Data;
 
-                        ReceiveMessage(json);
+                        //ReceiveMessage(json);
 
                         if (_typehandler.ContainsKey(messageType))
                         {
@@ -115,8 +110,6 @@ namespace Client.Server
                                 var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), targetType);
 
                                 // Invoke the handler
-                                //handler.DynamicInvoke(deserializedData);
-                                
                                 byte[] SendData = handler.DynamicInvoke(deserializedData);
                                 if (SendData != null)
                                 {
@@ -124,11 +117,11 @@ namespace Client.Server
                                 }
                                 else
                                 {
-                                    
+
                                     SocketRequestData Request = deserializedData as SocketRequestData;
                                     switch ((int)Request.RequestType)
                                     {
-                                        case((int)SocketRequestType.CreateRoom):
+                                        case ((int)SocketRequestType.CreateRoom):
                                             byte[] CreateReq = CreateRoomRequest(client, Request);
                                             client.Send(CreateReq); break;
 
@@ -143,9 +136,11 @@ namespace Client.Server
                                         case ((int)SocketRequestType.Login):
                                             byte[] LoginReq = LoginRequest(client, Request);
                                             client.Send(LoginReq); break;
+
+                                        case ((int)SocketRequestType.ChangeAvatar):
+                                            byte[] ChangeAvaReq = ChangeAvatarRequest(client, Request);
+                                            client.Send(ChangeAvaReq); break;
                                     }
-                                    
-                                    
                                 }
                                 SendMessage(client);
                             }
@@ -159,7 +154,7 @@ namespace Client.Server
                         //    MessageBox.Show($"No handler found for type: {messageType}");
                         //}
 
-                        if(messageType == "SocketData")
+                        if (messageType == "SocketData")
                         {
                             Type type = typeof(SocketData);
                             var deserializedData = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(data), type);
@@ -196,17 +191,8 @@ namespace Client.Server
         void DisconnectClient(Socket client)
         {
             client.Close();
-            //string key = _clients.FirstOrDefault(kvp => kvp.Value == client).Key;
 
-            //if (key != null)
-            //{
-            //    if (_clients.ContainsKey(key))
-            //    {
-            //        _clients.Remove(key);
-            //    }
-            //}
-
-            if(_clients.ContainsKey(client))
+            if (_clients.ContainsKey(client))
             {
                 _clients.Remove(client);
             }
@@ -233,14 +219,6 @@ namespace Client.Server
         }
         void SendMessage(Socket client)
         {
-            //if (SendMess.Text == "")
-            //{
-            //    SendMess.Text = msg;
-            //}
-            //else
-            //{
-            //    SendMess.Text += Environment.NewLine + msg;
-            //}
 
             if (SendMess.Text == "")
             {
@@ -262,23 +240,11 @@ namespace Client.Server
         {
             switch ((int)Request.RequestType)
             {
-                //case (int)SocketRequestType.Login:
-                //    return LoginRequest(Request);
-
                 case (int)SocketRequestType.SignUp:
                     return SignUpRequest(Request);
 
                 case (int)SocketRequestType.AccountInfo:
                     return AccountInfoRequest(Request);
-
-                    //case (int)SocketRequestType.CreateRoom:
-                    //    return CreateRoomRequest(Request);
-
-                    //case (int)SocketRequestType.JoinRoomByID:
-                    //    return EnterRoomByIDRequest(Request);
-
-                    //case (int)SocketRequestType.JoinRoomRandom:
-                    //    return EnterRoomRandom(Request);
             }
 
             return null;
@@ -298,7 +264,7 @@ namespace Client.Server
             bool LoginResult = AccountDAO.Instance.login(username, password);
             int Data = 0;
 
-            if(LoginResult)
+            if (LoginResult)
             {
                 Socket key = _clients.FirstOrDefault(kvp => kvp.Value == username).Key;
                 if (key == null)
@@ -316,10 +282,25 @@ namespace Client.Server
             return LoginData;
         }
 
+        private byte[] ChangeAvatarRequest(Socket client, SocketRequestData Request)
+        {
+            string Base64string = Request.Data.ToString();
+            string clientUsername = _clients[client];
+
+            int changeResult = AccountDAO.Instance.ChangeAvatar(clientUsername, Base64string);
+            bool Result = false;
+
+            if (changeResult > 0)
+                Result = true;
+
+            byte[] ChangeData = SerializeData("ChangeAvatarResult", new SocketRequestData((int)SocketRequestType.ChangeAvatar, Result));
+            return ChangeData;
+        }
+
         private byte[] AccountInfoRequest(SocketRequestData Request)
         {
             string Username = Request.Data.ToString();
-            
+
             string[] AccountInfo = AccountDAO.Instance.GetUserInfo(Username);
 
             byte[] data = SerializeData("AccountInfoResult", new SocketRequestData((int)SocketRequestType.AccountInfo, AccountInfo));
@@ -335,7 +316,7 @@ namespace Client.Server
             string fullname = Credentials[2];
             string email = Credentials[3];
             string birthday = Credentials[4];
-            
+
             ReceiveMessage(username);
             ReceiveMessage(password);
             ReceiveMessage(fullname);
@@ -366,7 +347,7 @@ namespace Client.Server
         private Socket FindPlayerIP(string IP)
         {
 
-            if(_matchQueue.ContainsKey(IP))
+            if (_matchQueue.ContainsKey(IP))
                 return _matchQueue[IP];
 
             return null;
@@ -375,11 +356,11 @@ namespace Client.Server
         private byte[] EnterRoomByIDRequest(Socket client, SocketRequestData Request)
         {
             ReceiveMessage("Client Enter room ID");
-            
+
             String ID = Request.Data.ToString();
             var TargetPlayer = FindPlayerIP(ID);
             bool result = false;
-            
+
             if (_matchQueue.ContainsKey(ID))
             {
                 _matchRooms[MatchID] = new MatchRoom(TargetPlayer, client);
@@ -428,7 +409,7 @@ namespace Client.Server
                     break;
                 }
             }
-            
+
             byte[] data = SerializeData("JoinRoomRandomResult", new SocketRequestData((int)SocketRequestType.JoinRoomRandom, result));
 
             return data;
@@ -457,7 +438,7 @@ namespace Client.Server
 
             AccountDAO.Instance.GetUserInfo(username);
 
-            if(AccountDAO.Instance.GetSetAccWins >= 10)
+            if (AccountDAO.Instance.GetSetAccWins >= 10)
             {
                 string rank = AccountDAO.Instance.GetSetAccRank;
                 UpdateWinResult = AccountDAO.Instance.UpdateRank(username, rank);
@@ -493,11 +474,26 @@ namespace Client.Server
                     string TargetPlayerAvatar = AccountDAO.Instance.GetSetAccAvatar;
                     byte[] TargetPlayerInfo = SerializeData("SocketData", new SocketData((int)SocketCommand.PLAYER_1, (TargetPlayerName + "@" + TargetPlayerAvatar), new Point()));
                     client.Send(TargetPlayerInfo);
-                    
+
                     return;
                 }
 
-                if ( Opponent != null && MatchEndCondition(Data))
+                if((int)Data.Command == (int)SocketCommand.GET_TURN)
+                {
+                    Random random = new Random();
+                    int turn = random.Next(0, 2);
+
+                    if(Opponent != null)
+                    {
+                        byte[] TurnResult = SerializeData("SocketData", new SocketData((int)SocketCommand.GET_TURN, turn.ToString(), new Point()));
+                        client.Send(TurnResult);
+                        Opponent.Send(TurnResult);
+                    }
+
+                    return;
+                }
+
+                if (Opponent != null && MatchEndCondition(Data))
                 {
                     switch ((int)Data.Command)
                     {
@@ -595,11 +591,11 @@ namespace Client.Server
                     SendMess.Text += "**************" + Environment.NewLine;
                 }
 
-                
+
             }
-            
+
         }
-        
+
         #endregion
     }
 }

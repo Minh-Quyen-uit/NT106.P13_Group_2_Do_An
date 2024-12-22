@@ -27,6 +27,7 @@ namespace Client
         SignUp,
         CreateRoom,
         JoinRoomByID,
-        JoinRoomRandom
+        JoinRoomRandom,
+        ChangeAvatar
     }
 }

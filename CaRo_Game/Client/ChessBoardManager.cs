@@ -89,16 +89,28 @@ namespace Client
         #endregion
 
         #region Method
-        public void DrawChessBoard()
+        public void DrawChessBoard(int turn)
         {
 
-            chessBoard.Enabled = true;
+
             ChessBoard.Controls.Clear();
 
             //PlayTimeLine = new Stack<PlayInfo>();
-            currentPlayer = 0;
+            currentPlayer = turn;
 
-            changePlayer();
+            PlayerName.Text = player[currentPlayer].Name;
+
+            playerMark.Image = player[currentPlayer].Avatar;
+
+            if(PlayerName.Text == ClientAccountDAO.Instance.GetSetAccUsername)
+            {
+                chessBoard.Enabled = true;
+            }
+            else
+            {
+                chessBoard.Enabled = false;
+            }
+            //changePlayer();
 
             Matrix = new List<List<Button>>();
 

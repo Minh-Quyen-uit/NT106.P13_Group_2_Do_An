@@ -22,12 +22,12 @@ namespace Client
             PrcBCoolDown.Step = Cons.Cool_Down_Step;
             PrcBCoolDown.Maximum = Cons.Cool_Down_Time;
             PrcBCoolDown.Value = 0;
-             
+
             tmCoolDown.Interval = Cons.Cool_Down_Interval;
-            newGame();
+
             ClientSocketManager.Instance.RegisterHandler<SocketData>("SocketData", processData);
 
-            panel_Board.Enabled = false;
+
 
             string Username = ClientAccountDAO.Instance.GetSetAccUsername;
             string Base64AccAvatar = ClientAccountDAO.Instance.GetSetAccAvatar;
@@ -35,12 +35,18 @@ namespace Client
             if (isCreate)
             {
                 Board.setUpPlayer1(Username, Avatar);
+                FullName.Text = Username;
+                Avatar_Player.Image = Avatar;
             }
             else
             {
                 Board.setUpPlayer2(Username, Avatar);
                 GetOpponentInfo();
+                tmCoolDown.Start();
             }
+
+
+            panel_Board.Enabled = false;
         }
 
         private async void GetOpponentInfo()
@@ -51,11 +57,11 @@ namespace Client
 
         #region SelectionMode
 
-        void newGame()
+        void newGame(int turn)
         {
             PrcBCoolDown.Value = 0;
-            tmCoolDown.Stop();
-            Board.DrawChessBoard();
+            //tmCoolDown.Stop();
+            Board.DrawChessBoard(turn);
         }
 
         //void Undo()
@@ -80,26 +86,25 @@ namespace Client
                     this.Invoke((MethodInvoker)(() =>
                     {
                         string[] message = data.Message.Split('@');
-                        MessageBox.Show(message[0], "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+                        MessageBox.Show(this, message[0], "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                         string OpponentName = message[1];
                         string OpponentAvatar = message[2];
                         Image Avatar = ClientAccountDAO.Instance.GetUserAvatar(OpponentAvatar);
                         Board.setUpPlayer2(OpponentName, Avatar);
 
-                        panel_Board.Enabled = true;
-                        tmCoolDown.Start();
+                        ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.GET_TURN, "", new Point()));
 
 
                     }));
                     break;
-                case (int)SocketCommand.NEW_GAME:
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        newGame();
-                        panel_Board.Enabled = false;
-                    }));
-                    break;
+                //case (int)SocketCommand.NEW_GAME:
+                //    this.Invoke((MethodInvoker)(() =>
+                //    {
+                //        newGame();
+                //        panel_Board.Enabled = false;
+                //    }));
+                //    break;
                 case (int)SocketCommand.SEND_POINT:
                     this.Invoke((MethodInvoker)(() =>
                     {
@@ -151,7 +156,15 @@ namespace Client
                     }));
                     break;
 
-                case(int)SocketCommand.EXIT_GAME:
+                case (int)SocketCommand.GET_TURN:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        int turn = int.Parse(data.Message);
+                        newGame(turn);
+                        tmCoolDown.Start();
+                    }));
+                    break;
+                case (int)SocketCommand.EXIT_GAME:
                     this.Close();
                     break;
 
@@ -185,10 +198,10 @@ namespace Client
             if (PrcBCoolDown.Value >= PrcBCoolDown.Maximum)
             {
                 endGame();
-                if(panel_Board.Enabled)
+                if (panel_Board.Enabled)
                 {
                     ClientSocketManager.Instance.Send("SocketData", new SocketData((int)SocketCommand.TIME_OUT, "Client", new Point()));
-                }                
+                }
             }
         }
 

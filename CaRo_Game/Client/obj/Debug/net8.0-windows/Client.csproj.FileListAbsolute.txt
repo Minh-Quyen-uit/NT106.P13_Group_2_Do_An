@@ -289,7 +289,6 @@ E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windo
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Azure.Core.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Azure.Identity.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Baseline.dll
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Guna.UI2.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\MessagePack.Annotations.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\MetroFramework.Design.dll
@@ -310,7 +309,6 @@ E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windo
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\System.ClientModel.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Management.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Memory.Data.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\System.Runtime.Caching.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\de\Microsoft.Data.SqlClient.resources.dll
@@ -329,21 +327,16 @@ E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windo
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.csproj.AssemblyReference.cache
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.g.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.ChessBoard.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Client_Server.resources
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.InforClient.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Login.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.MainMenu.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Properties.Resources.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.Server.Server.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.SignUp.resources
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.User_Control.AccountInfoScreen.resources
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.User_Control.OnlineScreen.resources
-E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.User_Control.PlayScreen.resources
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.csproj.GenerateResource.cache
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.GeneratedMSBuildEditorConfig.editorconfig
 E:\Uni\HK3\Network programming\checkout2\CaRo_Game\Client\obj\Debug\net8.0-windows\Client.AssemblyInfoInputs.cache

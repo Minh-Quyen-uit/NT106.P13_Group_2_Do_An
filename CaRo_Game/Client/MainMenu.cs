@@ -1,4 +1,5 @@
 ﻿using Client.DAO;
+using System.Drawing.Imaging;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Client
@@ -11,6 +12,7 @@ namespace Client
         private bool _CreateRoom = false;
 
         private Image[] tabImages;
+
 
         public MainMenu()
         {
@@ -32,6 +34,7 @@ namespace Client
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("CreateRoomResult", CreateRoomResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomIDResult", JoinRoomIDResult);
             ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("JoinRoomRandomResult", JoinRoomRandomResult);
+            ClientSocketManager.Instance.RegisterHandler<SocketRequestData>("ChangeAvatarResult", ChangeAvatarResult);
 
         }
 
@@ -73,16 +76,90 @@ namespace Client
                 ShowChessBoard(_CreateRoom);
             }
         }
-        private void informationOfPlayer()
+        private void tabMain1_Click(object sender, EventArgs e)
         {
+            //UserName.Text = Username_Tb.Text;
+            //PassWord.Text = ">_<";
+            //FullName.Text = AccountDAO.Instance.GetSetAccFullname;
+            //Email.Text = AccountDAO.Instance.GetSetAccEmail;
+            //Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+        }
+
+        private async void updateAccBtn_Click(object sender, EventArgs e)
+        {
+            ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, ClientAccountDAO.Instance.GetSetAccUsername));
+            await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("AccountInfoResult", TimeSpan.FromSeconds(50));
+            MessageBox.Show("Cập nhật thành công!");
+
             UserName.Text = Username_Tb.Text;
             PassWord.Text = ">_<";
             FullName.Text = AccountDAO.Instance.GetSetAccFullname;
             Email.Text = AccountDAO.Instance.GetSetAccEmail;
             Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+
+            Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
+            RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
+            AchievementTxt.Text = ClientAccountDAO.Instance.GetSetAccTotalWins.ToString() + " Trận thắng";
+            pictureBox1.Image = ClientAccountDAO.Instance.GetUserAvatar(ClientAccountDAO.Instance.GetSetAccAvatar);
         }
 
-        private void updateAccBtn_Click(object sender, EventArgs e)
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private async void changeAvatar_Btn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png";
+                openFileDialog.Title = "Đổi Avatar";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filepath = openFileDialog.FileName;
+
+                    //Check valid image
+                    if (!File.Exists(filepath))
+                    {
+                        MessageBox.Show("The file does not exist.");
+                        return;
+                    }
+
+                    try
+                    {
+                        using (FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
+                        {
+                            Image testImage = Image.FromStream(fs);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Not an image!!!");
+                        return;
+                    }
+
+                    Image chosenAvatar = Image.FromFile(filepath);
+                    ImageFormat format = chosenAvatar.RawFormat;
+                    string Base64Image;
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        chosenAvatar.Save(ms, format);
+                        byte[] ImageData = ms.ToArray();
+
+                        Base64Image = Convert.ToBase64String(ImageData);
+                    }
+
+                    ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.ChangeAvatar, Base64Image));
+                    await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("ChangeAvatarResult", TimeSpan.FromSeconds(50));
+                }
+            }
+        }
+
+        #endregion
+
+        private void informationOfPlayer()
         {
             UserName.Text = Username_Tb.Text;
             PassWord.Text = ">_<";
@@ -93,14 +170,8 @@ namespace Client
             Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
             RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
             AchievementTxt.Text = ClientAccountDAO.Instance.GetSetAccTotalWins.ToString() + " Trận thắng";
+            pictureBox1.Image = ClientAccountDAO.Instance.GetUserAvatar(ClientAccountDAO.Instance.GetSetAccAvatar);
         }
-
-        private void ExitBtn_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        #endregion
 
         #region DataHandler
 
@@ -154,6 +225,22 @@ namespace Client
             }
         }
 
+        private void ChangeAvatarResult(SocketRequestData Result)
+        {
+            if ((int)Result.RequestType == (int)SocketRequestType.ChangeAvatar)
+            {
+                bool result = (bool)Result.Data;
+                if (result)
+                {
+                    MessageBox.Show("Đổi Avatar thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Đổi Avatar không thành công!");
+                }
+            }
+        }
+
         #endregion
 
         private void ShowChessBoard(bool isCreate)
@@ -165,9 +252,8 @@ namespace Client
             this.Show();
 
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, ClientAccountDAO.Instance.GetSetAccUsername));
+            informationOfPlayer();
             //this.Show();
         }
-
-        
     }
 }

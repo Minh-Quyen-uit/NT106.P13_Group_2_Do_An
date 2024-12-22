@@ -60,6 +60,7 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
+            changeAvatar_Btn = new Button();
             tabControlMain.SuspendLayout();
             tabMain1.SuspendLayout();
             panel1.SuspendLayout();
@@ -290,6 +291,7 @@
             // tabMain2
             // 
             tabMain2.BackColor = Color.Turquoise;
+            tabMain2.Controls.Add(changeAvatar_Btn);
             tabMain2.Controls.Add(ExitBtn);
             tabMain2.Controls.Add(updateAccBtn);
             tabMain2.Controls.Add(Birthday);
@@ -425,6 +427,18 @@
             label4.TabIndex = 0;
             label4.Text = "Tên đăng nhập:";
             // 
+            // changeAvatar_Btn
+            // 
+            changeAvatar_Btn.BackColor = Color.FromArgb(0, 192, 0);
+            changeAvatar_Btn.ForeColor = Color.White;
+            changeAvatar_Btn.Location = new Point(48, 337);
+            changeAvatar_Btn.Name = "changeAvatar_Btn";
+            changeAvatar_Btn.Size = new Size(204, 47);
+            changeAvatar_Btn.TabIndex = 12;
+            changeAvatar_Btn.Text = "Đổi Avatar";
+            changeAvatar_Btn.UseVisualStyleBackColor = false;
+            changeAvatar_Btn.Click += changeAvatar_Btn_Click;
+            // 
             // MainMenu
             // 
             ClientSize = new Size(804, 516);
@@ -480,5 +494,6 @@
         private Label label9;
         private Label label10;
         private Label AchievementTxt;
+        private Button changeAvatar_Btn;
     }
 }
