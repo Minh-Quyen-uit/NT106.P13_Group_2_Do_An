@@ -42,7 +42,6 @@ namespace Client
             {
                 Board.setUpPlayer2(Username, Avatar);
                 GetOpponentInfo();
-                tmCoolDown.Start();
             }
 
 
@@ -60,15 +59,8 @@ namespace Client
         void newGame(int turn)
         {
             PrcBCoolDown.Value = 0;
-            //tmCoolDown.Stop();
             Board.DrawChessBoard(turn);
         }
-
-        //void Undo()
-        //{
-        //    Board.Undo();
-        //    PrcBCoolDown.Value = 0;
-        //}
 
         void endGame()
         {
@@ -98,13 +90,6 @@ namespace Client
 
                     }));
                     break;
-                //case (int)SocketCommand.NEW_GAME:
-                //    this.Invoke((MethodInvoker)(() =>
-                //    {
-                //        newGame();
-                //        panel_Board.Enabled = false;
-                //    }));
-                //    break;
                 case (int)SocketCommand.SEND_POINT:
                     this.Invoke((MethodInvoker)(() =>
                     {
@@ -119,10 +104,6 @@ namespace Client
                 case (int)SocketCommand.CHAT:
                     AddMessage(data.Message);
                     break;
-                //case (int)SocketCommand.UNDO:
-                //    Undo();
-                //    PrcBCoolDown.Value = 0;
-                //    break;
                 case (int)SocketCommand.QUIT:
                     tmCoolDown.Stop();
                     MessageBox.Show(data.Message);
@@ -162,6 +143,7 @@ namespace Client
                         int turn = int.Parse(data.Message);
                         newGame(turn);
                         tmCoolDown.Start();
+                        IPMessage.Clear();
                     }));
                     break;
                 case (int)SocketCommand.EXIT_GAME:
@@ -218,7 +200,7 @@ namespace Client
 
         private void ChessBoard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show(this, "Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
             {
 
                 e.Cancel = true;

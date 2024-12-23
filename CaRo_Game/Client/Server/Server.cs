@@ -16,6 +16,7 @@ using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Client.Server;
 using Newtonsoft.Json.Bson;
+using System.Net.NetworkInformation;
 
 namespace Client.Server
 {
@@ -38,7 +39,7 @@ namespace Client.Server
         public Server()
         {
             InitializeComponent();
-
+            IPServerTxt.Text = getIPV4();
             RegisterHandler<SocketRequestData>("SocketRequestData", ProcessSocReqData);
 
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -232,6 +233,19 @@ namespace Client.Server
                 SendMess.Text += client.RemoteEndPoint.ToString() + Environment.NewLine;
                 SendMess.Text += "------------------" + Environment.NewLine;
             }
+        }
+
+        private string getIPV4()
+        {
+            SocketManager socket;
+            socket = new SocketManager();
+            string IP = socket.GetLocalIPV4(NetworkInterfaceType.Wireless80211);
+
+            if (string.IsNullOrEmpty(IP))
+            {
+                IP = socket.GetLocalIPV4(NetworkInterfaceType.Ethernet);
+            }
+            return IP;
         }
 
         #region DataHandler

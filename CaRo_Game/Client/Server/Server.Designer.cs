@@ -35,6 +35,8 @@
             label2 = new Label();
             label3 = new Label();
             panel1 = new Panel();
+            label4 = new Label();
+            IPServerTxt = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,7 +44,7 @@
             // 
             ExtBtn.BackColor = Color.Red;
             ExtBtn.ForeColor = SystemColors.ButtonHighlight;
-            ExtBtn.Location = new Point(626, 625);
+            ExtBtn.Location = new Point(629, 669);
             ExtBtn.Name = "ExtBtn";
             ExtBtn.Size = new Size(128, 42);
             ExtBtn.TabIndex = 0;
@@ -52,7 +54,7 @@
             // 
             // ServerScreen
             // 
-            ServerScreen.Location = new Point(10, 90);
+            ServerScreen.Location = new Point(13, 134);
             ServerScreen.Multiline = true;
             ServerScreen.Name = "ServerScreen";
             ServerScreen.ScrollBars = ScrollBars.Vertical;
@@ -61,7 +63,7 @@
             // 
             // SendMess
             // 
-            SendMess.Location = new Point(9, 376);
+            SendMess.Location = new Point(12, 420);
             SendMess.Multiline = true;
             SendMess.Name = "SendMess";
             SendMess.ScrollBars = ScrollBars.Vertical;
@@ -81,7 +83,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 52);
+            label2.Location = new Point(9, 96);
             label2.Name = "label2";
             label2.Size = new Size(486, 32);
             label2.TabIndex = 4;
@@ -90,7 +92,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(7, 337);
+            label3.Location = new Point(10, 381);
             label3.Name = "label3";
             label3.Size = new Size(474, 32);
             label3.TabIndex = 5;
@@ -99,6 +101,8 @@
             // panel1
             // 
             panel1.BackColor = Color.BlueViolet;
+            panel1.Controls.Add(IPServerTxt);
+            panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
@@ -106,11 +110,28 @@
             panel1.Controls.Add(ServerScreen);
             panel1.Controls.Add(ExtBtn);
             panel1.Font = new Font("Times New Roman", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            panel1.ForeColor = Color.Yellow;
+            panel1.ForeColor = Color.Black;
             panel1.Location = new Point(10, 28);
             panel1.Name = "panel1";
-            panel1.Size = new Size(796, 692);
+            panel1.Size = new Size(796, 759);
             panel1.TabIndex = 6;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.Lime;
+            label4.Location = new Point(141, 51);
+            label4.Name = "label4";
+            label4.Size = new Size(134, 32);
+            label4.TabIndex = 6;
+            label4.Text = "IP Server:";
+            // 
+            // IPServerTxt
+            // 
+            IPServerTxt.Location = new Point(281, 48);
+            IPServerTxt.Name = "IPServerTxt";
+            IPServerTxt.Size = new Size(293, 39);
+            IPServerTxt.TabIndex = 7;
             // 
             // Server
             // 
@@ -119,7 +140,7 @@
             BackColor = Color.FromArgb(255, 255, 255);
             BackgroundImage = Properties.Resources.BackgroundMain;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(816, 730);
+            ClientSize = new Size(816, 810);
             Controls.Add(panel1);
             Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ActiveCaptionText;
@@ -140,5 +161,7 @@
         private Label label2;
         private Label label3;
         private Panel panel1;
+        private TextBox IPServerTxt;
+        private Label label4;
     }
 }

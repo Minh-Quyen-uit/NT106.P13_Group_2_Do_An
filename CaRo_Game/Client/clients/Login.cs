@@ -50,11 +50,11 @@ namespace Client
             string password = PassWord.Text;
             if (username.Trim() == "")
             {
-                MessageBox.Show("Vui lòng nhập tên tài khoản!!!");
+                MessageBox.Show(this, "Vui lòng nhập tên tài khoản!!!");
             }
             else if (password.Trim() == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu!!!");
+                MessageBox.Show(this, "Vui lòng nhập mật khẩu!!!");
             }
             else
             {
@@ -67,7 +67,6 @@ namespace Client
                 await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("LoginResult", TimeSpan.FromSeconds(5));
             }
 
-            //await Task.Delay(1000);
             if (_loginResult)
             {
                 _loginResult = false;
@@ -82,8 +81,6 @@ namespace Client
         {
             SignUp signUp = new SignUp();
             this.Hide();
-            signUp.ShowDialog();
-            this.Show();
         }
 
         private void ExitBtn_Click(object sender, EventArgs e)
@@ -108,7 +105,7 @@ namespace Client
                 int result = Convert.ToInt32(loginResult.Data);
                 if (result == 0)
                 {
-                    MessageBox.Show("Tên tài khoản hoặc mật khẩu không chính xác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, "Tên tài khoản hoặc mật khẩu không chính xác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (result == 1)
                 {
@@ -116,7 +113,7 @@ namespace Client
                 }
                 else if (result == 2)
                 {
-                    MessageBox.Show("Tài khoản đã được đăng nhập trên thiết bị khác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, "Tài khoản đã được đăng nhập trên thiết bị khác!!!", "thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -138,9 +135,6 @@ namespace Client
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Close();
-            //this.Hide();
-            //mainMenu.ShowDialog();
-            //this.Show();
         }
 
         private void PasswordCheck_CheckedChanged(object sender, EventArgs e)

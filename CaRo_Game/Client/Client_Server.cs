@@ -20,7 +20,7 @@ namespace Client
 
         private void ClientBtn_Click(object sender, EventArgs e)
         {
-            Login login = new Login(iPServerTxt.Text);
+            Login login = new Login(iPServerTxt.Text.Trim());
             login.Show();
         }
 

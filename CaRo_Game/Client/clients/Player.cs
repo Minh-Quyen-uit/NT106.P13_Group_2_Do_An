@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Client.clients
 {
     public class Player
     {
@@ -23,17 +23,18 @@ namespace Client
 
         public Image Mark { get => mark; set => mark=value; }
 
-        public Player(string name, Image mark) {
-            this.Name = name;
-            this.Mark = mark;
-            this.GamesPlayed = 0; // Khởi tạo số ván đã chơi
-            this.Wins = 0;        // Khởi tạo số trận thắng
-            this.Rank = 0;       // Khởi tạo thứ hạng
+        public Player(string name, Image mark)
+        {
+            Name = name;
+            Mark = mark;
+            GamesPlayed = 0; // Khởi tạo số ván đã chơi
+            Wins = 0;        // Khởi tạo số trận thắng
+            Rank = 0;       // Khởi tạo thứ hạng
 
         }
 
         //Phương thức cập nhật thông tin khi trận đấu kết thúc
-        
+
 
         private int CalculateRank()
         {

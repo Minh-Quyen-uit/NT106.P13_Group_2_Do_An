@@ -76,20 +76,12 @@ namespace Client
                 ShowChessBoard(_CreateRoom);
             }
         }
-        private void tabMain1_Click(object sender, EventArgs e)
-        {
-            //UserName.Text = Username_Tb.Text;
-            //PassWord.Text = ">_<";
-            //FullName.Text = AccountDAO.Instance.GetSetAccFullname;
-            //Email.Text = AccountDAO.Instance.GetSetAccEmail;
-            //Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
-        }
 
         private async void updateAccBtn_Click(object sender, EventArgs e)
         {
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, ClientAccountDAO.Instance.GetSetAccUsername));
             await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("AccountInfoResult", TimeSpan.FromSeconds(50));
-            MessageBox.Show("Cập nhật thành công!");
+            MessageBox.Show(this, "Cập nhật thành công!");
 
             UserName.Text = Username_Tb.Text;
             PassWord.Text = ">_<";
@@ -122,7 +114,7 @@ namespace Client
                     //Check valid image
                     if (!File.Exists(filepath))
                     {
-                        MessageBox.Show("The file does not exist.");
+                        MessageBox.Show(this, "File không tồn tại!!!");
                         return;
                     }
 
@@ -135,7 +127,7 @@ namespace Client
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Not an image!!!");
+                        MessageBox.Show(this, $"Đây không phải ảnh!!!");
                         return;
                     }
 
@@ -161,11 +153,11 @@ namespace Client
 
         private void informationOfPlayer()
         {
-            UserName.Text = Username_Tb.Text;
-            PassWord.Text = ">_<";
-            FullName.Text = AccountDAO.Instance.GetSetAccFullname;
-            Email.Text = AccountDAO.Instance.GetSetAccEmail;
-            Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+            UserName.Text = ClientAccountDAO.Instance.GetSetAccUsername;
+            PassWord.Text = "********";
+            FullName.Text = ClientAccountDAO.Instance.GetSetAccFullname;
+            Email.Text = ClientAccountDAO.Instance.GetSetAccEmail;
+            Birthday.Text = ClientAccountDAO.Instance.GetSetAccBirthday;
 
             Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
             RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
@@ -177,7 +169,6 @@ namespace Client
 
         private void CreateRoomResult(SocketRequestData Result)
         {
-            //MessageBox.Show("recieved");
             if ((int)Result.RequestType == (int)SocketRequestType.CreateRoom)
             {
                 bool result = (bool)Result.Data;
@@ -188,7 +179,7 @@ namespace Client
                 }
                 else
                 {
-                    MessageBox.Show("Tạo phòng không thành công!");
+                    MessageBox.Show(this, "Tạo phòng không thành công!");
                 }
             }
         }
@@ -204,7 +195,7 @@ namespace Client
                 }
                 else
                 {
-                    MessageBox.Show("Vào phòng không thành công!");
+                    MessageBox.Show(this, "Vào phòng không thành công!");
                 }
             }
         }
@@ -220,7 +211,7 @@ namespace Client
                 }
                 else
                 {
-                    MessageBox.Show("Vào phòng không thành công!");
+                    MessageBox.Show(this, "Vào phòng không thành công!");
                 }
             }
         }
@@ -232,11 +223,11 @@ namespace Client
                 bool result = (bool)Result.Data;
                 if (result)
                 {
-                    MessageBox.Show("Đổi Avatar thành công!");
+                    MessageBox.Show(this, "Đổi Avatar thành công!");
                 }
                 else
                 {
-                    MessageBox.Show("Đổi Avatar không thành công!");
+                    MessageBox.Show(this, "Đổi Avatar không thành công!");
                 }
             }
         }
@@ -253,7 +244,6 @@ namespace Client
 
             ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, ClientAccountDAO.Instance.GetSetAccUsername));
             informationOfPlayer();
-            //this.Show();
         }
     }
 }
