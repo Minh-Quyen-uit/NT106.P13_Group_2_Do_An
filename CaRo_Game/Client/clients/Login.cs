@@ -64,14 +64,14 @@ namespace Client
                 string EncryptEnteredPassword = Convert.ToBase64String(EnteredPassword);
                 SendLoginRequest(username, EncryptEnteredPassword);
 
-                await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("LoginResult", TimeSpan.FromSeconds(5));
+                await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("LoginResult", TimeSpan.FromSeconds(60));
             }
 
             if (_loginResult)
             {
                 _loginResult = false;
                 ClientSocketManager.Instance.Send("SocketRequestData", new SocketRequestData((int)SocketRequestType.AccountInfo, username));
-                await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("AccountInfoResult", TimeSpan.FromSeconds(5));
+                await ClientSocketManager.Instance.AwaitHandler<SocketRequestData>("AccountInfoResult", TimeSpan.FromSeconds(60));
 
                 showMainMenu(username);
             }
@@ -135,8 +135,9 @@ namespace Client
         private void showMainMenu(string username)
         {
             MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
-            this.Close();
+            this.Hide();
+            mainMenu.ShowDialog();
+            this.Show();
         }
 
         private void PasswordCheck_CheckedChanged(object sender, EventArgs e)
