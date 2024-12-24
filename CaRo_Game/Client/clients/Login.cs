@@ -81,6 +81,8 @@ namespace Client
         {
             SignUp signUp = new SignUp();
             this.Hide();
+            signUp.ShowDialog();
+            this.Show();
         }
 
         private void ExitBtn_Click(object sender, EventArgs e)
