@@ -84,10 +84,10 @@ namespace Client
             MessageBox.Show(this, "Cập nhật thành công!");
 
             UserName.Text = Username_Tb.Text;
-            PassWord.Text = ">_<";
-            FullName.Text = AccountDAO.Instance.GetSetAccFullname;
-            Email.Text = AccountDAO.Instance.GetSetAccEmail;
-            Birthday.Text = AccountDAO.Instance.GetSetAccBirthday;
+            PassWord.Text = "********";
+            FullName.Text = ClientAccountDAO.Instance.GetSetAccFullname;
+            Email.Text = ClientAccountDAO.Instance.GetSetAccEmail;
+            Birthday.Text = ClientAccountDAO.Instance.GetSetAccBirthday;
 
             Username_Tb.Text = ClientAccountDAO.Instance.GetSetAccUsername;
             RankTxt.Text = ClientAccountDAO.Instance.GetSetAccRank;
@@ -98,6 +98,7 @@ namespace Client
         private void ExitBtn_Click(object sender, EventArgs e)
         {
             this.Close();
+
         }
 
         private async void changeAvatar_Btn_Click(object sender, EventArgs e)
@@ -179,7 +180,7 @@ namespace Client
                 }
                 else
                 {
-                    MessageBox.Show(this, "Tạo phòng không thành công!");
+                    MessageBox.Show("Tạo phòng không thành công!");
                 }
             }
         }
@@ -195,7 +196,7 @@ namespace Client
                 }
                 else
                 {
-                    MessageBox.Show(this, "Vào phòng không thành công!");
+                    MessageBox.Show("Vào phòng không thành công!");
                 }
             }
         }
@@ -211,7 +212,7 @@ namespace Client
                 }
                 else
                 {
-                    MessageBox.Show(this, "Vào phòng không thành công!");
+                    MessageBox.Show("Vào phòng không thành công!");
                 }
             }
         }
@@ -223,11 +224,11 @@ namespace Client
                 bool result = (bool)Result.Data;
                 if (result)
                 {
-                    MessageBox.Show(this, "Đổi Avatar thành công!");
+                    MessageBox.Show("Đổi Avatar thành công!");
                 }
                 else
                 {
-                    MessageBox.Show(this, "Đổi Avatar không thành công!");
+                    MessageBox.Show("Đổi Avatar không thành công!");
                 }
             }
         }

@@ -78,7 +78,7 @@ namespace Client
                     this.Invoke((MethodInvoker)(() =>
                     {
                         string[] message = data.Message.Split('@');
-                        MessageBox.Show(this, message[0], "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(message[0], "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         string OpponentName = message[1];
                         string OpponentAvatar = message[2];
@@ -200,7 +200,7 @@ namespace Client
 
         private void ChessBoard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show(this, "Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show("Bạn có muốn thoát ? ", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
             {
 
                 e.Cancel = true;
